@@ -27,7 +27,7 @@
 ### 优先级 2：外链建设（教程核心，新站每天 10 条）
 - [ ] Reddit r/ClashRoyale 发帖分享工具
 - [ ] SuperCell 官方社区、游戏论坛发帖
-- [ ] GitHub 建开源仓库，README 放网站链接
+- [x] GitHub 建开源仓库，README 放网站链接
 - [ ] Product Hunt 提交
 - [ ] V2EX / Hacker News 发帖
 - [ ] 注意锚文本多样化，避免同一锚文本过多被惩罚
