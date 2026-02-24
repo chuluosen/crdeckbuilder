@@ -21,7 +21,7 @@
 - [ ] 首页正文补充到 800 字以上，核心关键词密度 2%-3%
 - [ ] 各 Arena 页和 Card 页补充描述性文字，增加关键词覆盖
 - [x] 添加结构化数据（JSON-LD：BreadcrumbList、FAQ schema、WebSite）
-- [ ] 图片本地化并转 WebP 格式
+- [x] 图片本地化并转 WebP 格式
 - [ ] 跑 PageSpeed 测试并优化分数
 
 ### 优先级 2：外链建设（教程核心，新站每天 10 条）

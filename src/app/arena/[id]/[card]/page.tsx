@@ -93,9 +93,16 @@ export default async function ArenaCardPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-1">
         Best Arena {arena.id} {cardData.name} Decks
       </h1>
-      <p className="text-gray-400 mb-6">
+      <p className="text-gray-400 mb-4">
         Top {decks.length} decks featuring {cardData.name} for {arena.name} ({arena.trophies}+ trophies).
         These decks are based on current meta win rates and usage statistics.
+      </p>
+      <p className="text-gray-500 text-sm mb-6">
+        {cardData.name} is a {cardData.elixirCost}-elixir {cardData.rarity} card that appears
+        in {cardAppearances} top-performing decks for Arena {arena.id}.
+        Across these decks, {cardData.name} achieves an average win rate
+        of {avgWinRate.toFixed(1)}%, making it a {avgWinRate >= 55 ? "strong" : "solid"} pick
+        at the {arena.trophies}+ trophy range.
       </p>
 
       {/* Card info */}

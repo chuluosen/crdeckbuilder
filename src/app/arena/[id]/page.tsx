@@ -80,9 +80,16 @@ export default async function ArenaPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-1">
         Best Arena {arena.id} Decks
       </h1>
-      <p className="text-gray-400 mb-6">
+      <p className="text-gray-400 mb-4">
         Top decks for {arena.name} ({arena.trophies}+ trophies). These decks
         are based on current meta win rates and usage statistics.
+      </p>
+      <p className="text-gray-500 text-sm mb-6">
+        Arena {arena.id} ({arena.name}) unlocks at {arena.trophies} trophies.
+        Below are {decks.length} proven decks that perform well at this trophy range.
+        Each deck includes win rates, usage stats, and average elixir cost to help
+        you pick the right strategy.
+        {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
       </p>
 
       <div className="space-y-4 mb-8">

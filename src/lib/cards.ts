@@ -1,11 +1,21 @@
 import { Card } from "./data";
 
-// Hot cards for the first batch (50-80 pages)
+// Hot cards for arena+card combo pages
 export const HOT_CARDS = [
   "Hog Rider",
   "P.E.K.K.A",
   "Giant",
   "Balloon",
+  "Golem",
+  "Lava Hound",
+  "Goblin Barrel",
+  "Miner",
+  "Royal Giant",
+  "X-Bow",
+  "Mega Knight",
+  "Sparky",
+  "Electro Giant",
+  "Valkyrie",
 ];
 
 export function cardNameToSlug(name: string): string {
