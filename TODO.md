@@ -14,12 +14,15 @@
 - [x] sitemap 包含所有 arena+card 页面 URL
 - [x] 面包屑导航
 - [x] 全站部署上线（104 个静态页面）
+- [x] HOT_CARDS 扩展到 14 张卡（260 个静态页面）
+- [x] 首页加 How It Works 引导区、数据统计区、FAQ 区块（含 JSON-LD schema）
+- [x] 各 Arena 页和 Card 页补充描述性文字
 
 ## 待做
 
 ### 优先级 1：SEO 基础优化（参考哥飞教程清单）
 - [ ] 首页正文补充到 800 字以上，核心关键词密度 2%-3%
-- [ ] 各 Arena 页和 Card 页补充描述性文字，增加关键词覆盖
+- [x] 各 Arena 页和 Card 页补充描述性文字，增加关键词覆盖
 - [x] 添加结构化数据（JSON-LD：BreadcrumbList、FAQ schema、WebSite）
 - [x] 图片本地化并转 WebP 格式
 - [ ] 跑 PageSpeed 测试并优化分数
@@ -38,7 +41,7 @@
 - [ ] 设置定时更新机制（ISR 或定时构建），保持数据新鲜
 
 ### 优先级 4：扩展更多长尾页面
-- [ ] HOT_CARDS 扩展到 15 张卡（Golem / Lava Hound / Goblin Barrel / Miner / Royal Giant / X-Bow / Mega Knight / Sparky / Valkyrie / Prince / Electro Giant），预计 200+ 页面
+- [x] HOT_CARDS 扩展到 15 张卡（Golem / Lava Hound / Goblin Barrel / Miner / Royal Giant / X-Bow / Mega Knight / Sparky / Valkyrie / Electro Giant），260 个静态页面
 - [ ] 按卡组类型分类页面（beatdown / cycle / siege / bridge spam）
 - [ ] 卡牌详情页（每张卡的属性和推荐卡组）
 - [ ] 多语言版本（西班牙语、葡萄牙语、日语等，切其他市场）
@@ -46,7 +49,7 @@
 ### 优先级 5：页面美化
 - [ ] 改进卡牌展示样式（稀有度颜色区分）
 - [ ] Arena 页面加 arena 图标/背景
-- [ ] 首页加简单的介绍和使用引导
+- [x] 首页加简单的介绍和使用引导
 - [ ] 移动端适配优化
 
 ### 优先级 6：变现
