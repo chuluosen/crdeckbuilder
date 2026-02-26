@@ -28,6 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Best Arena ${arena.id} ${cardData.name} Decks - ${arena.name}`,
     description: `Top Clash Royale decks with ${cardData.name} for Arena ${arena.id} (${arena.name}). Win rates, usage stats for ${arena.trophies}+ trophies.`,
+    alternates: {
+      canonical: `/arena/${arena.slug}/${card}`,
+    },
   };
 }
 
