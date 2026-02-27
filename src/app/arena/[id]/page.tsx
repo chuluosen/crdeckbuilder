@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const arena = ARENAS.find((a) => a.slug === id);
   if (!arena) return {};
   return {
-    title: `Best Arena ${arena.id} Decks - ${arena.name}`,
+    title: `Best Clash Royale Decks for Arena ${arena.id} - ${arena.name}`,
     description: `Top Clash Royale decks for Arena ${arena.id} (${arena.name}). Win rates, usage stats, and card breakdowns for ${arena.trophies}+ trophies.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
