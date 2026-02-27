@@ -38,6 +38,8 @@
 ### 优先级 3：接入真实对战数据
 - [x] 调研数据源（RoyaleAPI / Clash Royale 官方 API / 第三方统计站）
 - [x] 替换硬编码的 META_DECKS，改为从 API 获取真实卡组、胜率、使用率
+- [x] 使用 Bayesian Average 排名 + 使用率加权，避免小样本卡组霸榜
+- [x] 页面添加数据来源说明（Based on top ladder players）
 - [ ] 设置定时更新机制（ISR 或定时构建），保持数据新鲜
 
 ### 优先级 4：扩展更多长尾页面
