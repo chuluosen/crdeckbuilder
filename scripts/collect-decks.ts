@@ -16,9 +16,10 @@ if (fs.existsSync(envPath)) {
 const API_KEY = process.env.CLASH_ROYALE_API_KEY ?? "";
 const BASE_URL = "https://api.clashroyale.com/v1";
 const REQUEST_DELAY_MS = 200;
-const MIN_DECK_COUNT = 3;
+const MIN_DECK_COUNT = 5;
 const DECKS_PER_ARENA = 45;
 const TOP_PLAYERS_PER_REGION = 50;
+const BAYESIAN_M = 20; // Bayesian average: credibility threshold
 
 const HOT_CARDS = [
   "Hog Rider", "P.E.K.K.A", "Giant", "Balloon", "Golem",
@@ -169,37 +170,44 @@ function aggregateDecks(allBattles: Battle[]): Map<string, DeckStat> {
 
 // ── Assign decks to arenas and ensure HOT_CARDS coverage ────────────────────
 function assignDecksToArenas(deckMap: Map<string, DeckStat>): OutputData {
-  // Filter decks with enough samples, sort by win rate
-  const qualified = Array.from(deckMap.values())
+  const allStats = Array.from(deckMap.values());
+  const totalGames = allStats.reduce((s, d) => s + d.total, 0);
+
+  // Global average win rate (C in Bayesian formula)
+  const globalWinRate = allStats.reduce((s, d) => s + d.wins, 0) / totalGames;
+
+  // Filter and score with Bayesian Average: score = (v/(v+m))*R + (m/(v+m))*C
+  const qualified = allStats
     .filter((d) => d.total >= MIN_DECK_COUNT)
-    .map((d) => ({
-      cards: d.cards,
-      winRate: Math.round((d.wins / d.total) * 100),
-      useRate: 0, // computed per-arena below
-    }))
-    .sort((a, b) => b.winRate - a.winRate);
+    .map((d) => {
+      const v = d.total;
+      const R = d.wins / d.total;
+      const bayesianScore = (v / (v + BAYESIAN_M)) * R + (BAYESIAN_M / (v + BAYESIAN_M)) * globalWinRate;
+      const rawUseRate = Math.round((d.total / totalGames) * 1000) / 10;
+      return {
+        cards: d.cards,
+        winRate: Math.round(bayesianScore * 100),
+        useRate: Math.max(0.1, rawUseRate),
+        _bayesianScore: bayesianScore,
+      };
+    })
+    .sort((a, b) => b._bayesianScore - a._bayesianScore);
 
   if (qualified.length === 0) {
     console.error("No qualified decks found!");
     process.exit(1);
   }
 
-  const totalGames = Array.from(deckMap.values()).reduce((s, d) => s + d.total, 0);
-
-  // Compute use rate as percentage of total games
-  const withUseRate = qualified.map((d) => {
-    const stat = deckMap.get(deckKey(d.cards))!;
-    return { ...d, useRate: Math.round((stat.total / totalGames) * 1000) / 10 };
-  });
+  console.log(`Global average win rate: ${(globalWinRate * 100).toFixed(1)}%`);
 
   // Take top decks
-  let pool = withUseRate.slice(0, DECKS_PER_ARENA);
+  let pool = qualified.slice(0, DECKS_PER_ARENA);
 
   // Ensure each HOT_CARD has at least 3 decks
   for (const hotCard of HOT_CARDS) {
     const count = pool.filter((d) => d.cards.includes(hotCard)).length;
     if (count < 3) {
-      const extras = withUseRate
+      const extras = qualified
         .filter((d) => d.cards.includes(hotCard) && !pool.includes(d))
         .slice(0, 3 - count);
       pool.push(...extras);
