@@ -95,6 +95,10 @@ export default async function ArenaPage({ params }: Props) {
         {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
       </p>
 
+      <p className="text-xs text-gray-500 mb-4 italic">
+        Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
+      </p>
+
       <div className="space-y-4 mb-8">
         {decks.map((deck, i) => (
           <DeckCard key={i} deck={deck} index={i} />

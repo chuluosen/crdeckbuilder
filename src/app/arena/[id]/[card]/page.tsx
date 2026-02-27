@@ -123,13 +123,15 @@ export default async function ArenaCardPage({ params }: Props) {
         </div>
       </div>
 
+      <p className="text-xs text-gray-500 mb-4 italic">
+        Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
+      </p>
+
       <div className="space-y-4 mb-8">
         {decks.map((deck, i) => (
           <DeckCard key={i} deck={deck} index={i} />
         ))}
       </div>
-
-      {/* Internal links to other card pages in same arena */}
       {sameArenaCards.length > 0 && (
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-3">More Arena {arena.id} Decks by Card</h2>
