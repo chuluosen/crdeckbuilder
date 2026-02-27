@@ -25,7 +25,7 @@
 - [x] 各 Arena 页和 Card 页补充描述性文字，增加关键词覆盖
 - [x] 添加结构化数据（JSON-LD：BreadcrumbList、FAQ schema、WebSite）
 - [x] 图片本地化并转 WebP 格式
-- [ ] 跑 PageSpeed 测试并优化分数
+- [x] 跑 PageSpeed 测试并优化分数（移动端 98/100/100/100，桌面端 100/100/100/100，修复 footer 对比度）
 
 ### 优先级 2：外链建设（教程核心，新站每天 10 条）
 - [ ] Reddit r/ClashRoyale 发帖分享工具
@@ -36,8 +36,8 @@
 - [ ] 注意锚文本多样化，避免同一锚文本过多被惩罚
 
 ### 优先级 3：接入真实对战数据
-- [ ] 调研数据源（RoyaleAPI / Clash Royale 官方 API / 第三方统计站）
-- [ ] 替换硬编码的 META_DECKS，改为从 API 获取真实卡组、胜率、使用率
+- [x] 调研数据源（RoyaleAPI / Clash Royale 官方 API / 第三方统计站）
+- [x] 替换硬编码的 META_DECKS，改为从 API 获取真实卡组、胜率、使用率
 - [ ] 设置定时更新机制（ISR 或定时构建），保持数据新鲜
 
 ### 优先级 4：扩展更多长尾页面
