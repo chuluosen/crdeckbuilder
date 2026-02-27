@@ -20,6 +20,7 @@ const MIN_DECK_COUNT = 5;
 const DECKS_PER_ARENA = 45;
 const TOP_PLAYERS_PER_REGION = 50;
 const BAYESIAN_M = 20; // Bayesian average: credibility threshold
+const USE_RATE_WEIGHT = 0.3; // Weight for use rate in final ranking score
 
 const HOT_CARDS = [
   "Hog Rider", "P.E.K.K.A", "Giant", "Balloon", "Golem",
@@ -189,25 +190,36 @@ function assignDecksToArenas(deckMap: Map<string, DeckStat>): OutputData {
         winRate: Math.round(bayesianScore * 100),
         useRate: Math.max(0.1, rawUseRate),
         _bayesianScore: bayesianScore,
+        _rawUseRate: d.total / totalGames,
       };
-    })
-    .sort((a, b) => b._bayesianScore - a._bayesianScore);
+    });
 
   if (qualified.length === 0) {
     console.error("No qualified decks found!");
     process.exit(1);
   }
 
+  // Normalize use rate to [0, 1] for ranking
+  const maxUseRate = Math.max(...qualified.map((d) => d._rawUseRate));
+
+  // Final ranking: combine Bayesian win rate and normalized use rate
+  const ranked = qualified
+    .map((d) => ({
+      ...d,
+      _finalScore: (1 - USE_RATE_WEIGHT) * d._bayesianScore + USE_RATE_WEIGHT * (d._rawUseRate / maxUseRate),
+    }))
+    .sort((a, b) => b._finalScore - a._finalScore);
+
   console.log(`Global average win rate: ${(globalWinRate * 100).toFixed(1)}%`);
 
   // Take top decks
-  let pool = qualified.slice(0, DECKS_PER_ARENA);
+  let pool = ranked.slice(0, DECKS_PER_ARENA);
 
   // Ensure each HOT_CARD has at least 3 decks
   for (const hotCard of HOT_CARDS) {
     const count = pool.filter((d) => d.cards.includes(hotCard)).length;
     if (count < 3) {
-      const extras = qualified
+      const extras = ranked
         .filter((d) => d.cards.includes(hotCard) && !pool.includes(d))
         .slice(0, 3 - count);
       pool.push(...extras);
