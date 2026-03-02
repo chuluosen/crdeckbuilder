@@ -22,12 +22,21 @@ const cardArenaMap = new Map<string, number>(
   (cardsJson as { name: string; arena: number }[]).map((c) => [c.name, c.arena])
 );
 
-// Flatten META_DECKS into a single pool (identical across arenas)
-const META_DECK_POOL: DeckEntry[] = Object.values(META_DECKS).flat();
+// Flatten META_DECKS into a single pool, deduplicate, merge with starter decks
+function dedupeDecks(decks: DeckEntry[]): DeckEntry[] {
+  const seen = new Set<string>();
+  return decks.filter((d) => {
+    const key = [...d.cards].sort().join("|");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
-// Merge meta + starter decks into one pool; skip any deck with invalid card names
-const ALL_DECKS: DeckEntry[] = [...META_DECK_POOL, ...(starterDecks as DeckEntry[])]
-  .filter((d) => d.cards.every((name) => validCardNames.has(name)));
+const ALL_DECKS: DeckEntry[] = dedupeDecks(
+  ([...Object.values(META_DECKS).flat(), ...(starterDecks as DeckEntry[])] as DeckEntry[])
+    .filter((d) => d.cards.every((name) => validCardNames.has(name)))
+);
 
 export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
