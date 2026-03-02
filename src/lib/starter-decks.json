@@ -1,0 +1,122 @@
+[
+  {
+    "cards": ["Knight", "Archers", "Giant", "Minions", "Musketeer", "Mini P.E.K.K.A", "Fireball", "Arrows"],
+    "winRate": 50,
+    "useRate": 1.5
+  },
+  {
+    "cards": ["Knight", "Archers", "Giant", "Minions", "Fireball", "Arrows", "Goblins", "Spear Goblins"],
+    "winRate": 49,
+    "useRate": 1.2
+  },
+  {
+    "cards": ["Giant", "Musketeer", "Mini P.E.K.K.A", "Arrows", "Goblins", "Spear Goblins", "Goblin Hut", "Goblin Cage"],
+    "winRate": 48,
+    "useRate": 1.0
+  },
+  {
+    "cards": ["Knight", "Giant", "Musketeer", "Minions", "Fireball", "Arrows", "Goblin Cage", "Spear Goblins"],
+    "winRate": 50,
+    "useRate": 1.3
+  },
+  {
+    "cards": ["Knight", "Archers", "Valkyrie", "Giant", "Musketeer", "Fireball", "Skeletons", "Arrows"],
+    "winRate": 52,
+    "useRate": 1.5
+  },
+  {
+    "cards": ["Giant", "Mini P.E.K.K.A", "Valkyrie", "Bomber", "Tombstone", "Arrows", "Goblins", "Spear Goblins"],
+    "winRate": 50,
+    "useRate": 1.2
+  },
+  {
+    "cards": ["Knight", "Minions", "Valkyrie", "Musketeer", "Fireball", "Tombstone", "Skeletons", "Goblin Cage"],
+    "winRate": 51,
+    "useRate": 1.1
+  },
+  {
+    "cards": ["Knight", "Archers", "Musketeer", "Mini P.E.K.K.A", "Fireball", "Cannon", "Skeletons", "Mega Minion"],
+    "winRate": 53,
+    "useRate": 1.4
+  },
+  {
+    "cards": ["Giant", "Valkyrie", "Musketeer", "Battle Ram", "Cannon", "Arrows", "Mega Minion", "Goblins"],
+    "winRate": 52,
+    "useRate": 1.3
+  },
+  {
+    "cards": ["Knight", "Archers", "Valkyrie", "Barbarians", "Fireball", "Tombstone", "Mega Minion", "Skeletons"],
+    "winRate": 50,
+    "useRate": 1.0
+  },
+  {
+    "cards": ["Giant", "Musketeer", "Wizard", "Mini P.E.K.K.A", "Fireball", "Arrows", "Skeletons", "Electro Spirit"],
+    "winRate": 53,
+    "useRate": 1.5
+  },
+  {
+    "cards": ["Knight", "Archers", "Valkyrie", "Inferno Tower", "Fireball", "Mega Minion", "Fire Spirit", "Skeletons"],
+    "winRate": 52,
+    "useRate": 1.2
+  },
+  {
+    "cards": ["Giant", "Valkyrie", "Musketeer", "Bomb Tower", "Cannon", "Arrows", "Mega Minion", "Electro Spirit"],
+    "winRate": 51,
+    "useRate": 1.1
+  },
+  {
+    "cards": ["Hog Rider", "Valkyrie", "Musketeer", "Fireball", "Zap", "Skeletons", "Cannon", "Mega Minion"],
+    "winRate": 54,
+    "useRate": 2.0
+  },
+  {
+    "cards": ["Hog Rider", "Mini P.E.K.K.A", "Archers", "Zap", "Fireball", "Bats", "Cannon", "Knight"],
+    "winRate": 53,
+    "useRate": 1.8
+  },
+  {
+    "cards": ["Mortar", "Knight", "Archers", "Rocket", "Zap", "Skeletons", "Mega Minion", "Valkyrie"],
+    "winRate": 52,
+    "useRate": 1.3
+  },
+  {
+    "cards": ["P.E.K.K.A", "Witch", "Baby Dragon", "Skeleton Army", "Zap", "Fireball", "Mega Minion", "Guards"],
+    "winRate": 53,
+    "useRate": 1.5
+  },
+  {
+    "cards": ["Hog Rider", "Goblin Barrel", "Skeleton Army", "Valkyrie", "Fireball", "Zap", "Cannon", "Mega Minion"],
+    "winRate": 54,
+    "useRate": 1.7
+  },
+  {
+    "cards": ["Balloon", "Knight", "Musketeer", "Fireball", "Arrows", "Mega Minion", "Valkyrie", "Skeletons"],
+    "winRate": 53,
+    "useRate": 1.6
+  },
+  {
+    "cards": ["Prince", "Dark Prince", "Valkyrie", "Musketeer", "Zap", "Fireball", "Mega Minion", "Skeletons"],
+    "winRate": 52,
+    "useRate": 1.4
+  },
+  {
+    "cards": ["Royal Giant", "Witch", "Mini P.E.K.K.A", "Fireball", "Zap", "Mega Minion", "Skeleton Army", "Bats"],
+    "winRate": 51,
+    "useRate": 1.2
+  },
+  {
+    "cards": ["Hog Rider", "Valkyrie", "Musketeer", "Fireball", "Zap", "Ice Spirit", "Cannon", "Skeletons"],
+    "winRate": 55,
+    "useRate": 2.0
+  },
+  {
+    "cards": ["Giant", "Witch", "Musketeer", "Fireball", "Zap", "Mega Minion", "Ice Spirit", "Skeleton Army"],
+    "winRate": 53,
+    "useRate": 1.7
+  },
+  {
+    "cards": ["P.E.K.K.A", "Baby Dragon", "Wizard", "Fireball", "Zap", "Ice Spirit", "Skeleton Army", "Battle Healer"],
+    "winRate": 52,
+    "useRate": 1.3
+  }
+]

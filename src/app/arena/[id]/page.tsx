@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ARENAS } from "@/lib/data";
 import { fetchAllCards } from "@/lib/api";
-import { getDecksForArena, getAllArenaCardPairs } from "@/lib/decks";
+import { getDecksForArena, getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
 import { getCardBySlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import Link from "next/link";
@@ -54,6 +54,11 @@ export default async function ArenaPage({ params }: Props) {
   const prevArena = ARENAS.find((a) => a.id === arena.id - 1);
   const nextArena = ARENAS.find((a) => a.id === arena.id + 1);
 
+  const arenaIdsWithDecks = getArenaIdsWithDecks(allCards);
+  const ctaArena = arenaIdsWithDecks.length > 0
+    ? ARENAS.find((a) => a.id === arenaIdsWithDecks[0]) ?? null
+    : null;
+
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: `Arena ${arena.id}`, path: `/arena/${arena.slug}` },
@@ -96,18 +101,18 @@ export default async function ArenaPage({ params }: Props) {
       {decks.length === 0 ? (
         <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center mb-8">
           <p className="text-gray-400 text-lg mb-2">
-            No meta decks available for Arena {arena.id} yet.
+            No decks available for Arena {arena.id} yet.
           </p>
           <p className="text-gray-500 text-sm">
-            Most competitive decks require cards unlocked at higher arenas.
-            Keep pushing trophies to unlock more cards and deck options!
+            We don&apos;t have enough data for this arena right now. Check back
+            soon — we update our deck lists regularly as new meta data comes in.
           </p>
-          {nextArena && (
+          {ctaArena && (
             <Link
-              href={`/arena/${nextArena.slug}`}
+              href={`/arena/${ctaArena.slug}`}
               className="inline-block mt-4 text-yellow-400 hover:underline"
             >
-              Check Arena {nextArena.id}: {nextArena.name} →
+              Browse Arena {ctaArena.id}: {ctaArena.name} decks →
             </Link>
           )}
         </div>

@@ -1,30 +1,38 @@
 import { Card, Deck, ARENAS } from "./data";
 import { cardNameToSlug, HOT_CARDS } from "./cards";
 import generatedDecks from "./generated-decks.json";
+import starterDecks from "./starter-decks.json";
 import cardsJson from "./cards.json";
 
 interface ArenaDeckData {
   [arenaId: number]: { cards: string[]; winRate: number; useRate: number }[];
 }
 
+type DeckEntry = { cards: string[]; winRate: number; useRate: number };
+
 const META_DECKS: ArenaDeckData = generatedDecks as unknown as ArenaDeckData;
 
-const FALLBACK_DECKS = [
-  { cards: ["Hog Rider", "Valkyrie", "Musketeer", "Fireball", "Zap", "Skeletons", "Ice Spirit", "Cannon"], winRate: 55, useRate: 5.0 },
-  { cards: ["Giant", "Musketeer", "Mini P.E.K.K.A", "Arrows", "Fireball", "Archers", "Knight", "Skeleton Army"], winRate: 54, useRate: 4.5 },
-  { cards: ["P.E.K.K.A", "Wizard", "Baby Dragon", "Tombstone", "Arrows", "Minions", "Knight", "Zap"], winRate: 53, useRate: 4.0 },
-];
+// Valid card names from cards.json for validation
+const validCardNames = new Set<string>(
+  (cardsJson as { name: string }[]).map((c) => c.name)
+);
 
 // Card arena lookup from cards.json (name → arena)
 const cardArenaMap = new Map<string, number>(
   (cardsJson as { name: string; arena: number }[]).map((c) => [c.name, c.arena])
 );
 
+// Flatten META_DECKS into a single pool (identical across arenas)
+const META_DECK_POOL: DeckEntry[] = Object.values(META_DECKS).flat();
+
+// Merge meta + starter decks into one pool; skip any deck with invalid card names
+const ALL_DECKS: DeckEntry[] = [...META_DECK_POOL, ...(starterDecks as DeckEntry[])]
+  .filter((d) => d.cards.every((name) => validCardNames.has(name)));
+
 export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
-  const deckData = META_DECKS[arenaId] || FALLBACK_DECKS;
 
-  return deckData
+  return ALL_DECKS
     .map((d) => {
       const cards = d.cards
         .map((name) => cardMap.get(name))
@@ -47,9 +55,8 @@ export function getAllArenaCardPairs(): { arenaSlug: string; cardSlug: string }[
   const pairs: { arenaSlug: string; cardSlug: string }[] = [];
 
   for (const arena of ARENAS) {
-    const deckData = META_DECKS[arena.id] || FALLBACK_DECKS;
     const cardCounts = new Map<string, number>();
-    for (const deck of deckData) {
+    for (const deck of ALL_DECKS) {
       // Only count decks where all cards are available at this arena
       const allAvailable = deck.cards.every((name) => {
         const cardArena = cardArenaMap.get(name);
