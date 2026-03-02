@@ -1,6 +1,7 @@
 import { Card, Deck, ARENAS } from "./data";
 import { cardNameToSlug, HOT_CARDS } from "./cards";
 import generatedDecks from "./generated-decks.json";
+import cardsJson from "./cards.json";
 
 interface ArenaDeckData {
   [arenaId: number]: { cards: string[]; winRate: number; useRate: number }[];
@@ -14,20 +15,27 @@ const FALLBACK_DECKS = [
   { cards: ["P.E.K.K.A", "Wizard", "Baby Dragon", "Tombstone", "Arrows", "Minions", "Knight", "Zap"], winRate: 53, useRate: 4.0 },
 ];
 
+// Card arena lookup from cards.json (name → arena)
+const cardArenaMap = new Map<string, number>(
+  (cardsJson as { name: string; arena: number }[]).map((c) => [c.name, c.arena])
+);
+
 export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
   const deckData = META_DECKS[arenaId] || FALLBACK_DECKS;
 
-  return deckData.map((d) => {
-    const cards = d.cards
-      .map((name) => cardMap.get(name))
-      .filter((c): c is Card => c !== undefined);
-    const avgElixir =
-      cards.length > 0
-        ? Math.round((cards.reduce((sum, c) => sum + c.elixirCost, 0) / cards.length) * 10) / 10
-        : 0;
-    return { cards, avgElixir, winRate: d.winRate, useRate: d.useRate };
-  });
+  return deckData
+    .map((d) => {
+      const cards = d.cards
+        .map((name) => cardMap.get(name))
+        .filter((c): c is Card => c !== undefined);
+      const avgElixir =
+        cards.length > 0
+          ? Math.round((cards.reduce((sum, c) => sum + c.elixirCost, 0) / cards.length) * 10) / 10
+          : 0;
+      return { cards, avgElixir, winRate: d.winRate, useRate: d.useRate };
+    })
+    .filter((deck) => deck.cards.length === 8 && deck.cards.every((c) => c.arena <= arenaId));
 }
 
 export function getDecksForArenaCard(arenaId: number, cardName: string, allCards: Card[]): Deck[] {
@@ -42,6 +50,13 @@ export function getAllArenaCardPairs(): { arenaSlug: string; cardSlug: string }[
     const deckData = META_DECKS[arena.id] || FALLBACK_DECKS;
     const cardCounts = new Map<string, number>();
     for (const deck of deckData) {
+      // Only count decks where all cards are available at this arena
+      const allAvailable = deck.cards.every((name) => {
+        const cardArena = cardArenaMap.get(name);
+        return cardArena !== undefined && cardArena <= arena.id;
+      });
+      if (!allAvailable) continue;
+
       for (const cardName of deck.cards) {
         if (HOT_CARDS.includes(cardName)) {
           cardCounts.set(cardName, (cardCounts.get(cardName) || 0) + 1);
@@ -56,4 +71,10 @@ export function getAllArenaCardPairs(): { arenaSlug: string; cardSlug: string }[
   }
 
   return pairs;
+}
+
+export function getArenaIdsWithDecks(allCards: Card[]): number[] {
+  return ARENAS
+    .filter((arena) => getDecksForArena(arena.id, allCards).length > 0)
+    .map((arena) => arena.id);
 }

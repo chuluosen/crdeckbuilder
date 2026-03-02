@@ -36,6 +36,7 @@ export interface Card {
   elixirCost: number;
   iconUrl: string;
   rarity: string;
+  arena: number;
 }
 
 export interface Deck {

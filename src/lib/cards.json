@@ -5,7 +5,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/knight.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 0
   },
   {
     "name": "Archers",
@@ -13,7 +14,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/archers.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 0
   },
   {
     "name": "Goblins",
@@ -21,7 +23,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/goblins.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 1
   },
   {
     "name": "Giant",
@@ -29,7 +32,8 @@
     "maxLevel": 14,
     "elixirCost": 5,
     "iconUrl": "/cards/giant.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 0
   },
   {
     "name": "P.E.K.K.A",
@@ -37,7 +41,8 @@
     "maxLevel": 11,
     "elixirCost": 7,
     "iconUrl": "/cards/p-e-k-k-a.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Minions",
@@ -45,7 +50,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/minions.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 0
   },
   {
     "name": "Balloon",
@@ -53,7 +59,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/balloon.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 7
   },
   {
     "name": "Witch",
@@ -61,7 +68,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/witch.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Barbarians",
@@ -69,7 +77,8 @@
     "maxLevel": 16,
     "elixirCost": 5,
     "iconUrl": "/cards/barbarians.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 3
   },
   {
     "name": "Golem",
@@ -77,7 +86,8 @@
     "maxLevel": 11,
     "elixirCost": 8,
     "iconUrl": "/cards/golem.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 10
   },
   {
     "name": "Skeletons",
@@ -85,7 +95,8 @@
     "maxLevel": 16,
     "elixirCost": 1,
     "iconUrl": "/cards/skeletons.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 2
   },
   {
     "name": "Valkyrie",
@@ -93,7 +104,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/valkyrie.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 2
   },
   {
     "name": "Skeleton Army",
@@ -101,7 +113,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/skeleton-army.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Bomber",
@@ -109,7 +122,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/bomber.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 2
   },
   {
     "name": "Musketeer",
@@ -117,7 +131,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/musketeer.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 0
   },
   {
     "name": "Baby Dragon",
@@ -125,7 +140,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/baby-dragon.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Prince",
@@ -133,7 +149,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/prince.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 7
   },
   {
     "name": "Wizard",
@@ -141,7 +158,8 @@
     "maxLevel": 14,
     "elixirCost": 5,
     "iconUrl": "/cards/wizard.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 4
   },
   {
     "name": "Mini P.E.K.K.A",
@@ -149,7 +167,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/mini-p-e-k-k-a.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 0
   },
   {
     "name": "Spear Goblins",
@@ -157,7 +176,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/spear-goblins.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 1
   },
   {
     "name": "Giant Skeleton",
@@ -165,7 +185,8 @@
     "maxLevel": 11,
     "elixirCost": 6,
     "iconUrl": "/cards/giant-skeleton.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 8
   },
   {
     "name": "Hog Rider",
@@ -173,7 +194,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/hog-rider.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 5
   },
   {
     "name": "Minion Horde",
@@ -181,7 +203,8 @@
     "maxLevel": 16,
     "elixirCost": 5,
     "iconUrl": "/cards/minion-horde.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 10
   },
   {
     "name": "Ice Wizard",
@@ -189,7 +212,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/ice-wizard.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 12
   },
   {
     "name": "Royal Giant",
@@ -197,7 +221,8 @@
     "maxLevel": 16,
     "elixirCost": 6,
     "iconUrl": "/cards/royal-giant.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 7
   },
   {
     "name": "Guards",
@@ -205,7 +230,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/guards.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Princess",
@@ -213,7 +239,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/princess.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Dark Prince",
@@ -221,7 +248,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/dark-prince.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 7
   },
   {
     "name": "Three Musketeers",
@@ -229,7 +257,8 @@
     "maxLevel": 14,
     "elixirCost": 9,
     "iconUrl": "/cards/three-musketeers.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 7
   },
   {
     "name": "Lava Hound",
@@ -237,7 +266,8 @@
     "maxLevel": 8,
     "elixirCost": 7,
     "iconUrl": "/cards/lava-hound.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 13
   },
   {
     "name": "Ice Spirit",
@@ -245,7 +275,8 @@
     "maxLevel": 16,
     "elixirCost": 1,
     "iconUrl": "/cards/ice-spirit.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 8
   },
   {
     "name": "Fire Spirit",
@@ -253,7 +284,8 @@
     "maxLevel": 16,
     "elixirCost": 1,
     "iconUrl": "/cards/fire-spirit.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 4
   },
   {
     "name": "Miner",
@@ -261,7 +293,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/miner.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Sparky",
@@ -269,7 +302,8 @@
     "maxLevel": 8,
     "elixirCost": 6,
     "iconUrl": "/cards/sparky.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Bowler",
@@ -277,7 +311,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/bowler.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 13
   },
   {
     "name": "Lumberjack",
@@ -285,7 +320,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/lumberjack.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 14
   },
   {
     "name": "Battle Ram",
@@ -293,7 +329,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/battle-ram.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 3
   },
   {
     "name": "Inferno Dragon",
@@ -301,7 +338,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/inferno-dragon.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Ice Golem",
@@ -309,7 +347,8 @@
     "maxLevel": 14,
     "elixirCost": 2,
     "iconUrl": "/cards/ice-golem.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 8
   },
   {
     "name": "Mega Minion",
@@ -317,7 +356,8 @@
     "maxLevel": 14,
     "elixirCost": 3,
     "iconUrl": "/cards/mega-minion.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 3
   },
   {
     "name": "Dart Goblin",
@@ -325,7 +365,8 @@
     "maxLevel": 14,
     "elixirCost": 3,
     "iconUrl": "/cards/dart-goblin.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 9
   },
   {
     "name": "Goblin Gang",
@@ -333,7 +374,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/goblin-gang.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 9
   },
   {
     "name": "Electro Wizard",
@@ -341,7 +383,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/electro-wizard.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Elite Barbarians",
@@ -349,7 +392,8 @@
     "maxLevel": 16,
     "elixirCost": 6,
     "iconUrl": "/cards/elite-barbarians.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 10
   },
   {
     "name": "Hunter",
@@ -357,7 +401,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/hunter.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 10
   },
   {
     "name": "Executioner",
@@ -365,7 +410,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/executioner.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 14
   },
   {
     "name": "Bandit",
@@ -373,7 +419,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/bandit.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 13
   },
   {
     "name": "Royal Recruits",
@@ -381,7 +428,8 @@
     "maxLevel": 16,
     "elixirCost": 7,
     "iconUrl": "/cards/royal-recruits.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 7
   },
   {
     "name": "Night Witch",
@@ -389,7 +437,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/night-witch.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 14
   },
   {
     "name": "Bats",
@@ -397,7 +446,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/bats.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 5
   },
   {
     "name": "Royal Ghost",
@@ -405,7 +455,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/royal-ghost.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 12
   },
   {
     "name": "Ram Rider",
@@ -413,7 +464,8 @@
     "maxLevel": 8,
     "elixirCost": 5,
     "iconUrl": "/cards/ram-rider.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Zappies",
@@ -421,7 +473,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/zappies.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 10
   },
   {
     "name": "Rascals",
@@ -429,7 +482,8 @@
     "maxLevel": 16,
     "elixirCost": 5,
     "iconUrl": "/cards/rascals.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 13
   },
   {
     "name": "Cannon Cart",
@@ -437,7 +491,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/cannon-cart.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 15
   },
   {
     "name": "Mega Knight",
@@ -445,7 +500,8 @@
     "maxLevel": 8,
     "elixirCost": 7,
     "iconUrl": "/cards/mega-knight.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Skeleton Barrel",
@@ -453,7 +509,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/skeleton-barrel.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 9
   },
   {
     "name": "Flying Machine",
@@ -461,7 +518,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/flying-machine.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 5
   },
   {
     "name": "Wall Breakers",
@@ -469,7 +527,8 @@
     "maxLevel": 11,
     "elixirCost": 2,
     "iconUrl": "/cards/wall-breakers.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 12
   },
   {
     "name": "Royal Hogs",
@@ -477,7 +536,8 @@
     "maxLevel": 14,
     "elixirCost": 5,
     "iconUrl": "/cards/royal-hogs.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 7
   },
   {
     "name": "Goblin Giant",
@@ -485,7 +545,8 @@
     "maxLevel": 11,
     "elixirCost": 6,
     "iconUrl": "/cards/goblin-giant.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 9
   },
   {
     "name": "Fisherman",
@@ -493,7 +554,8 @@
     "maxLevel": 8,
     "elixirCost": 3,
     "iconUrl": "/cards/fisherman.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 15
   },
   {
     "name": "Magic Archer",
@@ -501,7 +563,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/magic-archer.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 13
   },
   {
     "name": "Electro Dragon",
@@ -509,7 +572,8 @@
     "maxLevel": 11,
     "elixirCost": 5,
     "iconUrl": "/cards/electro-dragon.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 12
   },
   {
     "name": "Firecracker",
@@ -517,7 +581,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/firecracker.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 12
   },
   {
     "name": "Mighty Miner",
@@ -525,7 +590,8 @@
     "maxLevel": 6,
     "elixirCost": 4,
     "iconUrl": "/cards/mighty-miner.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 17
   },
   {
     "name": "Elixir Golem",
@@ -533,7 +599,8 @@
     "maxLevel": 14,
     "elixirCost": 3,
     "iconUrl": "/cards/elixir-golem.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 14
   },
   {
     "name": "Battle Healer",
@@ -541,7 +608,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/battle-healer.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 8
   },
   {
     "name": "Skeleton King",
@@ -549,7 +617,8 @@
     "maxLevel": 6,
     "elixirCost": 4,
     "iconUrl": "/cards/skeleton-king.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 16
   },
   {
     "name": "Archer Queen",
@@ -557,7 +626,8 @@
     "maxLevel": 6,
     "elixirCost": 5,
     "iconUrl": "/cards/archer-queen.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 17
   },
   {
     "name": "Golden Knight",
@@ -565,7 +635,8 @@
     "maxLevel": 6,
     "elixirCost": 4,
     "iconUrl": "/cards/golden-knight.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 16
   },
   {
     "name": "Monk",
@@ -573,7 +644,8 @@
     "maxLevel": 6,
     "elixirCost": 5,
     "iconUrl": "/cards/monk.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 18
   },
   {
     "name": "Skeleton Dragons",
@@ -581,7 +653,8 @@
     "maxLevel": 16,
     "elixirCost": 4,
     "iconUrl": "/cards/skeleton-dragons.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 4
   },
   {
     "name": "Mother Witch",
@@ -589,7 +662,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/mother-witch.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 15
   },
   {
     "name": "Electro Spirit",
@@ -597,7 +671,8 @@
     "maxLevel": 16,
     "elixirCost": 1,
     "iconUrl": "/cards/electro-spirit.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 4
   },
   {
     "name": "Electro Giant",
@@ -605,7 +680,8 @@
     "maxLevel": 11,
     "elixirCost": 7,
     "iconUrl": "/cards/electro-giant.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 13
   },
   {
     "name": "Phoenix",
@@ -613,7 +689,8 @@
     "maxLevel": 8,
     "elixirCost": 4,
     "iconUrl": "/cards/phoenix.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 12
   },
   {
     "name": "Little Prince",
@@ -621,7 +698,8 @@
     "maxLevel": 6,
     "elixirCost": 3,
     "iconUrl": "/cards/little-prince.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 19
   },
   {
     "name": "Goblin Demolisher",
@@ -629,7 +707,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/goblin-demolisher.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 19
   },
   {
     "name": "Goblin Machine",
@@ -637,7 +716,8 @@
     "maxLevel": 8,
     "elixirCost": 5,
     "iconUrl": "/cards/goblin-machine.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 19
   },
   {
     "name": "Suspicious Bush",
@@ -645,7 +725,8 @@
     "maxLevel": 14,
     "elixirCost": 2,
     "iconUrl": "/cards/suspicious-bush.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 19
   },
   {
     "name": "Goblinstein",
@@ -653,7 +734,8 @@
     "maxLevel": 6,
     "elixirCost": 5,
     "iconUrl": "/cards/goblinstein.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 19
   },
   {
     "name": "Rune Giant",
@@ -661,7 +743,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/rune-giant.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 19
   },
   {
     "name": "Berserker",
@@ -669,7 +752,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/berserker.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 19
   },
   {
     "name": "Boss Bandit",
@@ -677,7 +761,8 @@
     "maxLevel": 6,
     "elixirCost": 6,
     "iconUrl": "/cards/boss-bandit.webp",
-    "rarity": "champion"
+    "rarity": "champion",
+    "arena": 19
   },
   {
     "name": "Cannon",
@@ -685,7 +770,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/cannon.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 3
   },
   {
     "name": "Goblin Hut",
@@ -693,7 +779,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/goblin-hut.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 1
   },
   {
     "name": "Mortar",
@@ -701,7 +788,8 @@
     "maxLevel": 16,
     "elixirCost": 4,
     "iconUrl": "/cards/mortar.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 5
   },
   {
     "name": "Inferno Tower",
@@ -709,7 +797,8 @@
     "maxLevel": 14,
     "elixirCost": 5,
     "iconUrl": "/cards/inferno-tower.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 4
   },
   {
     "name": "Bomb Tower",
@@ -717,7 +806,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/bomb-tower.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 4
   },
   {
     "name": "Barbarian Hut",
@@ -725,7 +815,8 @@
     "maxLevel": 14,
     "elixirCost": 6,
     "iconUrl": "/cards/barbarian-hut.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 9
   },
   {
     "name": "Tesla",
@@ -733,7 +824,8 @@
     "maxLevel": 16,
     "elixirCost": 4,
     "iconUrl": "/cards/tesla.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 10
   },
   {
     "name": "Elixir Collector",
@@ -741,7 +833,8 @@
     "maxLevel": 14,
     "elixirCost": 6,
     "iconUrl": "/cards/elixir-collector.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 15
   },
   {
     "name": "X-Bow",
@@ -749,7 +842,8 @@
     "maxLevel": 11,
     "elixirCost": 6,
     "iconUrl": "/cards/x-bow.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 10
   },
   {
     "name": "Tombstone",
@@ -757,7 +851,8 @@
     "maxLevel": 14,
     "elixirCost": 3,
     "iconUrl": "/cards/tombstone.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 2
   },
   {
     "name": "Furnace",
@@ -765,7 +860,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/furnace.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 10
   },
   {
     "name": "Goblin Cage",
@@ -773,7 +869,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/goblin-cage.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 1
   },
   {
     "name": "Goblin Drill",
@@ -781,7 +878,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/goblin-drill.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 14
   },
   {
     "name": "Fireball",
@@ -789,7 +887,8 @@
     "maxLevel": 14,
     "elixirCost": 4,
     "iconUrl": "/cards/fireball.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 0
   },
   {
     "name": "Arrows",
@@ -797,7 +896,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/arrows.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 0
   },
   {
     "name": "Rage",
@@ -805,7 +905,8 @@
     "maxLevel": 11,
     "elixirCost": 2,
     "iconUrl": "/cards/rage.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 14
   },
   {
     "name": "Rocket",
@@ -813,7 +914,8 @@
     "maxLevel": 14,
     "elixirCost": 6,
     "iconUrl": "/cards/rocket.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 5
   },
   {
     "name": "Goblin Barrel",
@@ -821,7 +923,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/goblin-barrel.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 6
   },
   {
     "name": "Freeze",
@@ -829,7 +932,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/freeze.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 8
   },
   {
     "name": "Mirror",
@@ -837,7 +941,8 @@
     "maxLevel": 11,
     "elixirCost": 0,
     "iconUrl": "/cards/mirror.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 15
   },
   {
     "name": "Lightning",
@@ -845,7 +950,8 @@
     "maxLevel": 11,
     "elixirCost": 6,
     "iconUrl": "/cards/lightning.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 8
   },
   {
     "name": "Zap",
@@ -853,7 +959,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/zap.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 5
   },
   {
     "name": "Poison",
@@ -861,7 +968,8 @@
     "maxLevel": 11,
     "elixirCost": 4,
     "iconUrl": "/cards/poison.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 9
   },
   {
     "name": "Graveyard",
@@ -869,7 +977,8 @@
     "maxLevel": 8,
     "elixirCost": 5,
     "iconUrl": "/cards/graveyard.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 12
   },
   {
     "name": "The Log",
@@ -877,7 +986,8 @@
     "maxLevel": 8,
     "elixirCost": 2,
     "iconUrl": "/cards/the-log.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 11
   },
   {
     "name": "Tornado",
@@ -885,7 +995,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/tornado.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 15
   },
   {
     "name": "Clone",
@@ -893,7 +1004,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/clone.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 15
   },
   {
     "name": "Earthquake",
@@ -901,7 +1013,8 @@
     "maxLevel": 14,
     "elixirCost": 3,
     "iconUrl": "/cards/earthquake.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 12
   },
   {
     "name": "Barbarian Barrel",
@@ -909,7 +1022,8 @@
     "maxLevel": 11,
     "elixirCost": 2,
     "iconUrl": "/cards/barbarian-barrel.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 9
   },
   {
     "name": "Heal Spirit",
@@ -917,7 +1031,8 @@
     "maxLevel": 14,
     "elixirCost": 1,
     "iconUrl": "/cards/heal-spirit.webp",
-    "rarity": "rare"
+    "rarity": "rare",
+    "arena": 13
   },
   {
     "name": "Giant Snowball",
@@ -925,7 +1040,8 @@
     "maxLevel": 16,
     "elixirCost": 2,
     "iconUrl": "/cards/giant-snowball.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 8
   },
   {
     "name": "Royal Delivery",
@@ -933,7 +1049,8 @@
     "maxLevel": 16,
     "elixirCost": 3,
     "iconUrl": "/cards/royal-delivery.webp",
-    "rarity": "common"
+    "rarity": "common",
+    "arena": 14
   },
   {
     "name": "Void",
@@ -941,7 +1058,8 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/void.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 19
   },
   {
     "name": "Goblin Curse",
@@ -949,7 +1067,8 @@
     "maxLevel": 11,
     "elixirCost": 2,
     "iconUrl": "/cards/goblin-curse.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 19
   },
   {
     "name": "Spirit Empress",
@@ -957,7 +1076,8 @@
     "maxLevel": 8,
     "elixirCost": 6,
     "iconUrl": "/cards/spirit-empress.webp",
-    "rarity": "legendary"
+    "rarity": "legendary",
+    "arena": 19
   },
   {
     "name": "Vines",
@@ -965,6 +1085,7 @@
     "maxLevel": 11,
     "elixirCost": 3,
     "iconUrl": "/cards/vines.webp",
-    "rarity": "epic"
+    "rarity": "epic",
+    "arena": 19
   }
 ]

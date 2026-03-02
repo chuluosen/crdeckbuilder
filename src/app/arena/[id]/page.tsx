@@ -20,12 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const arena = ARENAS.find((a) => a.slug === id);
   if (!arena) return {};
+
+  const allCards = await fetchAllCards();
+  const decks = getDecksForArena(arena.id, allCards);
+
   return {
     title: `Best Clash Royale Decks for Arena ${arena.id} - ${arena.name}`,
     description: `Top Clash Royale decks for Arena ${arena.id} (${arena.name}). Win rates, usage stats, and card breakdowns for ${arena.trophies}+ trophies.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },
+    robots: decks.length === 0 ? { index: false } : undefined,
   };
 }
 
@@ -87,23 +92,46 @@ export default async function ArenaPage({ params }: Props) {
         Top decks for {arena.name} ({arena.trophies}+ trophies). These decks
         are based on current meta win rates and usage statistics.
       </p>
-      <p className="text-gray-500 text-sm mb-6">
-        Arena {arena.id} ({arena.name}) unlocks at {arena.trophies} trophies.
-        Below are {decks.length} proven decks that perform well at this trophy range.
-        Each deck includes win rates, usage stats, and average elixir cost to help
-        you pick the right strategy.
-        {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
-      </p>
 
-      <p className="text-xs text-gray-500 mb-4 italic">
-        Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
-      </p>
+      {decks.length === 0 ? (
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center mb-8">
+          <p className="text-gray-400 text-lg mb-2">
+            No meta decks available for Arena {arena.id} yet.
+          </p>
+          <p className="text-gray-500 text-sm">
+            Most competitive decks require cards unlocked at higher arenas.
+            Keep pushing trophies to unlock more cards and deck options!
+          </p>
+          {nextArena && (
+            <Link
+              href={`/arena/${nextArena.slug}`}
+              className="inline-block mt-4 text-yellow-400 hover:underline"
+            >
+              Check Arena {nextArena.id}: {nextArena.name} →
+            </Link>
+          )}
+        </div>
+      ) : (
+        <>
+          <p className="text-gray-500 text-sm mb-6">
+            Arena {arena.id} ({arena.name}) unlocks at {arena.trophies} trophies.
+            Below are {decks.length} proven decks that perform well at this trophy range.
+            Each deck includes win rates, usage stats, and average elixir cost to help
+            you pick the right strategy.
+            {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
+          </p>
 
-      <div className="space-y-4 mb-8">
-        {decks.map((deck, i) => (
-          <DeckCard key={i} deck={deck} index={i} />
-        ))}
-      </div>
+          <p className="text-xs text-gray-500 mb-4 italic">
+            Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
+          </p>
+
+          <div className="space-y-4 mb-8">
+            {decks.map((deck, i) => (
+              <DeckCard key={i} deck={deck} index={i} />
+            ))}
+          </div>
+        </>
+      )}
 
       {arenaCards.length > 0 && (
         <div className="mb-8">
