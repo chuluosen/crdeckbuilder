@@ -104,3 +104,7 @@
 - 数据采集使用 Bayesian Average + 使用率加权排名，避免小样本偏差
 - ~~当前 20 个 arena 页内容重复（同一批卡组），存在被 Google 判重复内容的风险~~ ✅ 已解决：arena 过滤 + 去重 + 新手卡组
 - 单站 AdSense 预估收入 $10-50/月，取决于排名和流量
+
+
+## Recent Updates
+- [x] SEO: sitemap <lastmod> now uses content-based modified time (not build time).
