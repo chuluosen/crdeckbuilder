@@ -1,63 +1,98 @@
 import type { MetadataRoute } from "next";
-import { statSync } from "node:fs";
-import { join } from "node:path";
+import { execSync } from "node:child_process";
 import { ARENAS, Card } from "@/lib/data";
 import { getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
 import cardsData from "@/lib/cards.json";
 
 const BASE_URL = "https://crdeckbuilder.top";
-const FALLBACK_LAST_MODIFIED = "2026-01-01T00:00:00.000Z";
+const FALLBACK_LAST_MODIFIED = {
+  home: "2026-02-23",
+  arena: "2026-02-23",
+  card: "2026-02-23",
+} as const;
 
-// Keep <lastmod> tied to files that actually affect page content.
-const CONTENT_DEPENDENCY_FILES = [
+const HOME_DEPENDENCY_FILES = [
+  "src/app/page.tsx",
   "src/lib/cards.json",
   "src/lib/starter-decks.json",
   "src/lib/generated-decks.json",
   "src/lib/data.ts",
   "src/lib/cards.ts",
   "src/lib/decks.ts",
-  "src/app/page.tsx",
-  "src/app/arena/[id]/page.tsx",
-  "src/app/arena/[id]/[card]/page.tsx",
 ];
 
-function getContentLastModified(): Date {
-  let latestModifiedMs = 0;
+const ARENA_DEPENDENCY_FILES = [
+  "src/app/arena/[id]/page.tsx",
+  "src/lib/cards.json",
+  "src/lib/starter-decks.json",
+  "src/lib/generated-decks.json",
+  "src/lib/data.ts",
+  "src/lib/cards.ts",
+  "src/lib/decks.ts",
+];
 
-  for (const relativePath of CONTENT_DEPENDENCY_FILES) {
-    try {
-      const filePath = join(process.cwd(), relativePath);
-      const { mtimeMs } = statSync(filePath);
-      if (mtimeMs > latestModifiedMs) {
-        latestModifiedMs = mtimeMs;
-      }
-    } catch {
-      // Ignore missing files and fall back to a fixed date.
+const CARD_DEPENDENCY_FILES = [
+  "src/app/arena/[id]/[card]/page.tsx",
+  "src/lib/cards.json",
+  "src/lib/starter-decks.json",
+  "src/lib/generated-decks.json",
+  "src/lib/data.ts",
+  "src/lib/cards.ts",
+  "src/lib/decks.ts",
+];
+
+function getLastModifiedFromGit(
+  dependencyFiles: string[],
+  fallbackDate: string
+): string {
+  try {
+    const quotedPaths = dependencyFiles
+      .map((path) => `"${path.replace(/"/g, '\\"')}"`)
+      .join(" ");
+    const gitOutput = execSync(`git log -1 --format=%cs -- ${quotedPaths}`, {
+      cwd: process.cwd(),
+      stdio: ["ignore", "pipe", "ignore"],
+      encoding: "utf8",
+    }).trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(gitOutput)) {
+      return gitOutput;
     }
+  } catch {
+    // Build environments may not include git metadata.
   }
 
-  return latestModifiedMs > 0
-    ? new Date(latestModifiedMs)
-    : new Date(FALLBACK_LAST_MODIFIED);
+  return fallbackDate;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const allCards = cardsData as Card[];
   const arenaIdsWithDecks = new Set(getArenaIdsWithDecks(allCards));
-  const lastModified = getContentLastModified();
+  const homeLastModified = getLastModifiedFromGit(
+    HOME_DEPENDENCY_FILES,
+    FALLBACK_LAST_MODIFIED.home
+  );
+  const arenaLastModified = getLastModifiedFromGit(
+    ARENA_DEPENDENCY_FILES,
+    FALLBACK_LAST_MODIFIED.arena
+  );
+  const cardLastModified = getLastModifiedFromGit(
+    CARD_DEPENDENCY_FILES,
+    FALLBACK_LAST_MODIFIED.card
+  );
 
   const arenaPages = ARENAS
     .filter((arena) => arenaIdsWithDecks.has(arena.id))
     .map((arena) => ({
       url: `${BASE_URL}/arena/${arena.slug}`,
-      lastModified,
+      lastModified: arenaLastModified,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     }));
 
   const cardPages = getAllArenaCardPairs().map((p) => ({
     url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
-    lastModified,
+    lastModified: cardLastModified,
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
@@ -65,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: BASE_URL,
-      lastModified,
+      lastModified: homeLastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
