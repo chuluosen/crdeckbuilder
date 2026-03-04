@@ -13,8 +13,8 @@
 - [x] Arena 页面添加 "Browse Decks by Card" 内链区块
 - [x] sitemap 包含所有 arena+card 页面 URL
 - [x] 面包屑导航
-- [x] 全站部署上线（104 个静态页面）
-- [x] HOT_CARDS 扩展到 14 张卡（260 个静态页面）
+- [x] 全站部署上线（原 104 个静态页面）
+- [x] HOT_CARDS 扩展到 14 张卡（去重后实际 135 页：1 首页 + 20 Arena + 114 Arena+Card）
 - [x] 首页加 How It Works 引导区、数据统计区、FAQ 区块（含 JSON-LD schema）
 - [x] 各 Arena 页和 Card 页补充描述性文字
 - [x] 页面标题加入 "Clash Royale" 关键词，匹配搜索词
@@ -22,15 +22,17 @@
 - [x] Arena 1-8 添加 24 套新手入门卡组（低 arena 卡牌组成）
 - [x] 卡组池去重（1124→79 条唯一卡组），消除重复内容
 - [x] 空 Arena 页面 UX 优化：友好提示 + 动态 CTA 跳转
+- [x] Google Analytics 4 接入（GA4 埋点上线，实时数据已验证）
+- [x] sitemap `<lastmod>` 改为基于内容修改时间（非构建时间）
 
 ## 月度 & 周目标路线图
 
 ### 2026 年 3 月 — 外链建设 + CR 站完善
-- W1：Reddit r/ClashRoyale 发帖，SuperCell 社区发帖
-- W2：Product Hunt 提交，V2EX/HN 发帖
-- W3：首页正文补充到 800 字，~~按 arena 过滤卡组（让页面内容不重复）~~ ✅ 已完成
+- W1：完成外链前置条件（收录确认、Clarity、Bing、Privacy Policy）← **当前周**
+- W2：开始外链建设（导航站 + HN + Reddit 养号）
+- W3：首页正文补充到 600 字+，Product Hunt 提交，V2EX/HN 发帖
 - W4：设置定时构建更新数据，检查 Search Console 索引情况
-- 月底目标：外链 10+ 条，306 页全部被索引
+- 月底目标：外链 10+ 条，135 页全部被索引
 
 ### 2026 年 4 月 — 观察数据 + 内容扩展
 - W1-W2：分析 Search Console 数据（展示量、点击、排名位置）
@@ -71,10 +73,31 @@
 
 ## 待做
 
-### 优先级 1：验证流量模型（当务之急）
-- [ ] 外链建设：Reddit、Product Hunt、SuperCell 社区、V2EX/HN
+### 优先级 0：外链建设前置条件（本周先做完）
+
+**收录确认**
+- [x] `site:crdeckbuilder.top` 检查 Google 当前收录了多少页面（结果：仅 2 页，135 页待收录）
+- [x] GSC 手动请求关键页面索引（第一批 11 个已提交，每天继续提交下一批）
+
+**分析工具补全**
+- [x] 配置 Microsoft Clarity（Project ID: vqg57f7mn5，已接入 layout.tsx）
+- [ ] 提交 Bing Webmaster Tools（可直接从 GSC 导入，5 分钟完成，等 48h 数据准备好后做）
+
+**网站基础信任度**
+- [x] 添加 Privacy Policy 页面（/privacy，含 GA4 + Clarity 说明，联系邮箱已填入）
+- [ ] 首页正文补充到 600 字以上，核心关键词密度 ~3%
+
+**外链策略准备**
+- [x] 检查 Reddit 账号 karma 值（karma = 1，需先养号）
+- [ ] 用搜索语法分析竞品外链来源：`intext:"clash royale deck" site:reddit.com`
+
+### 优先级 1：外链建设（前置条件完成后）
+- [ ] 提交外链聚合导航站（mkdollar.com/backlinks、directories.bestaitools.com、sopilot.net/zh/submitdir）
+- [ ] Hacker News 发帖：`Show HN: CR Deck Builder – best decks for every Clash Royale arena`（免费，收录快，一次可带多条外链）
+- [ ] Reddit r/ClashRoyale 发帖（先穿插几条日常互动帖，再发营销帖）
+- [ ] SuperCell 社区发帖
+- [ ] Product Hunt 提交
 - [ ] 等 1-2 个月观察 Search Console 数据，确认长尾词能否带来流量
-- [ ] 首页正文补充到 800 字以上，核心关键词密度 2%-3%
 
 ### 优先级 2：提升内容质量（避免被判低质量站）
 - [x] 按卡牌解锁 arena 过滤卡组，让每个 arena 页面内容真正不同
@@ -106,5 +129,3 @@
 - 单站 AdSense 预估收入 $10-50/月，取决于排名和流量
 
 
-## Recent Updates
-- [x] SEO: sitemap <lastmod> now uses content-based modified time (not build time).

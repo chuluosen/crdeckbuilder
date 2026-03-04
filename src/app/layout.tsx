@@ -33,6 +33,13 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'G-DZCSFZGPRT');
         `}</Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">{`
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window,document,"clarity","script","vqg57f7mn5");
+        `}</Script>
       </head>
       <body className="bg-gray-900 text-white min-h-screen">
         <nav className="border-b border-gray-800 px-4 py-3">
@@ -42,7 +49,10 @@ export default function RootLayout({
         </nav>
         <main className="max-w-5xl mx-auto px-4 py-6">{children}</main>
         <footer className="border-t border-gray-800 px-4 py-4 text-center text-gray-400 text-sm">
-          CR Deck Builder is not affiliated with Supercell. Clash Royale is a trademark of Supercell.
+          <p>CR Deck Builder is not affiliated with Supercell. Clash Royale is a trademark of Supercell.</p>
+          <p className="mt-1">
+            <a href="/privacy" className="hover:text-yellow-400">Privacy Policy</a>
+          </p>
         </footer>
       </body>
     </html>
