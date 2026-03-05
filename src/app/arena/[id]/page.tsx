@@ -7,6 +7,7 @@ import { getCardBySlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import Link from "next/link";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
+import { ARENA_CONTENT } from "@/lib/arena-content";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -136,6 +137,17 @@ export default async function ArenaPage({ params }: Props) {
             ))}
           </div>
         </>
+      )}
+
+      {ARENA_CONTENT[arena.id] && (
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-8">
+          <h2 className="text-lg font-bold mb-2 text-yellow-400">
+            Tips for Arena {arena.id} — {arena.name}
+          </h2>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            {ARENA_CONTENT[arena.id].tip}
+          </p>
+        </div>
       )}
 
       {arenaCards.length > 0 && (

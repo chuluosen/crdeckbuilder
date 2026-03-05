@@ -7,6 +7,7 @@ import { getDecksForArenaCard, getAllArenaCardPairs } from "@/lib/decks";
 import { getCardBySlug, cardNameToSlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
+import { getCardArenaContent } from "@/lib/card-content";
 
 interface Props {
   params: Promise<{ id: string; card: string }>;
@@ -58,6 +59,7 @@ export default async function ArenaCardPage({ params }: Props) {
 
   const cardAppearances = decks.length;
   const avgWinRate = decks.reduce((sum, d) => sum + (d.winRate ?? 0), 0) / (decks.length || 1);
+  const cardArenaContent = getCardArenaContent(cardData, arena.id, arena.name, decks);
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -132,6 +134,18 @@ export default async function ArenaCardPage({ params }: Props) {
           <DeckCard key={i} deck={deck} index={i} />
         ))}
       </div>
+
+      {cardArenaContent && (
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-8">
+          <h2 className="text-lg font-bold mb-2 text-yellow-400">
+            How to use {cardData.name} in Arena {arena.id}
+          </h2>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            {cardArenaContent}
+          </p>
+        </div>
+      )}
+
       {sameArenaCards.length > 0 && (
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-3">More Arena {arena.id} Decks by Card</h2>

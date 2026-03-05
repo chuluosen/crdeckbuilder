@@ -98,6 +98,7 @@
 - [ ] SuperCell 社区发帖
 - [ ] Product Hunt 提交
 - [ ] 等 1-2 个月观察 Search Console 数据，确认长尾词能否带来流量
+- [ ] **品牌词检查**：W2 开始发 Reddit/HN 后，Google 搜索 `CR Deck Builder` 确认自己排第一；若被竞品广告压制，考虑投放自己品牌词的 Google Ads
 
 ### 优先级 2：提升内容质量（避免被判低质量站）
 - [x] 按卡牌解锁 arena 过滤卡组，让每个 arena 页面内容真正不同
