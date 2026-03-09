@@ -16,7 +16,7 @@
 - [x] 全站部署上线（原 104 个静态页面）
 - [x] HOT_CARDS 扩展到 14 张卡（去重后实际 135 页：1 首页 + 20 Arena + 114 Arena+Card）
 - [x] 首页加 How It Works 引导区、数据统计区、FAQ 区块（含 JSON-LD schema）
-- [x] 各 Arena 页和 Card 页补充描述性文字
+- [x] 各 Arena 页和 Card 页补充描述性文字（数据驱动：arena-content.ts + card-content.ts，135 页全部覆盖）
 - [x] 页面标题加入 "Clash Royale" 关键词，匹配搜索词
 - [x] 按卡牌解锁 arena 过滤卡组，让每个 arena 页面内容真正不同
 - [x] Arena 1-8 添加 24 套新手入门卡组（低 arena 卡牌组成）
@@ -81,7 +81,7 @@
 
 **分析工具补全**
 - [x] 配置 Microsoft Clarity（Project ID: vqg57f7mn5，已接入 layout.tsx）
-- [ ] 提交 Bing Webmaster Tools（可直接从 GSC 导入，5 分钟完成，等 48h 数据准备好后做）
+- [x] 提交 Bing Webmaster Tools（可直接从 GSC 导入，5 分钟完成，等 48h 数据准备好后做）
 
 **网站基础信任度**
 - [x] 添加 Privacy Policy 页面（/privacy，含 GA4 + Clarity 说明，联系邮箱已填入）
@@ -89,14 +89,34 @@
 
 **外链策略准备**
 - [x] 检查 Reddit 账号 karma 值（karma = 1，需先养号）
-- [ ] 用搜索语法分析竞品外链来源：`intext:"clash royale deck" site:reddit.com`
+- [ ] 用搜索语法分析竞品外链来源：`intext:"deckshop.pro" -site:deckshop.pro` / `intext:"statsroyale.com" site:reddit.com`
+- [ ] 在 Ahrefs 免费版查竞品外链，照着提交（ahrefs.com/backlink-checker）
 
 ### 优先级 1：外链建设（前置条件完成后）
-- [ ] 提交外链聚合导航站（mkdollar.com/backlinks、directories.bestaitools.com、sopilot.net/zh/submitdir）
-- [ ] Hacker News 发帖：`Show HN: CR Deck Builder – best decks for every Clash Royale arena`（免费，收录快，一次可带多条外链）
-- [ ] Reddit r/ClashRoyale 发帖（先穿插几条日常互动帖，再发营销帖）
-- [ ] SuperCell 社区发帖
+
+**社区发帖类（免费，按顺序）**
+- [ ] Hacker News 发帖：`Show HN: CR Deck Builder – best decks for every Clash Royale arena`（一次可带 10+ 条外链，DR 高，W2 做）
+- [ ] Reddit r/ClashRoyale 发帖（先穿插几条日常互动帖养号，karma 够了再发营销帖）
+- [ ] SuperCell 官方社区发帖
+- [ ] Discord：加入 Clash Royale 官方 Discord 及攻略社群，适时分享
+- [ ] Quora：回答 Clash Royale 相关问题时带链接
+
+**导航站提交类（免费，批量提交）**
+- [ ] mkdollar.com/backlinks
+- [ ] egolinks.online/@backlinks
+- [ ] directories.bestaitools.com
+- [ ] sopilot.net/zh/submitdir
 - [ ] Product Hunt 提交
+
+**高质量 dofollow（免费注册即得）**
+- [ ] Stripe 注册并填写网站地址（DR 94，5 分钟，白送 dofollow 外链）
+- [ ] 开源项目赞助：找高权重开源项目赞助 $5-10，留言带网址
+
+**内容平台**
+- [ ] Medium：写一篇 Clash Royale 攻略文章，带链接
+- [ ] Pinterest：上传卡牌图片，设置链接指向网站（图片外链）
+
+**数据观察**
 - [ ] 等 1-2 个月观察 Search Console 数据，确认长尾词能否带来流量
 - [ ] **品牌词检查**：W2 开始发 Reddit/HN 后，Google 搜索 `CR Deck Builder` 确认自己排第一；若被竞品广告压制，考虑投放自己品牌词的 Google Ads
 

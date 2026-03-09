@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.crdeckbuilder.top"
+        }
+      ],
+      "destination": "https://crdeckbuilder.top/:path*",
+      "permanent": true
+    }
+  ]
+}
