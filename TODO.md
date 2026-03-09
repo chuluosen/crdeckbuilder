@@ -85,7 +85,9 @@
 
 **网站基础信任度**
 - [x] 添加 Privacy Policy 页面（/privacy，含 GA4 + Clarity 说明，联系邮箱已填入）
-- [ ] 首页正文补充到 600 字以上，核心关键词密度 ~3%
+- [x] 首页添加 "How We Rank Decks" 段落（Bayesian Average + 使用率加权说明，替代纯凑字数方案）
+- [x] 修复 jsonld.ts 中 SITE_URL 混用 www 问题（统一为非 www）
+- [x] www.crdeckbuilder.top 301 重定向配置（vercel.json 已部署，等待 Vercel SSL 签发完成）
 
 **外链策略准备**
 - [x] 检查 Reddit 账号 karma 值（karma = 1，需先养号）
