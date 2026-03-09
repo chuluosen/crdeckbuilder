@@ -114,7 +114,7 @@ export default function Home() {
             Deck rankings are based on real match data from the official Clash Royale API, covering thousands of battles across all arenas. Each deck is scored by combining win rate and usage rate — a deck needs to perform well <em>and</em> be played frequently to rank highly.
           </p>
           <p>
-            To avoid small-sample distortion, we apply a Bayesian average: a deck with only a handful of games won&apos;t outrank a proven meta choice just because of an early lucky streak. This keeps the rankings stable and reflective of how decks actually perform at scale.
+            To avoid fluky results from too few games, we apply a Bayesian average: a deck with only a handful of matches won&apos;t outrank a proven meta choice just because of an early lucky streak. This keeps the rankings stable and reflective of how decks actually perform across thousands of matches.
           </p>
         </div>
       </section>
