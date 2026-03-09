@@ -109,9 +109,14 @@
 - [ ] directories.bestaitools.com
 - [ ] sopilot.net/zh/submitdir
 - [ ] Product Hunt 提交
+- [ ] AlternativeTo（作为 deckshop.pro / statsroyale.com 的替代品提交）
+- [ ] BetaList（接受新工具，不限类型）
+- [ ] SaasHub（通用工具目录）
+- [ ] Webwiki（通用网站目录）
+- [ ] EZWeb Directory（通用网站目录）
 
 **高质量 dofollow（免费注册即得）**
-- [ ] Stripe 注册并填写网站地址（DR 94，5 分钟，白送 dofollow 外链）
+- [ ] 核查 Stripe Climate 自定义页面是否仍提供可索引官网外链；若已在用 Stripe 且愿意开 Climate，再顺手做，不单独为 SEO 注册
 - [ ] 开源项目赞助：找高权重开源项目赞助 $5-10，留言带网址
 
 **内容平台**
