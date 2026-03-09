@@ -109,11 +109,14 @@
 - [ ] directories.bestaitools.com
 - [ ] sopilot.net/zh/submitdir
 - [ ] Product Hunt 提交
-- [ ] AlternativeTo（作为 deckshop.pro / statsroyale.com 的替代品提交）
-- [ ] BetaList（接受新工具，不限类型）
-- [ ] SaasHub（通用工具目录）
-- [ ] Webwiki（通用网站目录）
-- [ ] EZWeb Directory（通用网站目录）
+- [ ] AlternativeTo（接受 apps/games/tool，替代品发现逻辑适合 deck builder）
+- [ ] uneed（免费队列，接受一般 product/tool，适合独立开发者）
+- [ ] Launching Next（免费提交 startup/side project）
+- [ ] Pitchwall（有免费提交通道，接受 startup/tool）
+- [ ] F6S（注册免费，对创业项目宽容）
+- [ ] Crunchbase（免费建项目资料页，增加实体存在感）
+- [ ] SideProjectors（支持 side project，有 games 类目）
+- [ ] Startup Buffer（有免费 startup 提交）
 
 **高质量 dofollow（免费注册即得）**
 - [ ] 核查 Stripe Climate 自定义页面是否仍提供可索引官网外链；若已在用 Stripe 且愿意开 Climate，再顺手做，不单独为 SEO 注册
