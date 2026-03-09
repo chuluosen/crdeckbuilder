@@ -1,4 +1,4 @@
-const SITE_URL = "https://www.crdeckbuilder.top";
+const SITE_URL = "https://crdeckbuilder.top";
 
 export function buildWebSiteSchema() {
   return {
