@@ -108,6 +108,18 @@ export default function Home() {
       </section>
 
       <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-4">How We Rank Decks</h2>
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-5 text-gray-400 text-sm leading-relaxed space-y-2">
+          <p>
+            Deck rankings are based on real match data from the official Clash Royale API, covering thousands of battles across all arenas. Each deck is scored by combining win rate and usage rate — a deck needs to perform well <em>and</em> be played frequently to rank highly.
+          </p>
+          <p>
+            To avoid small-sample distortion, we apply a Bayesian average: a deck with only a handful of games won&apos;t outrank a proven meta choice just because of an early lucky streak. This keeps the rankings stable and reflective of how decks actually perform at scale.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10">
         <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {HOME_FAQS.map((faq, i) => (
