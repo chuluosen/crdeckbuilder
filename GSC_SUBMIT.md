@@ -31,62 +31,62 @@
 - [x] `/arena/arena-8/hog-rider`
 - [x] `/arena/arena-1/giant`
 - [x] `/arena/arena-2/giant`
-- [ ] `/arena/arena-3/giant`
-- [ ] `/arena/arena-2/valkyrie`
-- [ ] `/arena/arena-3/valkyrie`
-- [ ] `/arena/arena-4/valkyrie`
-- [ ] `/arena/arena-5/valkyrie`
+- [x] `/arena/arena-3/giant`
+- [x] `/arena/arena-2/valkyrie`
+- [x] `/arena/arena-3/valkyrie`
+- [x] `/arena/arena-4/valkyrie`
+- [x] `/arena/arena-5/valkyrie`
 
 ---
 
 ## 批次 4
-- [ ] `/arena/arena-9/hog-rider`
-- [ ] `/arena/arena-10/hog-rider`
-- [ ] `/arena/arena-11/hog-rider`
-- [ ] `/arena/arena-4/giant`
-- [ ] `/arena/arena-5/giant`
-- [ ] `/arena/arena-6/giant`
-- [ ] `/arena/arena-6/valkyrie`
-- [ ] `/arena/arena-7/valkyrie`
-- [ ] `/arena/arena-8/valkyrie`
-- [ ] `/arena/arena-9/valkyrie`
+- [x] `/arena/arena-9/hog-rider`
+- [x] `/arena/arena-10/hog-rider`
+- [x] `/arena/arena-11/hog-rider`
+- [x] `/arena/arena-4/giant`
+- [x] `/arena/arena-5/giant`
+- [x] `/arena/arena-6/giant`
+- [x] `/arena/arena-6/valkyrie`
+- [x] `/arena/arena-7/valkyrie`
+- [x] `/arena/arena-8/valkyrie`
+- [x] `/arena/arena-9/valkyrie`
 
 ---
 
 ## 批次 5
-- [ ] `/arena/arena-12/hog-rider`
-- [ ] `/arena/arena-13/hog-rider`
-- [ ] `/arena/arena-14/hog-rider`
-- [ ] `/arena/arena-7/giant`
-- [ ] `/arena/arena-8/giant`
-- [ ] `/arena/arena-9/giant`
-- [ ] `/arena/arena-10/valkyrie`
-- [ ] `/arena/arena-11/valkyrie`
-- [ ] `/arena/arena-12/valkyrie`
-- [ ] `/arena/arena-13/valkyrie`
+- [x] `/arena/arena-12/hog-rider`
+- [x] `/arena/arena-13/hog-rider`
+- [x] `/arena/arena-14/hog-rider`
+- [x] `/arena/arena-7/giant`
+- [x] `/arena/arena-8/giant`
+- [x] `/arena/arena-9/giant`
+- [x] `/arena/arena-10/valkyrie`
+- [x] `/arena/arena-11/valkyrie`
+- [x] `/arena/arena-12/valkyrie`
+- [x] `/arena/arena-13/valkyrie`
 
 ---
 
 ## 批次 6
-- [ ] `/arena/arena-15/hog-rider`
-- [ ] `/arena/arena-16/hog-rider`
-- [ ] `/arena/arena-17/hog-rider`
-- [ ] `/arena/arena-10/giant`
-- [ ] `/arena/arena-11/giant`
-- [ ] `/arena/arena-12/giant`
-- [ ] `/arena/arena-14/valkyrie`
-- [ ] `/arena/arena-15/valkyrie`
-- [ ] `/arena/arena-16/valkyrie`
-- [ ] `/arena/arena-17/valkyrie`
+- [x] `/arena/arena-15/hog-rider`
+- [x] `/arena/arena-16/hog-rider`
+- [x] `/arena/arena-17/hog-rider`
+- [x] `/arena/arena-10/giant`
+- [x] `/arena/arena-11/giant`
+- [x] `/arena/arena-12/giant`
+- [x] `/arena/arena-14/valkyrie`
+- [x] `/arena/arena-15/valkyrie`
+- [x] `/arena/arena-16/valkyrie`
+- [x] `/arena/arena-17/valkyrie`
 
 ---
 
 ## 批次 7
-- [ ] `/arena/arena-18/hog-rider`
+- [x] `/arena/arena-18/hog-rider`
 - [x] `/arena/arena-19/hog-rider`
 - [x] `/arena/arena-20/hog-rider`
-- [ ] `/arena/arena-13/giant`
-- [ ] `/arena/arena-14/giant`
+- [x] `/arena/arena-13/giant`
+- [x] `/arena/arena-14/giant`
 - [ ] `/arena/arena-15/giant`
 - [ ] `/arena/arena-18/valkyrie`
 - [ ] `/arena/arena-19/valkyrie`

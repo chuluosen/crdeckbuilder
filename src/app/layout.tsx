@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { ScrollTracker } from "@/components/ScrollTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://crdeckbuilder.top"),
@@ -48,6 +49,7 @@ export default function RootLayout({
           </a>
         </nav>
         <main className="max-w-5xl mx-auto px-4 py-6">{children}</main>
+        <ScrollTracker />
         <footer className="border-t border-gray-800 px-4 py-4 text-center text-gray-400 text-sm">
           <p>CR Deck Builder is not affiliated with Supercell. Clash Royale is a trademark of Supercell.</p>
           <p className="mt-1">

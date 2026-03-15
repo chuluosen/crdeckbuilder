@@ -28,8 +28,8 @@
 ## 月度 & 周目标路线图
 
 ### 2026 年 3 月 — 外链建设 + CR 站完善
-- W1：完成外链前置条件（收录确认、Clarity、Bing、Privacy Policy）← **当前周**
-- W2：开始外链建设（导航站 + HN + Reddit 养号）
+- W1：完成外链前置条件（收录确认、Clarity、Bing、Privacy Policy）✅
+- W2：开始外链建设（导航站 + HN + Reddit 养号）← **当前周**（已完成：AlternativeTo ✅、SideProjectors ✅、Launching Next ✅，待做：uneed、Startup Buffer、HN 发帖）
 - W3：首页正文补充到 600 字+，Product Hunt 提交，V2EX/HN 发帖
 - W4：设置定时构建更新数据，检查 Search Console 索引情况
 - 月底目标：外链 10+ 条，135 页全部被索引
@@ -109,13 +109,13 @@
 - [ ] directories.bestaitools.com
 - [ ] sopilot.net/zh/submitdir
 - [ ] Product Hunt 提交
-- [ ] AlternativeTo（接受 apps/games/tool，替代品发现逻辑适合 deck builder）
+- [x] AlternativeTo（接受 apps/games/tool，替代品发现逻辑适合 deck builder）
 - [ ] uneed（免费队列，接受一般 product/tool，适合独立开发者）
-- [ ] Launching Next（免费提交 startup/side project）
+- [x] Launching Next（免费提交 startup/side project）
 - [ ] Pitchwall（有免费提交通道，接受 startup/tool）
 - [ ] F6S（注册免费，对创业项目宽容）
 - [ ] Crunchbase（免费建项目资料页，增加实体存在感）
-- [ ] SideProjectors（支持 side project，有 games 类目）
+- [x] SideProjectors（支持 side project，有 games 类目）
 - [ ] Startup Buffer（有免费 startup 提交）
 
 **高质量 dofollow（免费注册即得）**
@@ -146,12 +146,19 @@
 
 ### 优先级 5：变现
 - [ ] 流量达标后申请 Google AdSense
+- [ ] 流量达标后申请 Microsoft Advertising（覆盖 Bing 流量）
 - [ ] 广告位布局规划
+
+### CR 站流量 & 收益目标
+- 目标 PV：5000/月
+- 预估收益：$20/月（Google AdSense $12 + Microsoft Advertising $5-8）
+- RPM 参考：游戏类 $2-8（Google）/ $2-5（Bing）
+- 天花板：英语版 5000-15000 PV/月，加西语版可突破
 
 ### 长期目标
 - 目标：2027 年底前矩阵站总收入 $500/月
 - 策略：CR 站验证成功后，模板化建站流程，复制到其他游戏/领域
-- 预计需要 10-20 个站，每站 $30-100/月
+- 预计需要 10-20 个站，每站 $20-30/月
 
 ## 出海收入门槛参考
 

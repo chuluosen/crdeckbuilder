@@ -8,6 +8,7 @@ import { DeckCard } from "@/components/DeckCard";
 import Link from "next/link";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
+import { CardLink } from "@/components/CardLink";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -155,13 +156,12 @@ export default async function ArenaPage({ params }: Props) {
           <h2 className="text-xl font-bold mb-3">Browse Decks by Card</h2>
           <div className="flex flex-wrap gap-2">
             {arenaCards.map((c) => (
-              <Link
+              <CardLink
                 key={c.slug}
                 href={`/arena/${arena.slug}/${c.slug}`}
-                className="bg-gray-800 border border-gray-700 rounded px-3 py-1 text-sm text-yellow-400 hover:bg-gray-700"
-              >
-                {c.name}
-              </Link>
+                cardName={c.name}
+                arenaId={arena.id}
+              />
             ))}
           </div>
         </div>

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ARENAS } from "@/lib/data";
+import { trackEvent } from "@/lib/analytics";
 
 export function ArenaList() {
   return (
@@ -9,6 +12,12 @@ export function ArenaList() {
           key={arena.id}
           href={`/arena/${arena.slug}`}
           className="bg-gray-800 border border-gray-700 rounded-lg p-4 hover:border-yellow-500 transition-colors"
+          onClick={() =>
+            trackEvent("arena_click", {
+              arena_id: arena.id,
+              arena_name: arena.name,
+            })
+          }
         >
           <div className="text-yellow-400 font-bold">Arena {arena.id}</div>
           <div className="text-white text-sm">{arena.name}</div>
