@@ -29,8 +29,9 @@
 
 ### 2026 年 3 月 — 外链建设 + CR 站完善
 - W1：完成外链前置条件（收录确认、Clarity、Bing、Privacy Policy）✅
-- W2：开始外链建设（导航站 + HN + Reddit 养号）← **当前周**（已完成：AlternativeTo ✅、SideProjectors ✅、Launching Next ✅，待做：uneed、Startup Buffer、HN 发帖）
-- W3：首页正文补充到 600 字+，Product Hunt 提交，V2EX/HN 发帖
+- W2：导航站外链完成 ✅，内容平台外链（Quora/Medium/Pinterest）← **当前周**
+- W3：修复页面质量问题（P0-P1），Product Hunt 提交（3/24）
+- W3-W4：HN 发帖（需页面质量修复后再发）
 - W4：设置定时构建更新数据，检查 Search Console 索引情况
 - 月底目标：外链 10+ 条，135 页全部被索引
 
@@ -94,47 +95,142 @@
 - [ ] 用搜索语法分析竞品外链来源：`intext:"deckshop.pro" -site:deckshop.pro` / `intext:"statsroyale.com" site:reddit.com`
 - [ ] 在 Ahrefs 免费版查竞品外链，照着提交（ahrefs.com/backlink-checker）
 
+### 优先级 0.5：HN 发帖前页面质量修复（Codex 审核 4/10，需先修到 6+）
+
+> 来源：Codex 网站质量审核（2026-03-19）
+> 核心判断：当前页面"产品可信度和完整性没过线"，不适合发 HN/Reddit 等有社区互动的平台。
+> 导航站外链、GSC 索引提交、Quora/Medium/Pinterest 不受影响，继续推进。
+
+**P0：页面完整性（致命问题，必须先修）**
+- [ ] 排查所有 20 个 Arena 页面和 card 页面，确保 100% 可访问（低 Arena 页面疑似不稳定）
+- [ ] 隐藏或修复所有无数据/不稳定的页面入口
+
+**P1：数据可信度（严重问题）**
+- [ ] 每个卡组展示 `样本量 / 时间窗口 / 最近更新时间`（当前 79%-80% 胜率无样本量，看起来不可信）
+- [ ] 添加方法论说明页或首页板块：数据来源、Bayesian Average 公式、数据局限性说明（兑现"official API / Bayesian average"的承诺）
+
+**P2：内容质量（明显问题）**
+- [ ] 砍掉或重写 SEO 味重的模板文案（Arena 说明、FAQ 等，当前像内容农场）
+- [ ] 文案改为真实的产品洞察，而非 AI 模板填充
+
+**P3：基本工具能力（加分项，可选）**
+- [ ] 排序/筛选功能
+- [x] Copy deck / Import 功能 ← **进行中**
+- [ ] 按时间范围切换数据
+
+> 修完 P0-P1 后即可发 HN，P2-P3 可以发帖后持续迭代。
+
 ### 优先级 1：外链建设（前置条件完成后）
 
-**社区发帖类（免费，按顺序）**
-- [ ] Hacker News 发帖：`Show HN: CR Deck Builder – best decks for every Clash Royale arena`（一次可带 10+ 条外链，DR 高，W2 做）
-- [ ] Reddit r/ClashRoyale 发帖（先穿插几条日常互动帖养号，karma 够了再发营销帖）
+**第一波点火 — HN（需先完成页面质量修复）**
+- [ ] **Hacker News 发帖**：`Show HN: Clash Royale deck recommendations based on unlocked cards`
+  - ⚠️ **前置条件**：必须先完成下方「优先级 0.5：HN 发帖前页面质量修复」
+  - 教程原文："第一波外链可能就是要靠它了，很多内容网站会去抓取 HN 最新内容然后报道"
+  - 发帖时间：周二到周四，北京时间 20:00-23:00
+- [x] Product Hunt 提交（已排期 3/24 发布）
+
+**内容平台（各发一篇，用 AI 重写，一次性完成 — 无需等页面修复）**
+- [ ] Quora：用 AI 重写一篇产品介绍发布（教程定位：发一次内容即可，不需要每天回答问题）
+- [ ] Medium：用 AI 重写一篇 Clash Royale 攻略文章，带链接
+- [ ] Pinterest：上传卡组图/卡牌图，设置链接回网站（教程原文："图片外链，低成本引流，对 SEO 有加成"）
+
+**社区运营（需养号，中长期）**
+- [ ] Reddit r/ClashRoyale：先养号，不发营销文，只回答问题看帖子（教程原文："IP不干净太容易封号，被封了5个号"）
 - [ ] SuperCell 官方社区发帖
 - [ ] Discord：加入 Clash Royale 官方 Discord 及攻略社群，适时分享
-- [ ] Quora：回答 Clash Royale 相关问题时带链接
 
-**导航站提交类（免费，批量提交）**
-- [ ] mkdollar.com/backlinks
-- [ ] egolinks.online/@backlinks
-- [ ] directories.bestaitools.com
-- [ ] sopilot.net/zh/submitdir
-- [ ] Product Hunt 提交
-- [x] AlternativeTo（接受 apps/games/tool，替代品发现逻辑适合 deck builder）
-- [ ] uneed（免费队列，接受一般 product/tool，适合独立开发者）
-- [x] Launching Next（免费提交 startup/side project）
-- [ ] Pitchwall（有免费提交通道，接受 startup/tool）
-- [ ] F6S（注册免费，对创业项目宽容）
-- [ ] Crunchbase（免费建项目资料页，增加实体存在感）
-- [x] SideProjectors（支持 side project，有 games 类目）
-- [ ] Startup Buffer（有免费 startup 提交）
+**导航站提交类（已完成 ✅）**
+- [x] mkdollar.com/backlinks
+- [x] ~~egolinks.online/@backlinks~~（网站 bug，跳过）
+- [x] ~~directories.bestaitools.com~~（不是目录站，跳过）
+- [x] ~~sopilot.net/zh/submitdir~~（批量提交工具，跳过）
+- [x] AlternativeTo
+- [x] uneed
+- [x] Launching Next
+- [x] Pitchwall
+- [x] ~~F6S~~（被拒，不符合 ToS，跳过）
+- [x] ~~Crunchbase~~（跳过，不适合）
+- [x] SideProjectors
+- [x] Startup Buffer
+> 教程原文："如果让我现在重新做一个站，我可能只会提交那几个头部的导航站就行了"——导航站已够，不再追加。
 
 **高质量 dofollow（免费注册即得）**
-- [ ] 核查 Stripe Climate 自定义页面是否仍提供可索引官网外链；若已在用 Stripe 且愿意开 Climate，再顺手做，不单独为 SEO 注册
-- [ ] 开源项目赞助：找高权重开源项目赞助 $5-10，留言带网址
-
-**内容平台**
-- [ ] Medium：写一篇 Clash Royale 攻略文章，带链接
-- [ ] Pinterest：上传卡牌图片，设置链接指向网站（图片外链）
+- [ ] 开源项目赞助：找高权重开源项目赞助 $5-10，留言带网址（教程原文：这是"一般人想不到的发外链方式"）
+- [ ] 核查 Stripe Climate 自定义页面是否仍提供可索引官网外链
 
 **数据观察**
 - [ ] 等 1-2 个月观察 Search Console 数据，确认长尾词能否带来流量
-- [ ] **品牌词检查**：W2 开始发 Reddit/HN 后，Google 搜索 `CR Deck Builder` 确认自己排第一；若被竞品广告压制，考虑投放自己品牌词的 Google Ads
+- [ ] **品牌词检查**：发 HN/Reddit 后，Google 搜索 `CR Deck Builder` 确认自己排第一
 
-### 优先级 2：提升内容质量（避免被判低质量站）
+**外链核心原则（来自教程原文）**
+> - "质量为先，在做好质量的情况下多发外链"
+> - "新站外链：每天 10 个"，持续匀速推进，不暴冲
+> - "10 个高质量外链 > 1000 个垃圾外链"
+> - "外链建设是长期工程，3-6 个月才能看到明显变化"
+> - "只做有收录的外链，连续不收录就放弃"
+
+### 优先级 2：SEO 机会页优化（有展现无点击，优先冲排名）
+
+> 数据来源：GSC 2026-02-16 ~ 2026-03-15
+> 核心认知（哥飞教程）：有曝光没点击的主要原因是排名不够靠前，不是页面质量差。提升排名靠两条腿：外链提权重 + 页面信息增量。
+
+**第一步：继续推外链（最重要，直接提排名）**
+- [ ] 外链建设不要停，这是新站提升排名最直接的手段
+- 哥飞原话："即使再低KD的词，新站也不可能立马拿到靠前排名，需要外链提升权重"
+
+**第二步：逐页优化以下 6 个机会页**
+
+| 页面 | 展现 | 排名 | 优先级 |
+|------|------|------|--------|
+| `/arena/arena-17` | 87 | 23.1 | 🔥 最优先 |
+| `/arena/arena-18` | 96 | 26.8 | 🔥 |
+| `/arena/arena-16` | 73 | 24.3 | 🔥 |
+| `/arena/arena-13` | 27 | 19.7 | 排名最靠前，强化内链即可 |
+| `/arena/arena-11` | 61 | 39.8 | ⚠️ 排名深，需更大力度 |
+| `/arena/arena-12` | 37 | 34.7 | ⚠️ 同上 |
+
+每个页面的优化 checklist：
+- [ ] **标题 (Title)**：关键词放前面，覆盖多种搜索表达（如 "Best Arena 17 Decks - Clash Royale Arena 17 Deck Builder 2026"）
+- [ ] **H1 标签**：当作"第二个标题"，含核心关键词，用 AITDK 插件对标竞品 heading 结构
+- [ ] **关键词密度**：核心词密度 3%，总字数 600+，注意按钮等重复文字的干扰
+- [ ] **内链**：从首页和相邻 arena 页加内链指向这些机会页（参考 Toolify.ai 的内链设计）
+- [ ] **内容信息增量**：提供竞品没有的内容（arena meta 变化、卡组克制关系、段位攻略建议），Google 首页内容平均约 1400 字
+- [ ] **canonical**：检查是否正确
+
+**千万别犯的错（哥飞教程）：**
+- 别堆关键词，要自然使用
+- 别过度优化，自然平衡最重要
+- 质量永远比字数重要
+
+### 优先级 2.5：页面内容增量（Office Hours 诊断 2026-03-20）
+
+> 来源：Office Hours 诊断 + Codex 需求调研 + GA4/GSC 数据验证
+> 核心发现：arena-17 跳出率 67%、停留 6 秒；用户搜牌单词进来但页面太薄无法留住人
+> Codex 调研结论：玩家不只要牌单，还需要"怎么用这套卡组"的指南（Reddit/YouTube 证据充分）
+> 竞品 RoyaleAPI/DeckShop 的 deck 页面也没有嵌入打法指南，存在差异化空间
+
+**已完成**
+- [x] 复制卡组链接按钮（给用户行动路径）
+- [x] 验证灰块问题 → 不严重，不需要修
+
+**P1：打法指南内容（差异化核心）**
+- [ ] 每个 Arena 页面加 Meta 分析（该竞技场常见威胁、防守要点）
+- [ ] 每套推荐卡组加 2-3 句打法说明（起手、节奏、克制关系）
+- [ ] 从 GSC 高曝光页面开始：arena-17 → arena-18 → arena-16
+- [ ] 关键词方向：`guide`、`tips`、`how to play`（不是 `how to use`）
+
+**P1：数据信任度**
+- [ ] 添加数据更新时间戳（"Updated: March 2026"）
+
+**P2：用户体验**
+- [ ] 卡组类型标签（beatdown / cycle / siege）
+- [ ] 可替换卡牌建议
+
+### 优先级 3：提升内容质量
 - [x] 按卡牌解锁 arena 过滤卡组，让每个 arena 页面内容真正不同
 - [ ] 设置定时更新机制（定时构建），保持数据新鲜
 
-### 优先级 3：扩展覆盖面
+### 优先级 4：扩展覆盖面
 - [ ] 多语言版本（西语、葡语、日语，非英语市场竞争更小）
 - [ ] 按卡组类型分类页面（beatdown / cycle / siege / bridge spam）
 - [ ] 卡牌详情页（每张卡的属性和推荐卡组）

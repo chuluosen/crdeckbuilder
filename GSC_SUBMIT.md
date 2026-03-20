@@ -87,66 +87,66 @@
 - [x] `/arena/arena-20/hog-rider`
 - [x] `/arena/arena-13/giant`
 - [x] `/arena/arena-14/giant`
-- [ ] `/arena/arena-15/giant`
-- [ ] `/arena/arena-18/valkyrie`
-- [ ] `/arena/arena-19/valkyrie`
-- [ ] `/arena/arena-20/valkyrie`
-- [ ] `/arena/arena-12/goblin-barrel`
+- [x] `/arena/arena-15/giant`
+- [x] `/arena/arena-18/valkyrie`
+- [x] `/arena/arena-19/valkyrie`
+- [x] `/arena/arena-20/valkyrie`
+- [x] `/arena/arena-12/goblin-barrel`
 
 ---
 
 ## 批次 8
-- [ ] `/arena/arena-16/giant`
-- [ ] `/arena/arena-17/giant`
-- [ ] `/arena/arena-18/giant`
-- [ ] `/arena/arena-19/giant`
+- [x] `/arena/arena-16/giant`
+- [x] `/arena/arena-17/giant`
+- [x] `/arena/arena-18/giant`
+- [x] `/arena/arena-19/giant`
 - [x] `/arena/arena-20/giant`
-- [ ] `/arena/arena-13/goblin-barrel`
-- [ ] `/arena/arena-14/goblin-barrel`
-- [ ] `/arena/arena-15/goblin-barrel`
-- [ ] `/arena/arena-13/miner`
-- [ ] `/arena/arena-14/miner`
+- [x] `/arena/arena-13/goblin-barrel`
+- [x] `/arena/arena-14/goblin-barrel`
+- [x] `/arena/arena-15/goblin-barrel`
+- [x] `/arena/arena-13/miner`
+- [x] `/arena/arena-14/miner`
 
 ---
 
 ## 批次 9
-- [ ] `/arena/arena-16/goblin-barrel`
-- [ ] `/arena/arena-17/goblin-barrel`
-- [ ] `/arena/arena-18/goblin-barrel`
-- [ ] `/arena/arena-19/goblin-barrel`
+- [x] `/arena/arena-16/goblin-barrel`
+- [x] `/arena/arena-17/goblin-barrel`
+- [x] `/arena/arena-18/goblin-barrel`
+- [x] `/arena/arena-19/goblin-barrel`
 - [x] `/arena/arena-20/goblin-barrel`
-- [ ] `/arena/arena-15/miner`
-- [ ] `/arena/arena-16/miner`
-- [ ] `/arena/arena-17/miner`
-- [ ] `/arena/arena-18/miner`
-- [ ] `/arena/arena-19/miner`
+- [x] `/arena/arena-15/miner`
+- [x] `/arena/arena-16/miner`
+- [x] `/arena/arena-17/miner`
+- [x] `/arena/arena-18/miner`
+- [x] `/arena/arena-19/miner`
 
 ---
 
 ## 批次 10
-- [ ] `/arena/arena-20/miner`
-- [ ] `/arena/arena-13/pekka`
-- [ ] `/arena/arena-14/pekka`
-- [ ] `/arena/arena-15/pekka`
-- [ ] `/arena/arena-16/pekka`
-- [ ] `/arena/arena-17/pekka`
-- [ ] `/arena/arena-18/pekka`
-- [ ] `/arena/arena-19/pekka`
+- [x] `/arena/arena-20/miner`
+- [x] `/arena/arena-13/pekka`
+- [x] `/arena/arena-14/pekka`
+- [x] `/arena/arena-15/pekka`
+- [x] `/arena/arena-16/pekka`
+- [x] `/arena/arena-17/pekka`
+- [x] `/arena/arena-18/pekka`
+- [x] `/arena/arena-19/pekka`
 - [x] `/arena/arena-20/pekka`
-- [ ] `/arena/arena-15/sparky`
+- [x] `/arena/arena-15/sparky`
 
 ---
 
 ## 批次 11
-- [ ] `/arena/arena-16/sparky`
-- [ ] `/arena/arena-17/sparky`
-- [ ] `/arena/arena-18/sparky`
-- [ ] `/arena/arena-19/sparky`
-- [ ] `/arena/arena-20/sparky`
-- [ ] `/arena/arena-15/balloon`
-- [ ] `/arena/arena-16/balloon`
-- [ ] `/arena/arena-17/balloon`
-- [ ] `/arena/arena-18/balloon`
+- [x] `/arena/arena-16/sparky`
+- [x] `/arena/arena-17/sparky`
+- [x] `/arena/arena-18/sparky`
+- [x] `/arena/arena-19/sparky`
+- [x] `/arena/arena-20/sparky`
+- [x] `/arena/arena-15/balloon`
+- [x] `/arena/arena-16/balloon`
+- [x] `/arena/arena-17/balloon`
+- [x] `/arena/arena-18/balloon`
 - [ ] `/arena/arena-19/balloon`
 
 ---

@@ -1,4 +1,5 @@
 import { Deck } from "@/lib/data";
+import { CopyDeckButton } from "./CopyDeckButton";
 
 export function DeckCard({ deck, index }: { deck: Deck; index: number }) {
   return (
@@ -35,6 +36,7 @@ export function DeckCard({ deck, index }: { deck: Deck; index: number }) {
           </div>
         ))}
       </div>
+      <CopyDeckButton cardIds={deck.cards.map((c) => c.id)} />
     </div>
   );
 }
