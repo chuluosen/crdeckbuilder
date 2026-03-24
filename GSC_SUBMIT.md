@@ -147,30 +147,30 @@
 - [x] `/arena/arena-16/balloon`
 - [x] `/arena/arena-17/balloon`
 - [x] `/arena/arena-18/balloon`
-- [ ] `/arena/arena-19/balloon`
+- [x] `/arena/arena-19/balloon`
 
 ---
 
 ## 批次 12（收尾）
-- [ ] `/arena/arena-20/balloon`
-- [ ] `/arena/arena-15/royal-giant`
-- [ ] `/arena/arena-16/royal-giant`
-- [ ] `/arena/arena-17/royal-giant`
-- [ ] `/arena/arena-18/royal-giant`
-- [ ] `/arena/arena-19/royal-giant`
-- [ ] `/arena/arena-20/royal-giant`
-- [ ] `/arena/arena-16/electro-giant`
-- [ ] `/arena/arena-17/electro-giant`
-- [ ] `/arena/arena-18/electro-giant`
-- [ ] `/arena/arena-19/electro-giant`
-- [ ] `/arena/arena-20/electro-giant`
-- [ ] `/arena/arena-17/x-bow`
-- [ ] `/arena/arena-18/x-bow`
-- [ ] `/arena/arena-19/x-bow`
-- [ ] `/arena/arena-20/x-bow`
-- [ ] `/arena/arena-17/mega-knight`
-- [ ] `/arena/arena-18/mega-knight`
-- [ ] `/arena/arena-19/mega-knight`
+- [x] `/arena/arena-20/balloon`
+- [x] `/arena/arena-15/royal-giant`
+- [x] `/arena/arena-16/royal-giant`
+- [x] `/arena/arena-17/royal-giant`
+- [x] `/arena/arena-18/royal-giant`
+- [x] `/arena/arena-19/royal-giant`
+- [x] `/arena/arena-20/royal-giant`
+- [x] `/arena/arena-16/electro-giant`
+- [x] `/arena/arena-17/electro-giant`
+- [x] `/arena/arena-18/electro-giant`
+- [x] `/arena/arena-19/electro-giant`
+- [x] `/arena/arena-20/electro-giant`
+- [x] `/arena/arena-17/x-bow`
+- [x] `/arena/arena-18/x-bow`
+- [x] `/arena/arena-19/x-bow`
+- [x] `/arena/arena-20/x-bow`
+- [x] `/arena/arena-17/mega-knight`
+- [x] `/arena/arena-18/mega-knight`
+- [x] `/arena/arena-19/mega-knight`
 - [x] `/arena/arena-20/mega-knight`
 - [ ] `/arena/arena-19/golem`
 - [ ] `/arena/arena-20/golem`

@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const decks = getDecksForArena(arena.id, allCards);
 
   return {
-    title: `Best Clash Royale Decks for Arena ${arena.id} - ${arena.name}`,
-    description: `Top Clash Royale decks for Arena ${arena.id} (${arena.name}). Win rates, usage stats, and card breakdowns for ${arena.trophies}+ trophies.`,
+    title: `Best Arena ${arena.id} Decks (${arena.name}) - Clash Royale ${new Date().getFullYear()}`,
+    description: `Best Clash Royale decks for Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies). Top meta decks ranked by win rate and usage stats. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },
@@ -93,11 +93,11 @@ export default async function ArenaPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold mb-1">
-        Best Arena {arena.id} Decks
+        Best Clash Royale Decks for Arena {arena.id} — {arena.name}
       </h1>
       <p className="text-gray-400 mb-4">
-        Top decks for {arena.name} ({arena.trophies}+ trophies). These decks
-        are based on current meta win rates and usage statistics.
+        Top {decks.length} meta decks for Arena {arena.id} ({arena.name}, {arena.trophies}+ trophies),
+        ranked by win rate and usage stats.
       </p>
 
       {decks.length === 0 ? (

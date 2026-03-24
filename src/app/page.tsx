@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArenaList } from "@/components/ArenaList";
 import { buildWebSiteSchema, buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 
@@ -52,6 +53,42 @@ export default function Home() {
           Find the best Clash Royale decks for every arena. Browse top-performing
           decks with win rates and usage stats to climb the ladder faster.
         </p>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-xl font-semibold mb-4">Popular Arenas</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            href="/arena/arena-15"
+            className="bg-gray-800 border border-yellow-500 rounded-lg p-4 hover:bg-gray-750 transition-colors"
+          >
+            <div className="text-yellow-400 font-bold text-lg">Arena 15: Miner&apos;s Mine</div>
+            <p className="text-gray-400 text-sm mt-1">
+              5000+ trophies. Electro Giant unlocks here with an 80% win rate deck.
+              See the best Arena 15 decks →
+            </p>
+          </Link>
+          <Link
+            href="/arena/arena-19"
+            className="bg-gray-800 border border-gray-700 rounded-lg p-4 hover:border-yellow-500 transition-colors"
+          >
+            <div className="text-yellow-400 font-bold text-lg">Arena 19: Dragon Spa</div>
+            <p className="text-gray-400 text-sm mt-1">
+              7000+ trophies. Full card pool with 79 viable builds.
+              See the best Arena 19 decks →
+            </p>
+          </Link>
+          <Link
+            href="/arena/arena-17"
+            className="bg-gray-800 border border-gray-700 rounded-lg p-4 hover:border-yellow-500 transition-colors"
+          >
+            <div className="text-yellow-400 font-bold text-lg">Arena 17: Royal Crypt</div>
+            <p className="text-gray-400 text-sm mt-1">
+              6000+ trophies. Zap overtakes Fireball as the meta shifts.
+              See the best Arena 17 decks →
+            </p>
+          </Link>
+        </div>
       </section>
 
       <section className="mb-10">
