@@ -81,14 +81,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     FALLBACK_LAST_MODIFIED.card
   );
 
+  // Individual arena pages (1-11 only, 12-20 are consolidated)
   const arenaPages = ARENAS
-    .filter((arena) => arenaIdsWithDecks.has(arena.id))
+    .filter((arena) => arenaIdsWithDecks.has(arena.id) && !arena.consolidated)
     .map((arena) => ({
       url: `${BASE_URL}/arena/${arena.slug}`,
       lastModified: arenaLastModified,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     }));
+
+  // High arenas consolidated page
+  const highArenasPage = {
+    url: `${BASE_URL}/arena/high-arenas`,
+    lastModified: arenaLastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.9,
+  };
 
   const cardPages = getAllArenaCardPairs().map((p) => ({
     url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
@@ -104,6 +113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    highArenasPage,
     ...arenaPages,
     ...cardPages,
   ];

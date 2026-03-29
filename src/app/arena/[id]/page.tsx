@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ARENAS } from "@/lib/data";
 import { fetchAllCards } from "@/lib/api";
-import { getDecksForArena, getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
+import { getDecksForArena, getAllArenaCardPairs, getArenaIdsWithDecks, DECK_METADATA } from "@/lib/decks";
 import { getCardBySlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import Link from "next/link";
@@ -128,9 +128,19 @@ export default async function ArenaPage({ params }: Props) {
             {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
           </p>
 
-          <p className="text-xs text-gray-500 mb-4 italic">
-            Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
-          </p>
+          {/* Evidence block */}
+          <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 mb-4">
+            <p className="text-xs text-gray-300 mb-1">
+              <strong className="text-yellow-400">Data Source:</strong> Top Path of Legend players.
+              {DECK_METADATA && ` Based on ${DECK_METADATA.totalBattles.toLocaleString()} matches from ${DECK_METADATA.totalPlayers.toLocaleString()} players.`}
+            </p>
+            <p className="text-xs text-gray-300 mb-1">
+              <strong className="text-yellow-400">Last Updated:</strong> {DECK_METADATA?.lastUpdated ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Recently'}
+            </p>
+            <p className="text-xs text-gray-400">
+              Decks ranked using Bayesian average. Win rates reflect high-level play.
+            </p>
+          </div>
 
           <div className="space-y-4 mb-8">
             {decks.map((deck, i) => (

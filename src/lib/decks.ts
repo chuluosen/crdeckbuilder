@@ -4,13 +4,35 @@ import generatedDecks from "./generated-decks.json";
 import starterDecks from "./starter-decks.json";
 import cardsJson from "./cards.json";
 
-interface ArenaDeckData {
-  [arenaId: number]: { cards: string[]; winRate: number; useRate: number }[];
+interface DeckMetadata {
+  lastUpdated: string;
+  totalBattles: number;
+  totalPlayers: number;
+  regions: number;
+  bayesianM: number;
 }
 
-type DeckEntry = { cards: string[]; winRate: number; useRate: number };
+interface GeneratedDecksData {
+  metadata: DeckMetadata;
+  decks: {
+    cards: string[];
+    winRate: number;
+    useRate: number;
+    sampleSize: number;
+    firstAvailableArena: number;
+  }[];
+}
 
-const META_DECKS: ArenaDeckData = generatedDecks as unknown as ArenaDeckData;
+type DeckEntry = {
+  cards: string[];
+  winRate: number;
+  useRate: number;
+  sampleSize?: number;
+  firstAvailableArena?: number;
+};
+
+const GENERATED_DATA = generatedDecks as unknown as GeneratedDecksData;
+export const DECK_METADATA = GENERATED_DATA.metadata;
 
 // Valid card names from cards.json for validation
 const validCardNames = new Set<string>(
@@ -22,7 +44,7 @@ const cardArenaMap = new Map<string, number>(
   (cardsJson as { name: string; arena: number }[]).map((c) => [c.name, c.arena])
 );
 
-// Flatten META_DECKS into a single pool, deduplicate, merge with starter decks
+// Flatten generated decks and starter decks into a single pool, deduplicate
 function dedupeDecks(decks: DeckEntry[]): DeckEntry[] {
   const seen = new Set<string>();
   return decks.filter((d) => {
@@ -34,7 +56,7 @@ function dedupeDecks(decks: DeckEntry[]): DeckEntry[] {
 }
 
 const ALL_DECKS: DeckEntry[] = dedupeDecks(
-  ([...Object.values(META_DECKS).flat(), ...(starterDecks as DeckEntry[])] as DeckEntry[])
+  ([...GENERATED_DATA.decks, ...(starterDecks as DeckEntry[])] as DeckEntry[])
     .filter((d) => d.cards.every((name) => validCardNames.has(name)))
 );
 
@@ -42,6 +64,17 @@ export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
 
   return ALL_DECKS
+    .filter((d) => {
+      // Filter by firstAvailableArena if available, otherwise check all cards
+      if (d.firstAvailableArena !== undefined) {
+        return d.firstAvailableArena <= arenaId;
+      }
+      // Fallback for starter decks without firstAvailableArena
+      return d.cards.every((name) => {
+        const arena = cardArenaMap.get(name);
+        return arena !== undefined && arena <= arenaId;
+      });
+    })
     .map((d) => {
       const cards = d.cards
         .map((name) => cardMap.get(name))
@@ -50,9 +83,15 @@ export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
         cards.length > 0
           ? Math.round((cards.reduce((sum, c) => sum + c.elixirCost, 0) / cards.length) * 10) / 10
           : 0;
-      return { cards, avgElixir, winRate: d.winRate, useRate: d.useRate };
+      return {
+        cards,
+        avgElixir,
+        winRate: d.winRate,
+        useRate: d.useRate,
+        sampleSize: d.sampleSize,
+      };
     })
-    .filter((deck) => deck.cards.length === 8 && deck.cards.every((c) => c.arena <= arenaId));
+    .filter((deck) => deck.cards.length === 8);
 }
 
 export function getDecksForArenaCard(arenaId: number, cardName: string, allCards: Card[]): Deck[] {

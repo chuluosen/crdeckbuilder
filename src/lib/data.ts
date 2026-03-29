@@ -4,6 +4,8 @@ export interface Arena {
   name: string;
   trophies: number;
   slug: string;
+  consolidated?: boolean;
+  consolidatedSlug?: string;
 }
 
 export const ARENAS: Arena[] = [
@@ -18,15 +20,15 @@ export const ARENAS: Arena[] = [
   { id: 9, name: "Jungle Arena", trophies: 2600, slug: "arena-9" },
   { id: 10, name: "Hog Mountain", trophies: 3000, slug: "arena-10" },
   { id: 11, name: "Electro Valley", trophies: 3400, slug: "arena-11" },
-  { id: 12, name: "Spooky Town", trophies: 3800, slug: "arena-12" },
-  { id: 13, name: "Rascal's Hideout", trophies: 4200, slug: "arena-13" },
-  { id: 14, name: "Serenity Peak", trophies: 4600, slug: "arena-14" },
-  { id: 15, name: "Miner's Mine", trophies: 5000, slug: "arena-15" },
-  { id: 16, name: "Executioner's Kitchen", trophies: 5500, slug: "arena-16" },
-  { id: 17, name: "Royal Crypt", trophies: 6000, slug: "arena-17" },
-  { id: 18, name: "Silent Sanctuary", trophies: 6500, slug: "arena-18" },
-  { id: 19, name: "Dragon Spa", trophies: 7000, slug: "arena-19" },
-  { id: 20, name: "Legendary Arena", trophies: 7500, slug: "arena-20" },
+  { id: 12, name: "Spooky Town", trophies: 3800, slug: "arena-12", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 13, name: "Rascal's Hideout", trophies: 4200, slug: "arena-13", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 14, name: "Serenity Peak", trophies: 4600, slug: "arena-14", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 15, name: "Miner's Mine", trophies: 5000, slug: "arena-15", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 16, name: "Executioner's Kitchen", trophies: 5500, slug: "arena-16", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 17, name: "Royal Crypt", trophies: 6000, slug: "arena-17", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 18, name: "Silent Sanctuary", trophies: 6500, slug: "arena-18", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 19, name: "Dragon Spa", trophies: 7000, slug: "arena-19", consolidated: true, consolidatedSlug: "high-arenas" },
+  { id: 20, name: "Legendary Arena", trophies: 7500, slug: "arena-20", consolidated: true, consolidatedSlug: "high-arenas" },
 ];
 
 export interface Card {
@@ -44,4 +46,5 @@ export interface Deck {
   avgElixir: number;
   winRate?: number;
   useRate?: number;
+  sampleSize?: number;
 }

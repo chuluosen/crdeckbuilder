@@ -13,6 +13,9 @@ export function DeckCard({ deck, index }: { deck: Deck; index: number }) {
           {deck.useRate && (
             <span className="text-blue-400">{deck.useRate}% Use</span>
           )}
+          {deck.sampleSize && deck.sampleSize >= 10 && (
+            <span className="text-gray-500 text-xs">{deck.sampleSize} matches</span>
+          )}
           <span className="text-gray-400">Avg: {deck.avgElixir} Elixir</span>
         </div>
       </div>

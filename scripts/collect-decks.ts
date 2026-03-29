@@ -49,14 +49,28 @@ interface DeckStat {
   total: number;
 }
 
+interface Card {
+  name: string;
+  arena: number;
+}
+
 interface OutputDeck {
   cards: string[];
   winRate: number;
   useRate: number;
+  sampleSize: number;
+  firstAvailableArena: number;
 }
 
 interface OutputData {
-  [arenaId: string]: OutputDeck[];
+  metadata: {
+    lastUpdated: string;
+    totalBattles: number;
+    totalPlayers: number;
+    regions: number;
+    bayesianM: number;
+  };
+  decks: OutputDeck[];
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -169,13 +183,23 @@ function aggregateDecks(allBattles: Battle[]): Map<string, DeckStat> {
   return deckMap;
 }
 
-// ── Assign decks to arenas and ensure HOT_CARDS coverage ────────────────────
-function assignDecksToArenas(deckMap: Map<string, DeckStat>): OutputData {
+// ── Assign decks and compute metadata ──────────────────────────────────────
+function assignDecksToArenas(
+  deckMap: Map<string, DeckStat>,
+  allCards: Card[],
+  totalPlayers: number
+): OutputData {
   const allStats = Array.from(deckMap.values());
   const totalGames = allStats.reduce((s, d) => s + d.total, 0);
 
   // Global average win rate (C in Bayesian formula)
   const globalWinRate = allStats.reduce((s, d) => s + d.wins, 0) / totalGames;
+
+  // Build card arena map
+  const cardArenaMap = new Map<string, number>();
+  for (const card of allCards) {
+    cardArenaMap.set(card.name, card.arena);
+  }
 
   // Filter and score with Bayesian Average: score = (v/(v+m))*R + (m/(v+m))*C
   const qualified = allStats
@@ -185,10 +209,16 @@ function assignDecksToArenas(deckMap: Map<string, DeckStat>): OutputData {
       const R = d.wins / d.total;
       const bayesianScore = (v / (v + BAYESIAN_M)) * R + (BAYESIAN_M / (v + BAYESIAN_M)) * globalWinRate;
       const rawUseRate = Math.round((d.total / totalGames) * 1000) / 10;
+
+      // Calculate firstAvailableArena (max arena of all 8 cards)
+      const firstAvailableArena = Math.max(...d.cards.map(c => cardArenaMap.get(c) ?? 0));
+
       return {
         cards: d.cards,
         winRate: Math.round(bayesianScore * 100),
         useRate: Math.max(0.1, rawUseRate),
+        sampleSize: d.total,
+        firstAvailableArena,
         _bayesianScore: bayesianScore,
         _rawUseRate: d.total / totalGames,
       };
@@ -235,15 +265,23 @@ function assignDecksToArenas(deckMap: Map<string, DeckStat>): OutputData {
     return true;
   });
 
-  // Assign same pool to all 20 arenas
-  const output: OutputData = {};
-  for (let arenaId = 1; arenaId <= 20; arenaId++) {
-    output[arenaId] = pool.map((d) => ({
+  // Build output with metadata
+  const output: OutputData = {
+    metadata: {
+      lastUpdated: new Date().toISOString(),
+      totalBattles: totalGames,
+      totalPlayers,
+      regions: LOCATION_IDS.length,
+      bayesianM: BAYESIAN_M,
+    },
+    decks: pool.map((d) => ({
       cards: d.cards,
       winRate: d.winRate,
       useRate: d.useRate,
-    }));
-  }
+      sampleSize: d.sampleSize,
+      firstAvailableArena: d.firstAvailableArena,
+    })),
+  };
 
   return output;
 }
@@ -254,6 +292,11 @@ async function main() {
     console.error("Set CLASH_ROYALE_API_KEY in .env");
     process.exit(1);
   }
+
+  // Load cards.json
+  const cardsPath = path.join(__dirname, "..", "src", "lib", "cards.json");
+  const allCards: Card[] = JSON.parse(fs.readFileSync(cardsPath, "utf-8"));
+  console.log(`Loaded ${allCards.length} cards`);
 
   // 1. Collect unique player tags from all regions
   console.log("Fetching top players from leaderboards...");
@@ -286,19 +329,19 @@ async function main() {
   console.log(`Decks with >= ${MIN_DECK_COUNT} games: ${Array.from(deckMap.values()).filter((d) => d.total >= MIN_DECK_COUNT).length}`);
 
   // 4. Assign to arenas and output
-  const output = assignDecksToArenas(deckMap);
-  const deckCount = output["1"]?.length ?? 0;
-  console.log(`Decks per arena: ${deckCount}`);
+  const output = assignDecksToArenas(deckMap, allCards, allTags.size);
+  console.log(`Total decks in output: ${output.decks.length}`);
 
   // Verify HOT_CARDS coverage
   for (const hotCard of HOT_CARDS) {
-    const count = (output["1"] ?? []).filter((d) => d.cards.includes(hotCard)).length;
+    const count = output.decks.filter((d) => d.cards.includes(hotCard)).length;
     console.log(`  ${hotCard}: ${count} decks${count < 3 ? " ⚠️ LOW" : ""}`);
   }
 
   const outPath = path.join(__dirname, "..", "src", "lib", "generated-decks.json");
   fs.writeFileSync(outPath, JSON.stringify(output, null, 2), "utf-8");
   console.log(`\nWritten to ${outPath}`);
+  console.log(`Metadata: ${output.decks.length} decks, ${output.metadata.totalBattles} battles, ${output.metadata.totalPlayers} players`);
 }
 
 main().catch((e) => {
