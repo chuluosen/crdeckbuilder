@@ -21,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HighArenasPage() {
   const allCards = await fetchAllCards();
-  // Get decks for Arena 12+ (all high arena decks)
-  const decks = getDecksForArena(12, allCards).slice(0, 79);
+  // Get all decks for Arena 12+
+  const allDecks = getDecksForArena(12, allCards);
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -49,7 +49,7 @@ export default async function HighArenasPage() {
         Best Decks for Arena 12-20 — Spooky Town to Legendary Arena
       </h1>
       <p className="text-gray-400 mb-4">
-        Top {decks.length} endgame meta decks for Arena 12-20, ranked by win rate and usage stats from Path of Legend players.
+        Top {allDecks.length} endgame meta decks for Arena 12-20, ranked by win rate and usage stats from Path of Legend players.
       </p>
 
       {/* Evidence block */}
@@ -82,27 +82,47 @@ export default async function HighArenasPage() {
         </div>
       </div>
 
-      {/* Arena sections */}
-      {HIGH_ARENAS.map(arena => (
-        <div key={arena.id} id={`arena-${arena.id}`} className="mb-8 scroll-mt-4">
-          <h2 className="text-2xl font-bold mb-2 text-yellow-400">
-            Arena {arena.id}: {arena.name}
-          </h2>
-          <p className="text-gray-400 text-sm mb-4">
-            {arena.trophies}+ trophies required. All {decks.length} decks below are viable from Arena {arena.id} onwards.
-          </p>
-        </div>
-      ))}
+      {/* Arena sections - show new decks per arena */}
+      {HIGH_ARENAS.map(arena => {
+        // Filter decks that first become available at this arena
+        // We need to check the raw deck data since Deck type doesn't expose firstAvailableArena
+        const newDecks = allDecks.filter(deck => {
+          // Calculate firstAvailableArena from the deck's cards
+          const maxArena = Math.max(...deck.cards.map(c => c.arena));
+          return maxArena === arena.id;
+        });
 
-      {/* Display all decks once */}
-      <div className="mb-8">
+        return (
+          <div key={arena.id} id={`arena-${arena.id}`} className="mb-8 scroll-mt-4">
+            <h2 className="text-2xl font-bold mb-2 text-yellow-400">
+              Arena {arena.id}: {arena.name}
+            </h2>
+            <p className="text-gray-400 text-sm mb-4">
+              {arena.trophies}+ trophies required.
+              {newDecks.length > 0
+                ? ` ${newDecks.length} new deck${newDecks.length > 1 ? 's' : ''} unlock at this arena.`
+                : ' No new decks unlock at this arena - all previous decks remain viable.'}
+            </p>
+
+            {newDecks.length > 0 && (
+              <div className="space-y-4 mb-6">
+                {newDecks.map((deck, i) => (
+                  <DeckCard key={i} deck={deck} index={i} />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {/* Display all decks */}
+      <div className="mb-8 mt-12">
         <h2 className="text-2xl font-bold mb-4 text-yellow-400">All Endgame Meta Decks</h2>
         <p className="text-gray-400 text-sm mb-4">
-          These {decks.length} decks represent the current endgame meta from top Path of Legend players.
-          All decks are legal for Arena 12+ based on card unlock requirements.
+          All {allDecks.length} decks available for Arena 12+. These represent the current endgame meta from top Path of Legend players.
         </p>
         <div className="space-y-4">
-          {decks.map((deck, i) => (
+          {allDecks.map((deck, i) => (
             <DeckCard key={i} deck={deck} index={i} />
           ))}
         </div>
