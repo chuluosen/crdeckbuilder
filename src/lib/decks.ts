@@ -166,6 +166,80 @@ export function getHighArenaCardSlugs(): string[] {
   return Array.from(cardSlugs);
 }
 
+// Grouped deck data for high-arenas card pages with pre-computed fallback context
+export type ArenaGroupFallback =
+  | { type: "look_up"; referenceArenaId: number }
+  | { type: "look_down"; referenceArenaId: number }
+  | { type: "no_data" };
+
+export interface ArenaGroup {
+  arenaId: number;
+  arenaName: string;
+  decks: Deck[];
+  fallbackContext?: ArenaGroupFallback;
+}
+
+export function getDecksForHighArenasCardGrouped(
+  cardName: string,
+  cardUnlockArena: number,
+  allCards: Card[]
+): ArenaGroup[] {
+  const allDecks = getDecksForHighArenasCard(cardName, allCards);
+  if (allDecks.length === 0) return [];
+
+  const cardMap = new Map(allCards.map((c) => [c.name, c]));
+  const highArenas = ARENAS.filter((a) => a.consolidated);
+  const startArena = Math.max(highArenas[0]?.id ?? 12, cardUnlockArena);
+
+  // Group decks by firstAvailableArena (max card.arena in the deck)
+  const decksByArena = new Map<number, Deck[]>();
+  for (const deck of allDecks) {
+    const maxArena = Math.max(...deck.cards.map((c) => c.arena));
+    const arr = decksByArena.get(maxArena) || [];
+    arr.push(deck);
+    decksByArena.set(maxArena, arr);
+  }
+
+  // Build arena entries from startArena to 20
+  const applicableArenas = highArenas.filter((a) => a.id >= startArena);
+  const groups: ArenaGroup[] = applicableArenas.map((arena) => ({
+    arenaId: arena.id,
+    arenaName: arena.name,
+    decks: decksByArena.get(arena.id) || [],
+  }));
+
+  // Find first and last non-empty arena indices for fallback computation
+  const firstNonEmpty = groups.findIndex((g) => g.decks.length > 0);
+  const lastNonEmpty = groups.length - 1 - [...groups].reverse().findIndex((g) => g.decks.length > 0);
+
+  // Pre-compute fallback context for empty groups
+  let lastArenaWithDecks = -1;
+  for (let i = 0; i < groups.length; i++) {
+    if (groups[i].decks.length > 0) {
+      lastArenaWithDecks = groups[i].arenaId;
+    } else {
+      if (firstNonEmpty === -1) {
+        // No decks at all (shouldn't happen due to early return, but be safe)
+        groups[i].fallbackContext = { type: "no_data" };
+      } else if (i < firstNonEmpty) {
+        // Before first arena with decks → point down
+        groups[i].fallbackContext = {
+          type: "look_down",
+          referenceArenaId: groups[firstNonEmpty].arenaId,
+        };
+      } else {
+        // After at least one arena with decks → point up
+        groups[i].fallbackContext = {
+          type: "look_up",
+          referenceArenaId: lastArenaWithDecks,
+        };
+      }
+    }
+  }
+
+  return groups;
+}
+
 export function getArenaIdsWithDecks(allCards: Card[]): number[] {
   return ARENAS
     .filter((arena) => getDecksForArena(arena.id, allCards).length > 0)

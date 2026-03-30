@@ -11,6 +11,18 @@ import { CardLink } from "@/components/CardLink";
 
 const HIGH_ARENAS = ARENAS.filter(a => a.id >= 12 && a.id <= 20);
 
+const ARENA_DESCRIPTIONS: Record<number, string> = {
+  12: "Spooky Town unlocks Graveyard and Dark Prince, enabling graveyard cycle and dual-lane pressure strategies. The meta starts shifting toward heavier spell coverage.",
+  13: "Rascal's Hideout introduces Rascals and Royal Hogs, adding split-lane pressure options. Fireball bait archetypes become increasingly viable at this trophy range.",
+  14: "Serenity Peak unlocks P.E.K.K.A and Electro Dragon, bringing dominant bridge spam and beatdown counters. Expect heavier tank-based metas from here onward.",
+  15: "Miner's Mine is where Miner chip cycle decks peak in effectiveness. Wall Breakers and Goblin Drill also unlock here, diversifying win conditions at the 5000+ trophy range.",
+  16: "Executioner's Kitchen unlocks Executioner and Bowler, strengthening splash-heavy control decks. Tornado-based combos become a meta-defining strategy.",
+  17: "Royal Crypt introduces Royal Ghost, Bandit, and Magic Archer — core bridge spam cards. This is where fast cycle and dual-lane pressure dominate the 6000+ trophy ladder.",
+  18: "Silent Sanctuary unlocks Mega Knight and Sparky, two polarizing cards that reshape defense and counter-push strategies. The meta rewards precise elixir management.",
+  19: "Dragon Spa features Inferno Dragon and Lumberjack unlocks, strengthening Lava Hound and Balloon archetypes. Air-based beatdown reaches its peak viability at 7000+ trophies.",
+  20: "Legendary Arena is the endgame — all cards are available. Decks here reflect the true competitive meta from Path of Legend players with optimized builds for maximum ladder performance.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Best Clash Royale Decks for Arena 12-20 (High Arenas & Endgame Meta) 2026`,
@@ -107,12 +119,17 @@ export default async function HighArenasPage() {
             <h2 className="text-2xl font-bold mb-2 text-yellow-400">
               Arena {arena.id}: {arena.name}
             </h2>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-400 text-sm mb-2">
               {arena.trophies}+ trophies required.
               {newDecks.length > 0
                 ? ` ${newDecks.length} new deck${newDecks.length > 1 ? 's' : ''} unlock at this arena.`
-                : ' No new decks unlock at this arena - all previous decks remain viable.'}
+                : ' No new decks unlock at this arena — all previous decks remain viable.'}
             </p>
+            {ARENA_DESCRIPTIONS[arena.id] && (
+              <p className="text-gray-500 text-sm mb-4">
+                {ARENA_DESCRIPTIONS[arena.id]}
+              </p>
+            )}
 
             {newDecks.length > 0 && (
               <div className="space-y-4 mb-6">
