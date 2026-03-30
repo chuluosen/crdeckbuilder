@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { execSync } from "node:child_process";
 import { ARENAS, Card } from "@/lib/data";
-import { getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
+import { getAllArenaCardPairs, getArenaIdsWithDecks, getHighArenaCardSlugs } from "@/lib/decks";
 import cardsData from "@/lib/cards.json";
 
 const BASE_URL = "https://crdeckbuilder.top";
@@ -99,11 +99,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   };
 
-  const cardPages = getAllArenaCardPairs().map((p) => ({
-    url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
+  // Card pages for non-consolidated arenas (1-11)
+  const lowArenaCardPages = getAllArenaCardPairs()
+    .filter((p) => {
+      const arena = ARENAS.find((a) => a.slug === p.arenaSlug);
+      return arena && !arena.consolidated;
+    })
+    .map((p) => ({
+      url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
+      lastModified: cardLastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+
+  // Consolidated card pages for high arenas (12-20)
+  const highArenaCardPages = getHighArenaCardSlugs().map((slug) => ({
+    url: `${BASE_URL}/arena/high-arenas/${slug}`,
     lastModified: cardLastModified,
     changeFrequency: "weekly" as const,
-    priority: 0.6,
+    priority: 0.7,
   }));
 
   return [
@@ -115,6 +129,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     highArenasPage,
     ...arenaPages,
-    ...cardPages,
+    ...lowArenaCardPages,
+    ...highArenaCardPages,
   ];
 }

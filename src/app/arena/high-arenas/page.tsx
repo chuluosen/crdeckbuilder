@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { ARENAS } from "@/lib/data";
 import { fetchAllCards } from "@/lib/api";
-import { getDecksForArena } from "@/lib/decks";
+import { getDecksForArena, getHighArenaCardSlugs } from "@/lib/decks";
 import { DeckCard } from "@/components/DeckCard";
 import Link from "next/link";
 import { buildBreadcrumbSchema } from "@/lib/jsonld";
 import { DECK_METADATA } from "@/lib/decks";
+import { getCardBySlug } from "@/lib/cards";
+import { CardLink } from "@/components/CardLink";
 
 const HIGH_ARENAS = ARENAS.filter(a => a.id >= 12 && a.id <= 20);
 
@@ -23,6 +25,14 @@ export default async function HighArenasPage() {
   const allCards = await fetchAllCards();
   // Get all decks for Arena 12+
   const allDecks = getDecksForArena(12, allCards);
+
+  // Get card pages for internal linking
+  const highArenaCards = getHighArenaCardSlugs()
+    .map((slug) => {
+      const c = getCardBySlug(slug, allCards);
+      return c ? { slug, name: c.name } : null;
+    })
+    .filter((c): c is { slug: string; name: string } => c !== null);
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
@@ -114,6 +124,23 @@ export default async function HighArenasPage() {
           </div>
         );
       })}
+
+      {/* Browse Decks by Card */}
+      {highArenaCards.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-3">Browse Decks by Card</h2>
+          <div className="flex flex-wrap gap-2">
+            {highArenaCards.map((c) => (
+              <CardLink
+                key={c.slug}
+                href={`/arena/high-arenas/${c.slug}`}
+                cardName={c.name}
+                arenaId={12}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Display all decks */}
       <div className="mb-8 mt-12">

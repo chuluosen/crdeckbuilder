@@ -48,6 +48,52 @@ const nextConfig = {
         destination: '/arena/high-arenas#arena-20',
         permanent: true,
       },
+      // Redirect Arena 12-20 card subpages to consolidated high-arenas card pages
+      {
+        source: '/arena/arena-12/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-13/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-14/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-15/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-16/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-17/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-18/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-19/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
+      {
+        source: '/arena/arena-20/:card',
+        destination: '/arena/high-arenas/:card',
+        permanent: true,
+      },
     ];
   },
 };

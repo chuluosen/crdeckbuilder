@@ -128,6 +128,44 @@ export function getAllArenaCardPairs(): { arenaSlug: string; cardSlug: string }[
   return pairs;
 }
 
+// Get all decks for a given card across all high arenas (12-20)
+export function getDecksForHighArenasCard(cardName: string, allCards: Card[]): Deck[] {
+  // Arena 12 is the lowest high arena — getting decks for arena 12 includes all decks
+  // available at that level, and higher arenas are a superset
+  const allDecks = getDecksForArena(20, allCards);
+  return allDecks.filter((deck) => deck.cards.some((c) => c.name === cardName));
+}
+
+// Get unique card slugs that appear across high arenas (12-20)
+export function getHighArenaCardSlugs(): string[] {
+  const highArenas = ARENAS.filter((a) => a.consolidated);
+  const cardSlugs = new Set<string>();
+
+  for (const arena of highArenas) {
+    const cardCounts = new Map<string, number>();
+    for (const deck of ALL_DECKS) {
+      const allAvailable = deck.cards.every((name) => {
+        const cardArena = cardArenaMap.get(name);
+        return cardArena !== undefined && cardArena <= arena.id;
+      });
+      if (!allAvailable) continue;
+
+      for (const cardName of deck.cards) {
+        if (HOT_CARDS.includes(cardName)) {
+          cardCounts.set(cardName, (cardCounts.get(cardName) || 0) + 1);
+        }
+      }
+    }
+    for (const [cardName, count] of cardCounts) {
+      if (count >= 3) {
+        cardSlugs.add(cardNameToSlug(cardName));
+      }
+    }
+  }
+
+  return Array.from(cardSlugs);
+}
+
 export function getArenaIdsWithDecks(allCards: Card[]): number[] {
   return ARENAS
     .filter((arena) => getDecksForArena(arena.id, allCards).length > 0)
