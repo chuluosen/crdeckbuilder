@@ -152,6 +152,13 @@ export default async function ArenaPage({ params }: Props) {
             </p>
           </div>
 
+          {/* Owned cards filter + deck list — prominent position */}
+          <OwnedCardsFilter
+            allCards={allCards}
+            decks={decks}
+            arenaId={arena.id}
+          />
+
           {/* New cards unlocked at this arena */}
           {newCards.length > 0 && (
             <div className="mb-6">
@@ -192,15 +199,6 @@ export default async function ArenaPage({ params }: Props) {
               </div>
             </div>
           )}
-
-          <h2 className="text-xl font-bold mb-3">All Decks for Arena {arena.id}</h2>
-
-          {/* Owned cards filter + deck list */}
-          <OwnedCardsFilter
-            allCards={allCards}
-            decks={decks}
-            arenaId={arena.id}
-          />
         </>
       )}
 
