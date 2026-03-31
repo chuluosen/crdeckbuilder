@@ -138,7 +138,7 @@ export function getDecksForHighArenasCard(cardName: string, allCards: Card[]): D
 
 // Get unique card slugs that appear across high arenas (12-20)
 export function getHighArenaCardSlugs(): string[] {
-  const highArenas = ARENAS.filter((a) => a.consolidated);
+  const highArenas = ARENAS.filter((a) => a.id >= 12 && a.id <= 20);
   const cardSlugs = new Set<string>();
 
   for (const arena of highArenas) {
@@ -188,7 +188,7 @@ export function getDecksForHighArenasCardGrouped(
   if (allDecks.length === 0) return [];
 
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
-  const highArenas = ARENAS.filter((a) => a.consolidated);
+  const highArenas = ARENAS.filter((a) => a.id >= 12 && a.id <= 20);
   const startArena = Math.max(highArenas[0]?.id ?? 12, cardUnlockArena);
 
   // Group decks by firstAvailableArena (max card.arena in the deck)

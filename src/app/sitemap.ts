@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { execSync } from "node:child_process";
 import { ARENAS, Card } from "@/lib/data";
-import { getAllArenaCardPairs, getArenaIdsWithDecks, getHighArenaCardSlugs } from "@/lib/decks";
+import { getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
 import cardsData from "@/lib/cards.json";
 
 const BASE_URL = "https://crdeckbuilder.top";
@@ -81,9 +81,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     FALLBACK_LAST_MODIFIED.card
   );
 
-  // Individual arena pages (1-11 only, 12-20 are consolidated)
+  // Individual arena pages (all arenas with decks)
   const arenaPages = ARENAS
-    .filter((arena) => arenaIdsWithDecks.has(arena.id) && !arena.consolidated)
+    .filter((arena) => arenaIdsWithDecks.has(arena.id))
     .map((arena) => ({
       url: `${BASE_URL}/arena/${arena.slug}`,
       lastModified: arenaLastModified,
@@ -91,34 +91,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  // High arenas consolidated page
+  // High arenas hub page (overview, lower priority)
   const highArenasPage = {
     url: `${BASE_URL}/arena/high-arenas`,
     lastModified: arenaLastModified,
     changeFrequency: "weekly" as const,
-    priority: 0.9,
+    priority: 0.5,
   };
 
-  // Card pages for non-consolidated arenas (1-11)
-  const lowArenaCardPages = getAllArenaCardPairs()
-    .filter((p) => {
-      const arena = ARENAS.find((a) => a.slug === p.arenaSlug);
-      return arena && !arena.consolidated;
-    })
+  // Card pages for all arenas
+  const arenaCardPages = getAllArenaCardPairs()
     .map((p) => ({
       url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
       lastModified: cardLastModified,
       changeFrequency: "weekly" as const,
       priority: 0.6,
     }));
-
-  // Consolidated card pages for high arenas (12-20)
-  const highArenaCardPages = getHighArenaCardSlugs().map((slug) => ({
-    url: `${BASE_URL}/arena/high-arenas/${slug}`,
-    lastModified: cardLastModified,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
 
   return [
     {
@@ -129,7 +117,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     highArenasPage,
     ...arenaPages,
-    ...lowArenaCardPages,
-    ...highArenaCardPages,
+    ...arenaCardPages,
   ];
 }

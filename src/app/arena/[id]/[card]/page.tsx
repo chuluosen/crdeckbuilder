@@ -16,11 +16,6 @@ interface Props {
 
 export async function generateStaticParams() {
   return getAllArenaCardPairs()
-    .filter((p) => {
-      // Exclude consolidated arenas — their card pages are at /arena/high-arenas/[card]
-      const arena = ARENAS.find((a) => a.slug === p.arenaSlug);
-      return arena && !arena.consolidated;
-    })
     .map((p) => ({
       id: p.arenaSlug,
       card: p.cardSlug,

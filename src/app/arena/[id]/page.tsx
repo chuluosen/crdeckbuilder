@@ -5,6 +5,7 @@ import { fetchAllCards } from "@/lib/api";
 import { getDecksForArena, getAllArenaCardPairs, getArenaIdsWithDecks, DECK_METADATA } from "@/lib/decks";
 import { getCardBySlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
+import { OwnedCardsFilter } from "@/components/OwnedCardsFilter";
 import Link from "next/link";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
@@ -42,7 +43,16 @@ export default async function ArenaPage({ params }: Props) {
   if (!arena) notFound();
 
   const allCards = await fetchAllCards();
-  const decks = getDecksForArena(arena.id, allCards).slice(0, 12);
+  const decks = getDecksForArena(arena.id, allCards);
+
+  // Cards that unlock at this specific arena (content differentiation)
+  const newCards = allCards.filter((c) => c.arena === arena.id);
+
+  // Decks that FIRST become available at this arena
+  const newDecks = decks.filter((deck) => {
+    const maxArena = Math.max(...deck.cards.map((c) => c.arena));
+    return maxArena === arena.id;
+  });
 
   const allPairs = getAllArenaCardPairs();
   const arenaCards = allPairs
@@ -142,11 +152,55 @@ export default async function ArenaPage({ params }: Props) {
             </p>
           </div>
 
-          <div className="space-y-4 mb-8">
-            {decks.map((deck, i) => (
-              <DeckCard key={i} deck={deck} index={i} />
-            ))}
-          </div>
+          {/* New cards unlocked at this arena */}
+          {newCards.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-xl font-bold mb-2 text-yellow-400">
+                New Cards Unlocked at Arena {arena.id}
+              </h2>
+              <p className="text-gray-500 text-xs mb-3">
+                {newCards.length} card{newCards.length !== 1 ? "s" : ""} become available when you reach {arena.name}.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {newCards.map((card) => (
+                  <div key={card.id} className="flex flex-col items-center w-16">
+                    <div className="w-14 h-16 bg-gray-700 rounded overflow-hidden">
+                      {card.iconUrl && (
+                        <img src={card.iconUrl} alt={card.name} className="w-full h-full object-contain" loading="lazy" />
+                      )}
+                    </div>
+                    <span className="text-xs text-gray-300 mt-1 text-center leading-tight">{card.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* New decks that first become available at this arena */}
+          {newDecks.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-xl font-bold mb-2 text-green-400">
+                New Decks at Arena {arena.id}
+              </h2>
+              <p className="text-gray-500 text-xs mb-3">
+                {newDecks.length} deck{newDecks.length !== 1 ? "s" : ""} become possible for the first time at {arena.name}, using newly unlocked cards.
+              </p>
+              <div className="space-y-4 mb-4">
+                {newDecks.map((deck, i) => (
+                  <DeckCard key={`new-${i}`} deck={deck} index={i} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <h2 className="text-xl font-bold mb-3">All Decks for Arena {arena.id}</h2>
+
+          {/* Owned cards filter + deck list */}
+          <OwnedCardsFilter
+            allCards={allCards}
+            decks={decks}
+            arenaId={arena.id}
+          />
         </>
       )}
 

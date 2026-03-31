@@ -14,7 +14,7 @@ interface Props {
   params: Promise<{ card: string }>;
 }
 
-const HIGH_ARENAS = ARENAS.filter((a) => a.consolidated);
+const HIGH_ARENAS = ARENAS.filter((a) => a.id >= 12 && a.id <= 20);
 const LOWEST_HIGH_ARENA = HIGH_ARENAS[0];
 const HIGHEST_HIGH_ARENA = HIGH_ARENAS[HIGH_ARENAS.length - 1];
 
