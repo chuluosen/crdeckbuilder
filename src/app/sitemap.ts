@@ -91,14 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  // High arenas hub page (overview, lower priority)
-  const highArenasPage = {
-    url: `${BASE_URL}/arena/high-arenas`,
-    lastModified: arenaLastModified,
-    changeFrequency: "weekly" as const,
-    priority: 0.5,
-  };
-
   // Card pages for all arenas
   const arenaCardPages = getAllArenaCardPairs()
     .map((p) => ({
@@ -115,7 +107,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    highArenasPage,
     ...arenaPages,
     ...arenaCardPages,
   ];

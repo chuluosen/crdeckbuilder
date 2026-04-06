@@ -172,7 +172,50 @@
 - [x] `/arena/arena-18/mega-knight`
 - [x] `/arena/arena-19/mega-knight`
 - [x] `/arena/arena-20/mega-knight`
-- [ ] `/arena/arena-19/golem`
-- [ ] `/arena/arena-20/golem`
-- [ ] `/arena/arena-19/lava-hound`
-- [ ] `/arena/arena-20/lava-hound`
+- [x] `/arena/arena-19/golem`
+- [x] `/arena/arena-20/golem`
+- [x] `/arena/arena-19/lava-hound`
+- [x] `/arena/arena-20/lava-hound`
+
+---
+
+## 批次 13 — High Arenas 合并页（2026-03-30 结构重构后）
+
+> 背景：arena 12-20 的 card 子页面已 301 合并到 /arena/high-arenas/[card]，需要让 Google 尽快抓取新 URL。
+
+**已提交（3/30）：**
+- [x] `/arena/high-arenas`
+- [x] `/arena/high-arenas/hog-rider`
+- [x] `/arena/high-arenas/giant`
+- [x] `/arena/high-arenas/valkyrie`
+- [x] `/arena/high-arenas/goblin-barrel`
+- [x] `/arena/high-arenas/miner`
+- [x] `/arena/high-arenas/pekka`
+- [x] `/arena/high-arenas/royal-giant`
+- [x] `/arena/high-arenas/sparky`
+- [x] `/arena/high-arenas/balloon`
+
+**待提交（3/31）：**
+- [ ] `/arena/high-arenas/electro-giant` ← 可选，high-arenas 现为 hub 页
+- [ ] `/arena/high-arenas/x-bow`
+- [ ] `/arena/high-arenas/mega-knight`
+- [ ] `/arena/high-arenas/lava-hound`
+- [ ] `/arena/high-arenas/golem`
+
+---
+
+## 批次 14 — Arena 12-20 独立页面恢复（2026-03-31 结构回退后）
+
+> 背景：arena 12-20 已恢复为独立页面（撤销合并），需要让 Google 重新索引这些独立 URL。
+> 之前的 301 redirect 可能已被 Google 记录，重新提交加速恢复。
+
+**待提交（4/1）：**
+- [ ] `https://crdeckbuilder.top/arena/arena-12`
+- [ ] `https://crdeckbuilder.top/arena/arena-13`
+- [ ] `https://crdeckbuilder.top/arena/arena-14`
+- [ ] `https://crdeckbuilder.top/arena/arena-15`
+- [ ] `https://crdeckbuilder.top/arena/arena-16`
+- [ ] `https://crdeckbuilder.top/arena/arena-17`
+- [ ] `https://crdeckbuilder.top/arena/arena-18`
+- [ ] `https://crdeckbuilder.top/arena/arena-19`
+- [ ] `https://crdeckbuilder.top/arena/arena-20`
