@@ -16,9 +16,9 @@ if (fs.existsSync(envPath)) {
 const API_KEY = process.env.CLASH_ROYALE_API_KEY ?? "";
 const BASE_URL = "https://api.clashroyale.com/v1";
 const REQUEST_DELAY_MS = 200;
-const MIN_DECK_COUNT = 5;
+const MIN_DECK_COUNT = 15;
 const DECKS_PER_ARENA = 45;
-const TOP_PLAYERS_PER_REGION = 50;
+const TOP_PLAYERS_PER_REGION = 200;
 const BAYESIAN_M = 20; // Bayesian average: credibility threshold
 const USE_RATE_WEIGHT = 0.3; // Weight for use rate in final ranking score
 
@@ -39,6 +39,21 @@ const LOCATION_IDS = [
   57000124, // South Korea
   57000207, // Turkey
   57000183, // Russia
+  57000070, // United Kingdom
+  57000138, // Mexico
+  57000107, // Indonesia
+  57000100, // India
+  57000170, // Philippines
+  57000191, // Spain
+  57000005, // Argentina
+  57000050, // Canada
+  57000174, // Poland
+  57000023, // Australia
+  57000199, // Thailand
+  57000097, // Italy
+  57000153, // Netherlands
+  57000066, // Colombia
+  57000209, // Ukraine
 ];
 
 // ── Types ───────────────────────────────────────────────────────────────────
@@ -114,6 +129,15 @@ interface RankingPlayer {
 async function fetchTopPlayers(locationId: number): Promise<string[]> {
   const data = await apiFetch<{ items: RankingPlayer[] }>(
     `/locations/${locationId}/pathoflegend/players?limit=${TOP_PLAYERS_PER_REGION}`
+  );
+  if (!data?.items) return [];
+  return data.items.map((p) => p.tag);
+}
+
+// ── Fetch top players from Trophy Road rankings ─────────────────────────────
+async function fetchTopPlayersLadder(locationId: number): Promise<string[]> {
+  const data = await apiFetch<{ items: RankingPlayer[] }>(
+    `/locations/${locationId}/rankings/players?limit=${TOP_PLAYERS_PER_REGION}`
   );
   if (!data?.items) return [];
   return data.items.map((p) => p.tag);
@@ -298,13 +322,18 @@ async function main() {
   const allCards: Card[] = JSON.parse(fs.readFileSync(cardsPath, "utf-8"));
   console.log(`Loaded ${allCards.length} cards`);
 
-  // 1. Collect unique player tags from all regions
+  // 1. Collect unique player tags from all regions (Path of Legend + Trophy Road)
   console.log("Fetching top players from leaderboards...");
   const allTags = new Set<string>();
   for (const locId of LOCATION_IDS) {
-    const tags = await fetchTopPlayers(locId);
-    tags.forEach((t) => allTags.add(t));
-    console.log(`  Location ${locId}: ${tags.length} players`);
+    const polTags = await fetchTopPlayers(locId);
+    polTags.forEach((t) => allTags.add(t));
+    console.log(`  Location ${locId} (PoL): ${polTags.length} players`);
+    await sleep(REQUEST_DELAY_MS);
+
+    const ladderTags = await fetchTopPlayersLadder(locId);
+    ladderTags.forEach((t) => allTags.add(t));
+    console.log(`  Location ${locId} (Ladder): ${ladderTags.length} players`);
     await sleep(REQUEST_DELAY_MS);
   }
   console.log(`Total unique players: ${allTags.size}`);
@@ -313,14 +342,17 @@ async function main() {
   console.log("Fetching battle logs...");
   const allBattles: Battle[] = [];
   let i = 0;
+  let failedBattleLogs = 0;
   for (const tag of allTags) {
     i++;
     if (i % 50 === 0) console.log(`  Progress: ${i}/${allTags.size}`);
     const battles = await fetchBattleLog(tag);
+    if (battles.length === 0) failedBattleLogs++;
     allBattles.push(...battles);
     await sleep(REQUEST_DELAY_MS);
   }
   console.log(`Total battles collected: ${allBattles.length}`);
+  console.log(`Failed/empty battle logs: ${failedBattleLogs}/${allTags.size}`);
 
   // 3. Aggregate
   console.log("Aggregating deck stats...");

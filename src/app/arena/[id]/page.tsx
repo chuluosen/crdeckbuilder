@@ -106,8 +106,8 @@ export default async function ArenaPage({ params }: Props) {
         Best Clash Royale Decks for Arena {arena.id} — {arena.name}
       </h1>
       <p className="text-gray-400 mb-4">
-        Top {decks.length} meta decks for Arena {arena.id} ({arena.name}, {arena.trophies}+ trophies),
-        ranked by win rate and usage stats.
+        {decks.length} winning decks you can build at Arena {arena.id} ({arena.name}, {arena.trophies}+ trophies).
+        Proven in competitive play, filtered to cards available at this arena.
       </p>
 
       {decks.length === 0 ? (
@@ -132,23 +132,24 @@ export default async function ArenaPage({ params }: Props) {
         <>
           <p className="text-gray-500 text-sm mb-6">
             Arena {arena.id} ({arena.name}) unlocks at {arena.trophies} trophies.
-            Below are {decks.length} proven decks that perform well at this trophy range.
-            Each deck includes win rates, usage stats, and average elixir cost to help
-            you pick the right strategy.
+            Below are {decks.length} proven decks using only cards available at this arena,
+            sourced from high-level competitive play and ranked by win rate.
+            Use the card filter above to find decks matching your collection.
             {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
           </p>
 
           {/* Evidence block */}
           <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 mb-4">
             <p className="text-xs text-gray-300 mb-1">
-              <strong className="text-yellow-400">Data Source:</strong> Top Path of Legend players.
+              <strong className="text-yellow-400">Data Source:</strong> Top-ranked players from Path of Legend and Trophy Road across {DECK_METADATA?.regions || 25}+ regions.
               {DECK_METADATA && ` Based on ${DECK_METADATA.totalBattles.toLocaleString()} matches from ${DECK_METADATA.totalPlayers.toLocaleString()} players.`}
+              {" "}Decks appear here if all 8 cards are unlockable at or before this arena.
             </p>
             <p className="text-xs text-gray-300 mb-1">
               <strong className="text-yellow-400">Last Updated:</strong> {DECK_METADATA?.lastUpdated ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Recently'}
             </p>
             <p className="text-xs text-gray-400">
-              Decks ranked using Bayesian average. Win rates reflect high-level play.
+              Decks ranked using Bayesian average. Win rates reflect high-level competitive play, not this specific trophy range.
             </p>
           </div>
 

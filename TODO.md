@@ -298,12 +298,38 @@
 - [ ] 卡组对比功能（选两套卡组对比费用/卡牌差异）
 
 **数据信任度（P1）**
-- [ ] 添加数据更新时间戳（"Updated: March 2026"）— 已有 evidence block，需确认每个页面都显示
-- [ ] 展示样本量，增强数据可信度 — DeckCard 已显示 sample size，确认覆盖率
+- [x] 添加数据更新时间戳（"Updated: March 2026"）— 已有 evidence block，需确认每个页面都显示
+- [x] 展示样本量，增强数据可信度 — DeckCard 已显示 sample size，确认覆盖率
+- [x] 修正 arena 页面措辞，不再暗示"为该杯段优化"，明确说明数据来自高水平对局、按卡牌可用性分配
+- [x] 扩大采样：TOP_PLAYERS_PER_REGION 50→200，地区 10→25，双榜采样（Path of Legend + Trophy Road），MIN_DECK_COUNT 5→15
+
+**数据管线升级（P2 — 未来）**
+- [ ] **按杯段 Clan 采样**：通过 CR API 搜索不同杯段的公会（如 4000-5000、5000-6000 杯），取成员列表，抓战斗日志，获取真正的中低段数据。API 调用量较大，需评估配额
+- [ ] **数据累积策略**：每次跑脚本不覆盖旧数据，而是合并（存 raw-deck-stats.json 保留原始 wins/losses/total），让数据越跑越厚
+- [ ] **觉醒（Evolutions）信息**：CR API battle log 返回觉醒数据，可标注卡组中哪些卡应觉醒
+- [ ] **皇家塔部队（Tower Troops）**：独立于 8 卡卡组的机制，考虑是否值得覆盖
 
 **工具体验优化（P2）**
 - [ ] 可替换卡牌建议（基于数据：同 arena 可用的相似费用/定位卡牌）
 - [ ] 按时间范围切换数据（本周/本月 meta）
+
+### 优先级 2.8：Google Trends 热词抓取（pytrends）
+
+> 来源：哥飞教程推荐 + 社群分享（2026-04-09）
+> 工具：[pytrends](https://github.com/GeneralMills/pytrends) — 模拟浏览器请求 Google Trends 的 Python 开源库
+> 状态：待做，当前 CTR 优化优先级更高，后续再集成
+
+**用途**：
+- 输入 CR 相关词根，抓取最近 7 天 rising queries，发现新的页面机会
+- 验证 programmatic SEO 选题是否有真实搜索需求
+- 捕捉新赛季/新卡发布带来的爆发性搜索，提前发布内容抢排名
+
+**待做**：
+- [ ] 安装 pytrends，写独立 Python 脚本抓取 CR 相关 rising queries
+- [ ] 测试词根：`clash royale deck 2026`, `clash royale best cards`, `clash royale arena`, `clash royale tier list`, `cr deck builder`
+- [ ] 做好限流（请求间隔 10-30 秒），避免 429
+- [ ] 评估是否值得做成定期任务（cron job）
+- [ ] 如 pytrends 不稳定，评估付费替代方案（DataForSEO API）
 
 ### 优先级 3：提升内容质量
 - [x] 按卡牌解锁 arena 过滤卡组，让每个 arena 页面内容真正不同
@@ -318,6 +344,7 @@
 - [ ] 改进卡牌展示样式（稀有度颜色区分）
 - [ ] Arena 页面加 arena 图标/背景
 - [ ] 移动端适配优化
+- [ ] **收藏资源**：[designprompts.dev](https://www.designprompts.dev/) — AI 驱动的设计风格浏览器（31+ 种 UI 风格 + 提示词）。等流量稳定（500+ UV/天）且工具功能完善后，可用作 UI 重构的灵感参考。
 
 ### 优先级 5：变现
 - [ ] **立即申请 Google AdSense**（2026-03-31 决定提前申请，审核 2-4 周，不影响其他工作）
