@@ -14,6 +14,11 @@ const HOME_FAQS = [
       "Our deck data reflects the current Clash Royale meta. We track win rates and usage statistics across arenas to make sure the recommendations stay relevant after each balance update.",
   },
   {
+    question: "Can I filter decks by the cards I own?",
+    answer:
+      "Yes! Each arena page has an interactive card filter. Select the cards you own, and the tool instantly shows three categories: decks you can build right now, decks where you're missing just 1 card, and decks where you're missing 2 cards. Your selections are saved automatically so you don't have to re-select next time.",
+  },
+  {
     question: "Can I find decks for a specific card?",
     answer:
       "Yes. Each arena page has a \"Browse Decks by Card\" section where you can filter decks by popular win conditions like Hog Rider, P.E.K.K.A, Giant, Balloon, and more.",
@@ -50,9 +55,25 @@ export default function Home() {
           Clash Royale Deck Builder
         </h1>
         <p className="text-gray-400">
-          Find the best Clash Royale decks for every arena. Browse top-performing
-          decks with win rates and usage stats to climb the ladder faster.
+          Find Clash Royale decks you can actually build. Select your arena,
+          filter by cards you own, and copy deck links to import directly into the game.
         </p>
+      </section>
+
+      <section className="mb-10">
+        <div className="bg-gray-800 border-2 border-yellow-500 rounded-lg p-6 text-center">
+          <h2 className="text-2xl font-bold text-white mb-2">
+            Find Decks You Can Actually Build
+          </h2>
+          <p className="text-gray-300 mb-4 max-w-lg mx-auto">
+            Select your arena, check the cards you own, and instantly see which
+            winning decks are available to you right now. Your selections are
+            saved automatically.
+          </p>
+          <p className="text-yellow-400 font-medium">
+            Pick your arena below to get started
+          </p>
+        </div>
       </section>
 
       <section className="mb-10">
@@ -107,17 +128,17 @@ export default function Home() {
             </p>
           </div>
           <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-            <div className="text-yellow-400 font-bold text-lg mb-1">2. Browse Top Decks</div>
+            <div className="text-yellow-400 font-bold text-lg mb-1">2. Select Your Cards</div>
             <p className="text-gray-400 text-sm">
-              See the best decks for your arena ranked by win rate. Each deck shows
-              card images, average elixir cost, and usage stats.
+              Check the cards you own from the interactive card grid. Your
+              selections are saved automatically — no account needed.
             </p>
           </div>
           <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
-            <div className="text-yellow-400 font-bold text-lg mb-1">3. Filter by Card</div>
+            <div className="text-yellow-400 font-bold text-lg mb-1">3. Find Your Decks</div>
             <p className="text-gray-400 text-sm">
-              Want to build around a specific card? Browse decks by popular win
-              conditions like Hog Rider, P.E.K.K.A, Giant, and more.
+              Instantly see decks you can build now, decks missing just 1 card,
+              and decks missing 2 cards. Copy any deck link to import it into the game.
             </p>
           </div>
         </div>

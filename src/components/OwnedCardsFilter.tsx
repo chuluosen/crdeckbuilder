@@ -42,8 +42,8 @@ function categorizeDecks(
 
 export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
   const [mounted, setMounted] = useState(false);
-  const [filterActive, setFilterActive] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [filterActive, setFilterActive] = useState(true);
+  const [expanded, setExpanded] = useState(true);
   const [ownedCardNames, setOwnedCardNames] = useState<Set<string>>(new Set());
 
   // Cards available at this arena, grouped by rarity

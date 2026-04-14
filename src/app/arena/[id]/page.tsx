@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const decks = getDecksForArena(arena.id, allCards);
 
   return {
-    title: `Best Arena ${arena.id} Decks (${arena.name}) - Clash Royale ${new Date().getFullYear()}`,
-    description: `Best Clash Royale decks for Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies). Top meta decks ranked by win rate and usage stats. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
+    title: `Best Arena ${arena.id} Decks (${arena.name}) — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
+    description: `Find Clash Royale decks you can build in Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies). Filter by cards you own, see what you can build now, and copy deck links to import into the game. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },
