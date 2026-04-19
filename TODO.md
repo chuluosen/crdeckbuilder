@@ -1,24 +1,38 @@
 # CR Deck Builder TODO
 
-## 当前策略（2026-03-31 更新）
+## 当前策略（2026-04-18 更新）
 
 > **核心转变**：从"外链优先冲排名"转为"先修漏桶再灌水"。
 > dbs 商业诊断 + Gemini 交叉验证结论：arena 页跳出率 67%、停留 6 秒，说明页面缺乏留住用户的工具功能。把一个漏桶推上第1页，用户秒退，Pogo-sticking 信号反而伤排名。
 >
-> **新优先级**：
-> - P0：工具功能（「我有哪些卡」过滤 ✅ 已上线） → 接下来做排序/筛选
-> - P1：内容差异化（New Cards + New Decks 区块 ✅ 已上线）
-> - P1.5：低强度外链维持（每天 10 分钟，不再猛推）
-> - P2：观察停留时间数据改善后，再放大外链投入
-> - Adsense：提前申请，审核期间继续优化
+> **4/18 数据复盘结论**：
+> - 排名大幅改善：arena-14 位置 7.7、arena-17 位置 9.4（从 23）、arena-18 位置 10.7（从 26），说明工具功能 + 内容差异化策略生效
+> - 但 CTR 仅 0.35%（展示量 400/天，点击 ~1.4/天），title/meta 优化是当前最高 ROI 动作
+> - 真实日均访客约 4 人（GA4 Direct 流量 72% 为 bot，需排除）
+> - **新增长渠道**：ChatGPT 引荐 7 个会话/周，Bing 用户质量最高（停留 128 秒）
+> - **发现同名竞品**：crdeckbuilder.com（Yogesh Singh），已有 AdSense + 更完整功能，品牌冲突风险
+> - 停留时间数据因样本量太小（日均 <20 会话）暂无统计意义，不作为判断依据
 >
-> **AI 冲击评估**：站已从"纯信息聚合"升级为"交互式工具站"。「我有哪些卡」过滤是 AI Overview 无法替代的个性化服务。方向正确，继续加强工具属性。
+> **新优先级**：
+> - P0：AdSense 前置条件（About + Contact 页面）
+> - P1：让页面能被 AI 引用（arena 页顶部加答案摘要块）+ 标题优化（冲首页）
+> - P2：工具功能（排序/筛选）
+> - P3：低强度外链维持（每天 10 分钟）+ Quora/Medium 各发一篇
+> - Adsense：P0 做完后立即申请
+>
+> **AI 搜索评估（GPT-5 Pro 调研 2026-04-18）**：
+> - ChatGPT 已开始引荐本站（7 会话/周），但在通用 query（"best deck for arena 15"）候选池里未出现
+> - 关键瓶颈：页面缺少"可直接被 AI 抽取为答案"的摘要块
+> - OAI-SearchBot / PerplexityBot 未被 robots.txt 屏蔽（✅ 已确认）
+> - 竞品天花板很高：RoyaleAPI ~9M/月、Deck Shop ~3M/月
+> - FAQ rich result 对游戏站无效，不再优化；重点做 BreadcrumbList
 
 ## 每天 1 小时执行清单（从 3/22 开始）
 
 > 原则：每天只做 1 件事，做完打勾关电脑。不跳层，不建新站，先验证 CR 站。
-> 阶段性目标：**4 月中观察停留时间是否从 6 秒提升到 30 秒+**（验证工具功能有效）
-> 什么时候考虑新站：① 停留时间改善 + arena-15 进首页，验证了 SOP；② 发现爆发中的新词机会，当天上线。
+> ~~阶段性目标：4 月中观察停留时间是否从 6 秒提升到 30 秒+~~（2026-04-18 结论：日均 <20 会话时停留时间无统计意义，改为观察 GSC 排名和 CTR）
+> 新阶段性目标：**5 月中前 arena-14/17/18 进入 Google 首页 + CTR 提升到 1%+**
+> 什么时候考虑新站：① CTR 改善 + 3 个 arena 页进首页，验证了 SOP；② 发现爆发中的新词机会，当天上线。
 
 ### 每日固定动作（前 10 分钟）
 
@@ -98,6 +112,11 @@
 - [x] **Arena 12-20 恢复独立页面**（2026-03-31）— 撤销合并，每个 arena 独立 URL + sitemap 收录。用 middleware rewrite 绕过 Vercel CDN 旧 301 缓存
 - [x] **每个 Arena 页内容差异化**（2026-03-31）— 添加"New Cards Unlocked"和"New Decks at Arena X"区块，每个页面有独特内容
 - [x] **过滤器位置优化**（2026-03-31）— Filter by My Cards 移到 evidence block 下方，用户进页面即可看到
+- [x] **AdSense 前置页面**（2026-04-19）— About + Contact 页面上线，Footer 加导航链接，Privacy Policy 补 AdSense 声明，Cookie Consent 弹窗
+- [x] **AI 答案摘要块**（2026-04-19）— ArenaSummary 组件，自然语言模板，20 个 arena 页自动生成，数据更新时自动刷新
+- [x] **FAQ Schema 数据驱动**（2026-04-19）— 注入 top deck 胜率/卡牌名 + 热门卡牌，喂 Google 和 AI 搜索
+- [x] **标题结果导向优化**（2026-04-19）— arena 名字替换为胜率数据（如 "80%+ Win Rate"），差异化竞品
+- [x] **品牌冲突决策**（2026-04-19）— 选方案 B（强化差异化定位），不换域名
 
 ## 月度 & 周目标路线图
 
@@ -116,6 +135,21 @@
 - W3-W4：根据数据决定下一步工具功能（排序/筛选 or 卡组对比）
 - 低强度外链维持（每天 10 分钟）
 - 月底目标：停留时间改善 + Adsense 审核通过
+- **4/18 进展**：
+  - ✅ 排名大幅改善（arena-14: 7.7, arena-17: 9.4, arena-18: 10.7）
+  - ✅ ChatGPT 开始引荐（7 会话/周）
+  - ❌ AdSense 未申请（缺 About + Contact 页面）
+  - ❌ 停留时间数据无法判断（样本量不足）
+  - ⚠️ 发现同名竞品 crdeckbuilder.com（品牌冲突风险）
+  - ~~剩余本月任务：① 加 About + Contact 页 → ② 申请 AdSense → ③ arena 页加答案摘要块 → ④ 标题优化~~
+- **4/19 进展**：
+  - ✅ About + Contact 页面上线，Footer 加导航链接
+  - ✅ Privacy Policy 补充 AdSense 广告 Cookie 声明 + Cookie Consent 弹窗
+  - ✅ 每个 arena 页顶部加自然语言 AI 答案摘要块（ArenaSummary 组件）
+  - ✅ FAQ Schema 升级为数据驱动（注入 top deck 胜率 + 热门卡牌）
+  - ✅ 标题优化：arena 名字替换为胜率数据（结果导向）
+  - ✅ 品牌冲突决策：选方案 B（差异化定位），不换名
+  - 剩余：① 申请 AdSense → ② 检查 Bing AI Performance → ③ 两周后观察 CTR 变化
 
 ### 2026 年 5-6 月 — 根据验证结果决定方向
 - 停留时间改善 → 放大外链投入，用同样 SOP 推其他页面
@@ -151,7 +185,33 @@
 
 ## 待做
 
-### 优先级 0：外链建设前置条件（本周先做完）
+### 优先级 0：AdSense 前置条件 + 品牌问题（~~本周做完~~ ✅ 2026-04-19 完成）
+
+**必须做（挡 AdSense 审核）**
+- [x] 添加 **About 页面**（/about）：介绍网站、数据来源、开发者信息（2026-04-19）
+- [x] 添加 **Contact 页面**（/contact）：联系邮箱（2026-04-19）
+- [x] Footer 添加 About · Contact · Privacy Policy 导航链接（2026-04-19）
+- [x] Privacy Policy 补充 Google AdSense 广告 Cookie 声明（2026-04-19）
+- [x] 接入 Cookie Consent 弹窗（GDPR/CCPA 合规，localStorage 记忆用户选择）（2026-04-19）
+- [ ] 可选：添加 Terms of Service 页面
+- [ ] **立即申请 AdSense**（前置条件已全部满足）
+
+**品牌冲突（已决策 ✅）**
+- [x] crdeckbuilder.com 同名竞品 → 选择方案 B：在 title 里强化差异化（"80%+ Win Rate" + "Filter by Your Cards"），不换品牌名
+  - 排除方案 A（不管）：需要主动差异化，否则品牌搜索永远排他后面
+  - 排除方案 C（换名）：已有 GSC 排名积累 + ChatGPT 引荐，换域名代价太大
+
+### 优先级 0.3：AI 搜索引荐优化（~~4/18 GPT-5 Pro 调研结论~~ ✅ 2026-04-19 完成）
+
+> 来源：GPT-5 Pro 调研 + GA4 数据（7 个 chatgpt.com 引荐/周）
+> 核心发现：页面缺少"可被 AI 直接抽取为答案"的摘要块，在通用 query 候选池里未出现
+
+- [x] **每个 arena 页顶部加答案摘要块**（2026-04-19）：ArenaSummary 组件，自然语言模板，从 generated-decks.json 自动生成 Top 3 牌组 + 高频卡牌 + 费用 + trophy 区间 + 更新时间。"为什么强/怕什么/替代卡"暂不做（需游戏领域知识，性价比低）
+- [x] **标题优化**（2026-04-19）：`Best Arena X Decks (80%+ Win Rate) — Filter by Your Cards | 2026`，用胜率数据替换 arena 名字，结果导向吸引点击
+- [x] **FAQ Schema 升级为数据驱动**（2026-04-19）：注入 top deck 卡牌名/胜率 + 热门卡牌，同时喂 Google 传统搜索和 AI 搜索
+- [ ] 检查 Bing Webmaster Tools 的 AI Performance 面板（看哪些页面被 AI answers 引用）
+
+### ~~优先级 0（旧）：外链建设前置条件~~（已全部完成 ✅）
 
 **收录确认**
 - [x] `site:crdeckbuilder.top` 检查 Google 当前收录了多少页面（结果：仅 2 页，135 页待收录）
