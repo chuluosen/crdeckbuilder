@@ -11,7 +11,7 @@ export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto py-8 space-y-6 text-gray-300">
       <h1 className="text-3xl font-bold text-white">Privacy Policy</h1>
-      <p className="text-sm text-gray-500">Last updated: March 4, 2026</p>
+      <p className="text-sm text-gray-500">Last updated: April 19, 2026</p>
 
       <section className="space-y-2">
         <h2 className="text-xl font-semibold text-white">Overview</h2>
@@ -84,12 +84,48 @@ export default function PrivacyPage() {
       </section>
 
       <section className="space-y-2">
+        <h2 className="text-xl font-semibold text-white">Advertising</h2>
+        <p>
+          We use Google AdSense to display ads on our site. Google and its
+          advertising partners may use cookies to serve ads based on your
+          prior visits to this site or other websites. Google&apos;s use of
+          advertising cookies enables it and its partners to serve ads based
+          on your visit to this site and/or other sites on the Internet.
+        </p>
+        <p>
+          You may opt out of personalized advertising by visiting{" "}
+          <a
+            href="https://www.google.com/settings/ads"
+            className="text-yellow-400 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Ads Settings
+          </a>
+          . Alternatively, you can opt out of third-party cookies for
+          personalized advertising by visiting{" "}
+          <a
+            href="https://www.aboutads.info/choices/"
+            className="text-yellow-400 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            www.aboutads.info
+          </a>
+          .
+        </p>
+      </section>
+
+      <section className="space-y-2">
         <h2 className="text-xl font-semibold text-white">Cookies</h2>
         <p>
-          Our site uses cookies placed by Google Analytics and Microsoft Clarity for
-          analytics purposes only. We do not use cookies for advertising or to track
-          you across other websites. You can disable cookies in your browser settings
-          at any time.
+          Our site uses cookies placed by Google Analytics, Microsoft Clarity,
+          and Google AdSense. These cookies are used for analytics, user
+          experience research, and serving relevant advertisements. Third-party
+          vendors, including Google, use cookies to serve ads based on your
+          prior visits to this website or other websites. You can disable
+          cookies in your browser settings or opt out of personalized
+          advertising as described above.
         </p>
       </section>
 

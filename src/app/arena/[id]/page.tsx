@@ -10,6 +10,7 @@ import Link from "next/link";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
 import { CardLink } from "@/components/CardLink";
+import { ArenaSummary } from "@/components/ArenaSummary";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -27,9 +28,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const allCards = await fetchAllCards();
   const decks = getDecksForArena(arena.id, allCards);
 
+  const topDeck = [...decks]
+    .filter((d) => d.winRate !== undefined)
+    .sort((a, b) => (b.winRate ?? 0) - (a.winRate ?? 0))[0];
+  const topWinRate = topDeck ? `${Math.round(topDeck.winRate ?? 0)}%+ Win Rate` : "";
+
   return {
-    title: `Best Arena ${arena.id} Decks (${arena.name}) — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
-    description: `Find Clash Royale decks you can build in Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies). Filter by cards you own, see what you can build now, and copy deck links to import into the game. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
+    title: topWinRate
+      ? `Best Arena ${arena.id} Decks (${topWinRate}) — Filter by Your Cards | ${new Date().getFullYear()}`
+      : `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
+    description: `${decks.length} proven Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies)${topWinRate ? `, top deck at ${topWinRate.replace('+ Win Rate', '')} win rate` : ''}. Filter by cards you own and copy deck links to import. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },
@@ -71,14 +79,43 @@ export default async function ArenaPage({ params }: Props) {
     ? ARENAS.find((a) => a.id === arenaIdsWithDecks[0]) ?? null
     : null;
 
+  // Top decks + popular cards for FAQ Schema and summary
+  const top3Decks = [...decks]
+    .filter((d) => d.winRate !== undefined)
+    .sort((a, b) => (b.winRate ?? 0) - (a.winRate ?? 0))
+    .slice(0, 3);
+
+  const cardFreq = new Map<string, number>();
+  for (const deck of decks) {
+    for (const card of deck.cards) {
+      cardFreq.set(card.name, (cardFreq.get(card.name) || 0) + 1);
+    }
+  }
+  const topPopularCards = [...cardFreq.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name]) => name);
+
+  const topDeckAnswer = top3Decks.length > 0
+    ? `As of ${DECK_METADATA?.lastUpdated ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'recently'}, the best performing deck for Arena ${arena.id} features ${top3Decks[0].cards.sort((a, b) => b.elixirCost - a.elixirCost).slice(0, 3).map(c => c.name).join(', ')} and other cards, with a ${(top3Decks[0].winRate ?? 0).toFixed(1)}% win rate${top3Decks[0].sampleSize ? ` over ${top3Decks[0].sampleSize} matches` : ''}. We track ${decks.length} proven decks for this arena.`
+    : `We found ${decks.length} top-performing decks for Arena ${arena.id} (${arena.name}), based on current meta win rates and usage statistics.`;
+
+  const popularCardsAnswer = topPopularCards.length > 0
+    ? `The most popular cards in Arena ${arena.id} (${arena.name}) right now are ${topPopularCards.join(', ')}. These cards appear most frequently across ${decks.length} competitive decks in the ${arena.trophies}+ trophy range.`
+    : `Popular cards vary based on the current meta. Check back for updated statistics.`;
+
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: `Arena ${arena.id}`, path: `/arena/${arena.slug}` },
   ]);
   const faqSchema = buildFaqSchema([
     {
-      question: `What are the best decks for Arena ${arena.id}?`,
-      answer: `We found ${decks.length} top-performing decks for Arena ${arena.id} (${arena.name}). These decks are optimized for ${arena.trophies}+ trophies and are based on current meta win rates and usage statistics.`,
+      question: `What is the highest win rate deck for Arena ${arena.id} in Clash Royale?`,
+      answer: topDeckAnswer,
+    },
+    {
+      question: `What are the most popular cards in Clash Royale Arena ${arena.id}?`,
+      answer: popularCardsAnswer,
     },
     {
       question: `How many trophies do I need for Arena ${arena.id}?`,
@@ -109,6 +146,13 @@ export default async function ArenaPage({ params }: Props) {
         {decks.length} winning decks you can build at Arena {arena.id} ({arena.name}, {arena.trophies}+ trophies).
         Proven in competitive play, filtered to cards available at this arena.
       </p>
+
+      <ArenaSummary
+        arenaId={arena.id}
+        arenaName={arena.name}
+        trophies={arena.trophies}
+        decks={decks}
+      />
 
       {decks.length === 0 ? (
         <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center mb-8">
