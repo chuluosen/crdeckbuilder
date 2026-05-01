@@ -31,13 +31,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topDeck = [...decks]
     .filter((d) => d.winRate !== undefined)
     .sort((a, b) => (b.winRate ?? 0) - (a.winRate ?? 0))[0];
-  const topWinRate = topDeck ? `${Math.round(topDeck.winRate ?? 0)}%+ Win Rate` : "";
+  const dataUpdatedMonth = DECK_METADATA?.lastUpdated
+    ? new Date(DECK_METADATA.lastUpdated).toLocaleString("en-US", {
+        month: "long",
+        year: "numeric",
+      })
+    : new Date().toLocaleString("en-US", { month: "long", year: "numeric" });
+  const topDeckContext = topDeck
+    ? ` Top deck currently shows ${Math.round(topDeck.winRate ?? 0)}% win rate${topDeck.sampleSize ? ` across ${topDeck.sampleSize} recorded matches` : ""}.`
+    : "";
 
   return {
-    title: topWinRate
-      ? `Best Arena ${arena.id} Decks (${topWinRate}) — Filter by Your Cards | ${new Date().getFullYear()}`
-      : `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
-    description: `${decks.length} proven Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies)${topWinRate ? `, top deck at ${topWinRate.replace('+ Win Rate', '')} win rate` : ''}. Filter by cards you own and copy deck links to import. Updated ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}.`,
+    title: `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
+    description: `${decks.length} Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies), ranked by win rate, usage, and sample size.${topDeckContext} Filter by cards you own and copy deck links to import. Updated ${dataUpdatedMonth}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ARENAS } from "@/lib/data";
 import { fetchAllCards } from "@/lib/api";
-import { getDecksForArenaCard, getAllArenaCardPairs } from "@/lib/decks";
+import { getDecksForArenaCard, getAllArenaCardPairs, DECK_METADATA } from "@/lib/decks";
 import { getCardBySlug, cardNameToSlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
@@ -61,6 +61,14 @@ export default async function ArenaCardPage({ params }: Props) {
 
   const cardAppearances = decks.length;
   const avgWinRate = decks.reduce((sum, d) => sum + (d.winRate ?? 0), 0) / (decks.length || 1);
+  const totalSampleSize = decks.reduce((sum, d) => sum + (d.sampleSize ?? 0), 0);
+  const dataUpdated = DECK_METADATA?.lastUpdated
+    ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "recently";
   const cardArenaContent = getCardArenaContent(cardData, arena.id, arena.name, decks);
 
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -71,11 +79,11 @@ export default async function ArenaCardPage({ params }: Props) {
   const faqSchema = buildFaqSchema([
     {
       question: `What are the best ${cardData.name} decks for Arena ${arena.id}?`,
-      answer: `We found ${decks.length} top-performing decks featuring ${cardData.name} for Arena ${arena.id} (${arena.name}). These decks are based on current meta win rates and usage statistics.`,
+      answer: `We found ${decks.length} top-performing decks featuring ${cardData.name} for Arena ${arena.id} (${arena.name}). These decks are ranked by win rate, usage, and sample size from recorded top ladder battles.`,
     },
     {
       question: `Is ${cardData.name} good in Arena ${arena.id}?`,
-      answer: `${cardData.name} appears in ${cardAppearances} top decks for Arena ${arena.id} (${arena.name}) with an average win rate of ${avgWinRate.toFixed(1)}%.`,
+      answer: `${cardData.name} appears in ${cardAppearances} top decks for Arena ${arena.id} (${arena.name}) with an average recorded win rate of ${avgWinRate.toFixed(1)}%${totalSampleSize > 0 ? ` across ${totalSampleSize.toLocaleString()} matches` : ""}.`,
     },
   ]);
 
@@ -102,14 +110,14 @@ export default async function ArenaCardPage({ params }: Props) {
       </h1>
       <p className="text-gray-400 mb-4">
         Top {decks.length} decks featuring {cardData.name} for {arena.name} ({arena.trophies}+ trophies).
-        These decks are based on current meta win rates and usage statistics.
+        These decks are ranked by win rate, usage, and sample size from recorded top ladder battles.
       </p>
       <p className="text-gray-500 text-sm mb-6">
         {cardData.name} is a {cardData.elixirCost}-elixir {cardData.rarity} card that appears
         in {cardAppearances} top-performing decks for Arena {arena.id}.
-        Across these decks, {cardData.name} achieves an average win rate
-        of {avgWinRate.toFixed(1)}%, making it a {avgWinRate >= 55 ? "strong" : "solid"} pick
-        at the {arena.trophies}+ trophy range.
+        Across these recorded decks, {cardData.name} has an average win rate
+        of {avgWinRate.toFixed(1)}%{totalSampleSize > 0 ? ` across ${totalSampleSize.toLocaleString()} matches` : ""}, making it a {avgWinRate >= 55 ? "strong" : "solid"} pick
+        for players who have it unlocked.
       </p>
 
       {/* Card info */}
@@ -127,9 +135,19 @@ export default async function ArenaCardPage({ params }: Props) {
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mb-4 italic">
-        Data based on top ladder player battles. Win rates reflect high-level play; consider usage rate and sample size when evaluating decks.
-      </p>
+      <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 mb-4 text-xs text-gray-400 space-y-1">
+        <p>
+          <strong className="text-yellow-400">Data Source:</strong> recorded top ladder player battles from the official Clash Royale API.
+          {DECK_METADATA && ` This dataset includes ${DECK_METADATA.totalBattles.toLocaleString()} matches from ${DECK_METADATA.totalPlayers.toLocaleString()} players.`}
+        </p>
+        <p>
+          <strong className="text-yellow-400">Last Updated:</strong> {dataUpdated}
+          {totalSampleSize > 0 && ` · ${totalSampleSize.toLocaleString()} recorded matches across these ${cardData.name} decks`}
+        </p>
+        <p>
+          Decks are ranked using Bayesian average. Win rates reflect high-level competitive play and may not match every trophy range or player skill level.
+        </p>
+      </div>
 
       <div className="space-y-4 mb-8">
         {decks.map((deck, i) => (

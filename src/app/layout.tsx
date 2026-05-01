@@ -59,6 +59,8 @@ export default function RootLayout({
             {" · "}
             <a href="/contact" className="hover:text-yellow-400">Contact</a>
             {" · "}
+            <a href="/terms" className="hover:text-yellow-400">Terms</a>
+            {" · "}
             <a href="/privacy" className="hover:text-yellow-400">Privacy Policy</a>
           </p>
         </footer>

@@ -7,6 +7,7 @@ import cardsData from "@/lib/cards.json";
 const BASE_URL = "https://crdeckbuilder.top";
 const FALLBACK_LAST_MODIFIED = {
   home: "2026-02-23",
+  terms: "2026-05-01",
   arena: "2026-02-23",
   card: "2026-02-23",
 } as const;
@@ -106,6 +107,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: homeLastModified,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${BASE_URL}/terms`,
+      lastModified: FALLBACK_LAST_MODIFIED.terms,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     ...arenaPages,
     ...arenaCardPages,
