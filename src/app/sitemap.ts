@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { execSync } from "node:child_process";
 import { ARENAS, Card } from "@/lib/data";
-import { getAllArenaCardPairs, getArenaIdsWithDecks } from "@/lib/decks";
+import { getAllArenaCardPairs, getArenaIdsWithDecks, getHighArenaCardSlugs } from "@/lib/decks";
 import cardsData from "@/lib/cards.json";
 
 const BASE_URL = "https://crdeckbuilder.top";
@@ -101,6 +101,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
+  const highArenaCardPages = getHighArenaCardSlugs()
+    .map((cardSlug) => ({
+      url: `${BASE_URL}/arena/high-arenas/${cardSlug}`,
+      lastModified: cardLastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
   return [
     {
       url: BASE_URL,
@@ -115,6 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     ...arenaPages,
+    ...highArenaCardPages,
     ...arenaCardPages,
   ];
 }

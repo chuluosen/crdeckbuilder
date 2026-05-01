@@ -16,6 +16,38 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+const ARENA_CTR_COPY: Record<
+  number,
+  {
+    title: string;
+    description: string;
+    h1: string;
+    intro: string;
+    detail: string;
+  }
+> = {
+  15: {
+    title: "Best Arena 15 Decks 2026 — Clash Royale Miner's Mine Decks",
+    description:
+      "Best Arena 15 decks for Miner's Mine in Clash Royale 2026. Filter by your cards, copy deck links, and compare decks ranked by win rate, usage, and sample size.",
+    h1: "Best Arena 15 Decks for Miner's Mine",
+    intro:
+      "Arena 15 Miner's Mine decks for Clash Royale players who want builds they can actually copy and play.",
+    detail:
+      "These Arena 15 decks focus on reliable win conditions, support cards unlocked by this point, and practical ladder builds instead of generic high-arena lists.",
+  },
+  17: {
+    title: "Best Arena 17 Decks 2026 — Clash Royale Decks You Can Build",
+    description:
+      "Best Arena 17 decks for Clash Royale 2026. Find Royal Crypt decks you can build, filter by owned cards, and compare lists ranked by win rate, usage, and sample size.",
+    h1: "Best Arena 17 Decks for Royal Crypt",
+    intro:
+      "Arena 17 Royal Crypt decks for Clash Royale players pushing through the 6000+ trophy range.",
+    detail:
+      "Use the card filter to narrow the list to decks you can build now, then copy the deck link directly into Clash Royale.",
+  },
+};
+
 export async function generateStaticParams() {
   return ARENAS.map((arena) => ({ id: arena.slug }));
 }
@@ -40,10 +72,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topDeckContext = topDeck
     ? ` Top deck currently shows ${Math.round(topDeck.winRate ?? 0)}% win rate${topDeck.sampleSize ? ` across ${topDeck.sampleSize} recorded matches` : ""}.`
     : "";
+  const ctrCopy = ARENA_CTR_COPY[arena.id];
 
   return {
-    title: `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
-    description: `${decks.length} Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies), ranked by win rate, usage, and sample size.${topDeckContext} Filter by cards you own and copy deck links to import. Updated ${dataUpdatedMonth}.`,
+    title: ctrCopy?.title ?? `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
+    description: ctrCopy?.description ?? `${decks.length} Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies), ranked by win rate, usage, and sample size.${topDeckContext} Filter by cards you own and copy deck links to import. Updated ${dataUpdatedMonth}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
     },
@@ -79,6 +112,7 @@ export default async function ArenaPage({ params }: Props) {
 
   const prevArena = ARENAS.find((a) => a.id === arena.id - 1);
   const nextArena = ARENAS.find((a) => a.id === arena.id + 1);
+  const ctrCopy = ARENA_CTR_COPY[arena.id];
 
   const arenaIdsWithDecks = getArenaIdsWithDecks(allCards);
   const ctaArena = arenaIdsWithDecks.length > 0
@@ -146,11 +180,11 @@ export default async function ArenaPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold mb-1">
-        Best Clash Royale Decks for Arena {arena.id} — {arena.name}
+        {ctrCopy?.h1 ?? `Best Clash Royale Decks for Arena ${arena.id} — ${arena.name}`}
       </h1>
       <p className="text-gray-400 mb-4">
-        {decks.length} winning decks you can build at Arena {arena.id} ({arena.name}, {arena.trophies}+ trophies).
-        Proven in competitive play, filtered to cards available at this arena.
+        {ctrCopy?.intro ?? `${decks.length} winning decks you can build at Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies).`}
+        {" "}{ctrCopy?.detail ?? "Proven in competitive play, filtered to cards available at this arena."}
       </p>
 
       <ArenaSummary
