@@ -27,6 +27,30 @@
 > - 竞品天花板很高：RoyaleAPI ~9M/月、Deck Shop ~3M/月
 > - FAQ rich result 对游戏站无效，不再优化；重点做 BreadcrumbList
 
+## 最新进展（2026-05-02 更新）
+
+> **当前状态**：AdSense 已提交审核；高价值未收录页第一批救援已完成并 push（commit `eaca564`）。短期不做大规模站点结构调整，接下来只观察 GSC 是否重新收录这些重点页。
+>
+> **已完成**：
+> - ✅ AdSense 可信度补丁：新增 Terms、Footer 加 Terms、弱化无证据的 `80%+ Win Rate` 标题、card 页补 `Data Source / Last Updated / sample size / Bayesian average`
+> - ✅ AdSense 审核代码上线：原始 `<script>` 已在 HTML 中可抓取，`/ads.txt` 已返回 200，已在 AdSense 后台请求审核
+> - ✅ CTR 优化：`/arena/arena-17`、`/arena/arena-15`、`/arena/high-arenas/royal-giant` 已上线新版 title/meta/首屏文案
+> - ✅ `high-arenas` 修复：`/arena/high-arenas/royal-giant` 从旧重定向升级为独立页面，并加入 sitemap；旧 `middleware`/rewrite 清理完成
+> - ✅ 第一批高价值 `arena/card` 救援页上线：6 个页面补专属 Playbook、title/meta/H1、数据化支持卡说明
+> - ✅ 内链强化：Arena 16/17/19 主页面增加 `Featured Arena Card Guides`，主动链接救援页
+> - ✅ sitemap 收敛：不再主动提交所有组合页，只保留主 arena 页、高价值救援页和 `/arena/high-arenas/royal-giant`
+>
+> **GSC 最新判断**：
+> - 当前已编入索引约 112，未编入索引约 31；原因主要是 `已抓取 - 尚未编入索引`
+> - 判断：不是技术故障/全站惩罚，而是 Google 对 pSEO 的 `arena/card` 组合页做二次质量筛选
+> - 策略：不追求 143/143 全收录，只救有曝光、排名、明确搜索意图的高价值页面；低价值组合页先观察，必要时移出 sitemap/noindex
+>
+> **下一步优先级**：
+> 1. 等 AdSense 审核结果，不要自己点广告/频繁刷新广告页
+> 2. Vercel 部署完成后，在 GSC 只请求重新抓取 6 个救援页 + `/arena/high-arenas/royal-giant`
+> 3. 观察 2-3 周：是否从 `已抓取 - 尚未编入索引` 进入索引、是否有展现/CTR 改善
+> 4. 如果救援页有效，再决定低价值组合页是否继续从 sitemap 移除、canonical 到 arena 主页面或 noindex
+
 ## 每天 1 小时执行清单（从 3/22 开始）
 
 > 原则：每天只做 1 件事，做完打勾关电脑。不跳层，不建新站，先验证 CR 站。
@@ -94,7 +118,7 @@
 - [x] 每个 Arena 扩充到 12-45 套卡组，附带胜率和使用率
 - [x] Arena + Card 组合长尾页面（78 个页面，覆盖 Hog Rider / P.E.K.K.A / Giant / Balloon × 20 个 Arena）
 - [x] Arena 页面添加 "Browse Decks by Card" 内链区块
-- [x] sitemap 包含所有 arena+card 页面 URL
+- [x] sitemap 策略迭代：早期包含所有 arena+card 页面 URL；2026-05-02 起收敛为主 arena 页 + 高价值救援页，降低薄组合页质量压力
 - [x] 面包屑导航
 - [x] 全站部署上线（原 104 个静态页面）
 - [x] HOT_CARDS 扩展到 14 张卡（去重后实际 135 页：1 首页 + 20 Arena + 114 Arena+Card）
@@ -115,8 +139,11 @@
 - [x] **AdSense 前置页面**（2026-04-19）— About + Contact 页面上线，Footer 加导航链接，Privacy Policy 补 AdSense 声明，Cookie Consent 弹窗
 - [x] **AI 答案摘要块**（2026-04-19）— ArenaSummary 组件，自然语言模板，20 个 arena 页自动生成，数据更新时自动刷新
 - [x] **FAQ Schema 数据驱动**（2026-04-19）— 注入 top deck 胜率/卡牌名 + 热门卡牌，喂 Google 和 AI 搜索
-- [x] **标题结果导向优化**（2026-04-19）— arena 名字替换为胜率数据（如 "80%+ Win Rate"），差异化竞品
+- [x] **标题结果导向优化**（2026-04-19）— 曾测试胜率型标题；2026-05-01 已调整为更稳的关键词匹配 + 数据可信度标题
 - [x] **品牌冲突决策**（2026-04-19）— 选方案 B（强化差异化定位），不换域名
+- [x] **AdSense 可信度与审核提交**（2026-05-01）— Terms + 数据披露 + 原始 AdSense script + ads.txt，上线后已请求审核
+- [x] **优先机会页 CTR 优化**（2026-05-01）— arena-15/17 定制 title/meta/H1；high-arenas/royal-giant 独立页面上线
+- [x] **第一批高价值未收录页救援**（2026-05-02）— 6 个 arena/card 页面补专属 Playbook；Arena 16/17/19 加 Featured Card Guides 内链；sitemap 收敛到重点页
 
 ## 月度 & 周目标路线图
 
@@ -129,7 +156,7 @@
   - ✅ Arena 12-20 恢复独立页面
   - ✅ 每个 Arena 页添加内容差异化区块
 
-### 2026 年 4 月 — 观察数据 + 继续强化工具
+### 2026 年 4 月 — 观察数据 + 继续强化工具 ✅
 - W1：GSC 重新提交 arena 12-20 URL + 申请 Adsense
 - W2：观察停留时间是否改善（目标：6 秒 → 30 秒+）
 - W3-W4：根据数据决定下一步工具功能（排序/筛选 or 卡组对比）
@@ -138,7 +165,9 @@
 - **4/18 进展**：
   - ✅ 排名大幅改善（arena-14: 7.7, arena-17: 9.4, arena-18: 10.7）
   - ✅ ChatGPT 开始引荐（7 会话/周）
-  - ❌ AdSense 未申请（缺 About + Contact 页面）
+  - ✅ 2026-05-01 完成 AdSense 审核提交；审核期间只做正常内容维护，不做大规模结构调整
+  - ✅ 2026-05-01 完成 CTR 优先页优化：arena-15、arena-17、high-arenas/royal-giant
+  - ✅ AdSense 前置页面已完成；2026-05-01 已提交审核
   - ❌ 停留时间数据无法判断（样本量不足）
   - ⚠️ 发现同名竞品 crdeckbuilder.com（品牌冲突风险）
   - ~~剩余本月任务：① 加 About + Contact 页 → ② 申请 AdSense → ③ arena 页加答案摘要块 → ④ 标题优化~~
@@ -193,11 +222,11 @@
 - [x] Footer 添加 About · Contact · Privacy Policy 导航链接（2026-04-19）
 - [x] Privacy Policy 补充 Google AdSense 广告 Cookie 声明（2026-04-19）
 - [x] 接入 Cookie Consent 弹窗（GDPR/CCPA 合规，localStorage 记忆用户选择）（2026-04-19）
-- [ ] 可选：添加 Terms of Service 页面
-- [ ] **立即申请 AdSense**（前置条件已全部满足）
+- [x] 添加 Terms of Service 页面（2026-05-01）
+- [x] **申请 AdSense**（2026-05-01：审核代码 + ads.txt 已上线，已请求审核）
 
 **品牌冲突（已决策 ✅）**
-- [x] crdeckbuilder.com 同名竞品 → 选择方案 B：在 title 里强化差异化（"80%+ Win Rate" + "Filter by Your Cards"），不换品牌名
+- [x] crdeckbuilder.com 同名竞品 → 选择方案 B：在 title/meta 里强化差异化（"Filter by Your Cards" + 数据可信度），不换品牌名
   - 排除方案 A（不管）：需要主动差异化，否则品牌搜索永远排他后面
   - 排除方案 C（换名）：已有 GSC 排名积累 + ChatGPT 引荐，换域名代价太大
 
@@ -207,7 +236,7 @@
 > 核心发现：页面缺少"可被 AI 直接抽取为答案"的摘要块，在通用 query 候选池里未出现
 
 - [x] **每个 arena 页顶部加答案摘要块**（2026-04-19）：ArenaSummary 组件，自然语言模板，从 generated-decks.json 自动生成 Top 3 牌组 + 高频卡牌 + 费用 + trophy 区间 + 更新时间。"为什么强/怕什么/替代卡"暂不做（需游戏领域知识，性价比低）
-- [x] **标题优化**（2026-04-19）：`Best Arena X Decks (80%+ Win Rate) — Filter by Your Cards | 2026`，用胜率数据替换 arena 名字，结果导向吸引点击
+- [x] **标题优化**（2026-04-19，2026-05-01 更新）：早期测试 `80%+ Win Rate`，5/1 为降低 AdSense/EEAT 风险改为关键词匹配 + 数据可信度表达
 - [x] **FAQ Schema 升级为数据驱动**（2026-04-19）：注入 top deck 卡牌名/胜率 + 热门卡牌，同时喂 Google 传统搜索和 AI 搜索
 - [ ] 检查 Bing Webmaster Tools 的 AI Performance 面板（看哪些页面被 AI answers 引用）
 
@@ -310,6 +339,26 @@
 
 > 数据来源：GSC 2026-02-16 ~ 2026-03-15
 > 核心认知（哥飞教程）：有曝光没点击的主要原因是排名不够靠前，不是页面质量差。提升排名靠两条腿：外链提权重 + 页面信息增量。
+>
+> **2026-05-01 更新**：当前 GSC 未收录主要为 `已抓取 - 尚未编入索引`，集中在 `arena/card` 组合页。策略改为先保主页面和高曝光机会页，不追求全量收录；只救有明确搜索需求/曝光/排名的卡牌页。
+>
+> **2026-05-02 更新**：第一批救援已完成并 push（commit `eaca564`）。救援方式：专属 Playbook 内容、救援页 title/meta/H1、Arena 主页面 Featured Card Guides 内链、sitemap 只主动推重点页。
+
+**5/1 已完成的 CTR 优先页**
+- [x] `/arena/arena-17`：title/meta/H1 改为 `Best Arena 17 Decks 2026 — Clash Royale Decks You Can Build`
+- [x] `/arena/arena-15`：title/meta/H1 改为 `Best Arena 15 Decks 2026 — Clash Royale Miner's Mine Decks`
+- [x] `/arena/high-arenas/royal-giant`：从重定向升级为独立 High Arena Royal Giant 页面，加入 sitemap
+
+**第一批高价值未收录页救援（2026-05-02 已完成，不要批量提交 31 个 URL）**
+- [x] `/arena/arena-19/hog-rider`：补 Dragon Spa Hog Rider cycle / pairings / counters / deck choice Playbook
+- [x] `/arena/arena-17/hog-rider`：补 Royal Crypt Hog Rider cycle / replacement / counters Playbook，并从 Arena 17 主页面内链
+- [x] `/arena/arena-17/royal-giant`：补 Royal Giant 支持卡、建筑/Inferno 类防守、替代卡逻辑，并从 Arena 17 主页面内链
+- [x] `/arena/arena-19/balloon`：补 Dragon Spa Balloon 空军进攻、保护窗口、空防克制说明，并从 Arena 19 主页面内链
+- [x] `/arena/arena-16/miner`：补 Miner control/chip、placement、替代卡逻辑，并从 Arena 16 主页面内链
+- [x] `/arena/arena-17/goblin-barrel`：补 bait 体系、法术 bait、落点变化和防守压力说明，并从 Arena 17 主页面内链
+- [x] `/arena/high-arenas/royal-giant`：作为高阶 Royal Giant 主页面承接 Arena 18-20 相近搜索意图，避免 thin duplicate
+- [x] `/arena/arena-20/royal-giant`：暂缓单独救；先由 `/arena/high-arenas/royal-giant` 承接，避免关键词内耗
+- [x] sitemap：从全量 arena/card 组合页改为只主动推高价值救援页 + `/arena/high-arenas/royal-giant`
 
 **第一步：继续推外链（最重要，直接提排名）**
 - [ ] 外链建设不要停，这是新站提升排名最直接的手段
@@ -407,7 +456,8 @@
 - [ ] **收藏资源**：[designprompts.dev](https://www.designprompts.dev/) — AI 驱动的设计风格浏览器（31+ 种 UI 风格 + 提示词）。等流量稳定（500+ UV/天）且工具功能完善后，可用作 UI 重构的灵感参考。
 
 ### 优先级 5：变现
-- [ ] **立即申请 Google AdSense**（2026-03-31 决定提前申请，审核 2-4 周，不影响其他工作）
+- [x] **申请 Google AdSense**（2026-05-01 已提交审核；审核代码和 ads.txt 已上线）
+- [ ] AdSense 审核结果跟进：通过后规划广告位；拒审则按拒绝原因修复（大概率 Low value content）
 - [ ] 流量达标后申请 Microsoft Advertising（覆盖 Bing 流量）
 - [ ] 广告位布局规划
 
