@@ -11,6 +11,7 @@ import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
 import { CardLink } from "@/components/CardLink";
 import { ArenaSummary } from "@/components/ArenaSummary";
+import { getOpportunityGuidesForArena } from "@/lib/opportunity-content";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -109,6 +110,7 @@ export default async function ArenaPage({ params }: Props) {
       return c ? { slug: p.cardSlug, name: c.name } : null;
     })
     .filter((c): c is { slug: string; name: string } => c !== null);
+  const featuredGuides = getOpportunityGuidesForArena(arena.slug);
 
   const prevArena = ARENAS.find((a) => a.id === arena.id - 1);
   const nextArena = ARENAS.find((a) => a.id === arena.id + 1);
@@ -295,6 +297,24 @@ export default async function ArenaPage({ params }: Props) {
           <p className="text-gray-300 text-sm leading-relaxed">
             {ARENA_CONTENT[arena.id].tip}
           </p>
+        </div>
+      )}
+
+      {featuredGuides.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-3">Featured Arena {arena.id} Card Guides</h2>
+          <div className="grid gap-3 md:grid-cols-3">
+            {featuredGuides.map((guide) => (
+              <Link
+                key={guide.key}
+                href={guide.path}
+                className="block bg-gray-800 border border-gray-700 rounded-lg p-4 hover:border-yellow-400 transition-colors"
+              >
+                <div className="font-semibold text-yellow-400">{guide.linkLabel}</div>
+                <p className="text-sm text-gray-400 mt-1">{guide.linkSummary}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

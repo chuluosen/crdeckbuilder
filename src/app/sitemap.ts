@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
 import { execSync } from "node:child_process";
 import { ARENAS, Card } from "@/lib/data";
-import { getAllArenaCardPairs, getArenaIdsWithDecks, getHighArenaCardSlugs } from "@/lib/decks";
+import { getArenaIdsWithDecks } from "@/lib/decks";
+import {
+  getOpportunityArenaCardPairs,
+  getOpportunityHighArenaCardSlugs,
+} from "@/lib/opportunity-content";
 import cardsData from "@/lib/cards.json";
 
 const BASE_URL = "https://crdeckbuilder.top";
@@ -34,6 +38,8 @@ const ARENA_DEPENDENCY_FILES = [
 
 const CARD_DEPENDENCY_FILES = [
   "src/app/arena/[id]/[card]/page.tsx",
+  "src/app/arena/high-arenas/[card]/page.tsx",
+  "src/lib/opportunity-content.ts",
   "src/lib/cards.json",
   "src/lib/starter-decks.json",
   "src/lib/generated-decks.json",
@@ -92,8 +98,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  // Card pages for all arenas
-  const arenaCardPages = getAllArenaCardPairs()
+  // Rescue only high-value arena/card pages in sitemap. Other generated pages stay
+  // available, but are not actively pushed while Google is filtering thin combo pages.
+  const arenaCardPages = getOpportunityArenaCardPairs()
     .map((p) => ({
       url: `${BASE_URL}/arena/${p.arenaSlug}/${p.cardSlug}`,
       lastModified: cardLastModified,
@@ -101,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
-  const highArenaCardPages = getHighArenaCardSlugs()
+  const highArenaCardPages = getOpportunityHighArenaCardSlugs()
     .map((cardSlug) => ({
       url: `${BASE_URL}/arena/high-arenas/${cardSlug}`,
       lastModified: cardLastModified,
