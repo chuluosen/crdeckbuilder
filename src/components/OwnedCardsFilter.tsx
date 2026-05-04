@@ -18,6 +18,90 @@ interface CategorizedDecks {
   missing2: { deck: Deck; missing: Card[] }[];
 }
 
+type SortOption = "winRate" | "useRate" | "sampleSize" | "elixirAsc" | "elixirDesc";
+type SampleFilter = "all" | "10" | "25" | "50";
+type ElixirFilter = "all" | "cycle" | "balanced" | "heavy";
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: "winRate", label: "Best win rate" },
+  { value: "useRate", label: "Most used" },
+  { value: "sampleSize", label: "Most matches" },
+  { value: "elixirAsc", label: "Lowest elixir" },
+  { value: "elixirDesc", label: "Highest elixir" },
+];
+
+const SAMPLE_FILTERS: { value: SampleFilter; label: string }[] = [
+  { value: "all", label: "Any sample" },
+  { value: "10", label: "10+ matches" },
+  { value: "25", label: "25+ matches" },
+  { value: "50", label: "50+ matches" },
+];
+
+const ELIXIR_FILTERS: { value: ElixirFilter; label: string }[] = [
+  { value: "all", label: "Any cost" },
+  { value: "cycle", label: "Fast cycle" },
+  { value: "balanced", label: "Balanced" },
+  { value: "heavy", label: "Heavy" },
+];
+
+function deckSignature(deck: Deck): string {
+  return deck.cards.map((c) => c.name).join("|");
+}
+
+function compareByPerformance(a: Deck, b: Deck): number {
+  return (
+    (b.winRate ?? -1) - (a.winRate ?? -1) ||
+    (b.sampleSize ?? 0) - (a.sampleSize ?? 0) ||
+    (b.useRate ?? 0) - (a.useRate ?? 0) ||
+    a.avgElixir - b.avgElixir ||
+    deckSignature(a).localeCompare(deckSignature(b))
+  );
+}
+
+function compareDecks(a: Deck, b: Deck, sortOption: SortOption): number {
+  if (sortOption === "useRate") {
+    return (b.useRate ?? -1) - (a.useRate ?? -1) || compareByPerformance(a, b);
+  }
+
+  if (sortOption === "sampleSize") {
+    return (b.sampleSize ?? 0) - (a.sampleSize ?? 0) || compareByPerformance(a, b);
+  }
+
+  if (sortOption === "elixirAsc") {
+    return a.avgElixir - b.avgElixir || compareByPerformance(a, b);
+  }
+
+  if (sortOption === "elixirDesc") {
+    return b.avgElixir - a.avgElixir || compareByPerformance(a, b);
+  }
+
+  return compareByPerformance(a, b);
+}
+
+function matchesSampleFilter(deck: Deck, sampleFilter: SampleFilter): boolean {
+  if (sampleFilter === "all") return true;
+  return (deck.sampleSize ?? 0) >= Number(sampleFilter);
+}
+
+function matchesElixirFilter(deck: Deck, elixirFilter: ElixirFilter): boolean {
+  if (elixirFilter === "cycle") return deck.avgElixir <= 3.3;
+  if (elixirFilter === "balanced") return deck.avgElixir > 3.3 && deck.avgElixir <= 4.0;
+  if (elixirFilter === "heavy") return deck.avgElixir > 4.0;
+  return true;
+}
+
+function applyDeckControls(
+  decks: Deck[],
+  sortOption: SortOption,
+  sampleFilter: SampleFilter,
+  elixirFilter: ElixirFilter
+): Deck[] {
+  return [...decks]
+    .filter((deck) => matchesSampleFilter(deck, sampleFilter))
+    .filter((deck) => matchesElixirFilter(deck, elixirFilter))
+    .sort((a, b) => compareDecks(a, b, sortOption));
+}
+
 function categorizeDecks(
   decks: Deck[],
   ownedNames: Set<string>
@@ -44,9 +128,11 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
   const [mounted, setMounted] = useState(false);
   const [filterActive, setFilterActive] = useState(true);
   const [expanded, setExpanded] = useState(true);
+  const [sortOption, setSortOption] = useState<SortOption>("winRate");
+  const [sampleFilter, setSampleFilter] = useState<SampleFilter>("all");
+  const [elixirFilter, setElixirFilter] = useState<ElixirFilter>("all");
   const [ownedCardNames, setOwnedCardNames] = useState<Set<string>>(new Set());
 
-  // Cards available at this arena, grouped by rarity
   const availableCards = useMemo(() => {
     const cards = allCards
       .filter((c) => c.arena <= arenaId)
@@ -61,7 +147,6 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
     return { all: cards, grouped };
   }, [allCards, arenaId]);
 
-  // Load from localStorage after mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -70,23 +155,19 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
         setOwnedCardNames(new Set(names));
       }
     } catch {
-      // localStorage unavailable or corrupted
+      // Ignore unavailable or corrupted localStorage.
     }
     setMounted(true);
   }, []);
 
-  // Persist to localStorage
-  const updateOwned = useCallback(
-    (next: Set<string>) => {
-      setOwnedCardNames(next);
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
-      } catch {
-        // quota exceeded or unavailable
-      }
-    },
-    []
-  );
+  const updateOwned = useCallback((next: Set<string>) => {
+    setOwnedCardNames(next);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
+    } catch {
+      // Ignore quota and privacy-mode write failures.
+    }
+  }, []);
 
   const toggleCard = useCallback(
     (name: string) => {
@@ -96,6 +177,7 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
       } else {
         next.add(name);
       }
+      setFilterActive(true);
       updateOwned(next);
     },
     [ownedCardNames, updateOwned]
@@ -104,23 +186,40 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
   const selectAll = useCallback(() => {
     const next = new Set(ownedCardNames);
     for (const c of availableCards.all) next.add(c.name);
+    setFilterActive(true);
     updateOwned(next);
   }, [ownedCardNames, availableCards, updateOwned]);
 
   const deselectAll = useCallback(() => {
     const next = new Set(ownedCardNames);
     for (const c of availableCards.all) next.delete(c.name);
+    setFilterActive(true);
     updateOwned(next);
   }, [ownedCardNames, availableCards, updateOwned]);
 
+  const visibleDecks = useMemo(
+    () => applyDeckControls(decks, sortOption, sampleFilter, elixirFilter),
+    [decks, sortOption, sampleFilter, elixirFilter]
+  );
+
   const categorized = useMemo(
-    () => categorizeDecks(decks, ownedCardNames),
-    [decks, ownedCardNames]
+    () => categorizeDecks(visibleDecks, ownedCardNames),
+    [visibleDecks, ownedCardNames]
   );
 
   const ownedCount = availableCards.all.filter((c) =>
     ownedCardNames.has(c.name)
   ).length;
+  const hasOwnedCardSelection = ownedCount > 0;
+  const showOwnedMatches = filterActive && mounted && hasOwnedCardSelection;
+  const hasDeckFilters = sampleFilter !== "all" || elixirFilter !== "all";
+  const hasCustomDeckControls = sortOption !== "winRate" || hasDeckFilters;
+
+  const resetDeckControls = useCallback(() => {
+    setSortOption("winRate");
+    setSampleFilter("all");
+    setElixirFilter("all");
+  }, []);
 
   const rarityOrder = ["common", "rare", "epic", "legendary", "champion"];
   const rarityLabel: Record<string, string> = {
@@ -138,64 +237,157 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
     champion: "border-red-500",
   };
 
+  const renderEmptyState = (message: string) => (
+    <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center mb-8">
+      <p className="text-gray-400 text-lg mb-2">{message}</p>
+      <div className="flex flex-wrap justify-center gap-3 text-sm">
+        {hasCustomDeckControls && (
+          <button
+            type="button"
+            onClick={resetDeckControls}
+            className="text-yellow-400 underline"
+          >
+            reset deck filters
+          </button>
+        )}
+        {showOwnedMatches && (
+          <button
+            type="button"
+            onClick={() => setFilterActive(false)}
+            className="text-yellow-400 underline"
+          >
+            view all decks
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div>
-      {/* Filter toggle panel */}
       <div className="bg-gray-800 border border-gray-700 rounded-lg mb-6">
         <button
+          type="button"
           onClick={() => {
             setExpanded(!expanded);
             if (!filterActive && !expanded) {
-              // First time opening — activate filter
               setFilterActive(true);
             }
           }}
-          className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-750 rounded-lg transition-colors"
+          className="w-full p-4 flex items-start justify-between gap-3 text-left hover:bg-gray-700 rounded-lg transition-colors"
         >
-          <div>
+          <div className="min-w-0">
             <span className="text-lg font-bold text-yellow-400">
               Filter by My Cards
             </span>
-            {mounted && filterActive && (
-              <span className="text-sm text-gray-400 ml-3">
+            {mounted && (
+              <span className="mt-1 block text-sm text-gray-400">
                 {ownedCount}/{availableCards.all.length} cards selected
-                {categorized.perfect.length > 0 &&
-                  ` · ${categorized.perfect.length} deck${categorized.perfect.length !== 1 ? "s" : ""} you can build`}
+                {" | "}
+                {visibleDecks.length}/{decks.length} decks visible
+                {showOwnedMatches &&
+                  categorized.perfect.length > 0 &&
+                  ` | ${categorized.perfect.length} deck${categorized.perfect.length !== 1 ? "s" : ""} you can build`}
               </span>
             )}
           </div>
-          <span className="text-gray-400 text-xl">
-            {expanded ? "▲" : "▼"}
+          <span className="text-gray-400 text-xl leading-none">
+            {expanded ? "v" : ">"}
           </span>
         </button>
 
         {expanded && mounted && (
           <div className="px-4 pb-4">
-            {/* Quick actions */}
-            <div className="flex gap-2 mb-4">
+            <div className="border-t border-gray-700 pt-4 mb-4">
+              <div className="grid gap-3 md:grid-cols-3">
+                <label className="block text-xs font-semibold uppercase text-gray-400">
+                  Sort
+                  <select
+                    value={sortOption}
+                    onChange={(event) => setSortOption(event.target.value as SortOption)}
+                    className="mt-1 w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-sm normal-case text-white outline-none focus:border-yellow-400"
+                  >
+                    {SORT_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block text-xs font-semibold uppercase text-gray-400">
+                  Matches
+                  <select
+                    value={sampleFilter}
+                    onChange={(event) => setSampleFilter(event.target.value as SampleFilter)}
+                    className="mt-1 w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-sm normal-case text-white outline-none focus:border-yellow-400"
+                  >
+                    {SAMPLE_FILTERS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block text-xs font-semibold uppercase text-gray-400">
+                  Avg Elixir
+                  <select
+                    value={elixirFilter}
+                    onChange={(event) => setElixirFilter(event.target.value as ElixirFilter)}
+                    className="mt-1 w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-sm normal-case text-white outline-none focus:border-yellow-400"
+                  >
+                    {ELIXIR_FILTERS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
+                <span>
+                  Showing {visibleDecks.length} of {decks.length} decks
+                </span>
+                {hasCustomDeckControls && (
+                  <button
+                    type="button"
+                    onClick={resetDeckControls}
+                    className="text-yellow-400 underline"
+                  >
+                    Reset controls
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-4">
               <button
+                type="button"
                 onClick={selectAll}
                 className="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm text-white"
               >
                 Select All
               </button>
               <button
+                type="button"
                 onClick={deselectAll}
                 className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm text-white"
               >
                 Deselect All
               </button>
-              {filterActive && (
+              {filterActive && hasOwnedCardSelection && (
                 <button
+                  type="button"
                   onClick={() => setFilterActive(false)}
-                  className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm text-yellow-400 ml-auto"
+                  className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm text-yellow-400 md:ml-auto"
                 >
                   Show All Decks
                 </button>
               )}
             </div>
 
-            {/* Card grid grouped by rarity */}
             {rarityOrder
               .filter((r) => availableCards.grouped[r]?.length)
               .map((rarity) => (
@@ -208,6 +400,7 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
                       const owned = ownedCardNames.has(card.name);
                       return (
                         <button
+                          type="button"
                           key={card.id}
                           onClick={() => toggleCard(card.name)}
                           title={card.name}
@@ -235,10 +428,8 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
         )}
       </div>
 
-      {/* Deck list — filtered or full */}
-      {filterActive && mounted ? (
+      {showOwnedMatches ? (
         <div>
-          {/* Perfect matches */}
           {categorized.perfect.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-bold mb-3 text-green-400">
@@ -246,21 +437,20 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
               </h2>
               <div className="space-y-4">
                 {categorized.perfect.map((deck, i) => (
-                  <DeckCard key={`perfect-${i}`} deck={deck} index={i} />
+                  <DeckCard key={`perfect-${deckSignature(deck)}`} deck={deck} index={i} />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Missing 1 card */}
           {categorized.missing1.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-bold mb-3 text-yellow-400">
-                Almost There — Missing 1 Card ({categorized.missing1.length})
+                Almost There - Missing 1 Card ({categorized.missing1.length})
               </h2>
               <div className="space-y-4">
                 {categorized.missing1.map(({ deck, missing }, i) => (
-                  <div key={`m1-${i}`}>
+                  <div key={`m1-${deckSignature(deck)}`}>
                     <DeckCard deck={deck} index={i} />
                     <p className="text-sm text-red-400 mt-1 ml-1">
                       Missing: {missing.map((c) => c.name).join(", ")}
@@ -271,15 +461,14 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
             </div>
           )}
 
-          {/* Missing 2 cards */}
           {categorized.missing2.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-bold mb-3 text-orange-400">
-                Close — Missing 2 Cards ({categorized.missing2.length})
+                Close - Missing 2 Cards ({categorized.missing2.length})
               </h2>
               <div className="space-y-4">
                 {categorized.missing2.map(({ deck, missing }, i) => (
-                  <div key={`m2-${i}`}>
+                  <div key={`m2-${deckSignature(deck)}`}>
                     <DeckCard deck={deck} index={i} />
                     <p className="text-sm text-red-400 mt-1 ml-1">
                       Missing: {missing.map((c) => c.name).join(", ")}
@@ -290,33 +479,18 @@ export function OwnedCardsFilter({ allCards, decks, arenaId }: Props) {
             </div>
           )}
 
-          {/* Empty state */}
           {categorized.perfect.length === 0 &&
             categorized.missing1.length === 0 &&
-            categorized.missing2.length === 0 && (
-              <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center mb-8">
-                <p className="text-gray-400 text-lg mb-2">
-                  No matching decks found.
-                </p>
-                <p className="text-gray-500 text-sm">
-                  Try selecting more cards you own, or{" "}
-                  <button
-                    onClick={() => setFilterActive(false)}
-                    className="text-yellow-400 underline"
-                  >
-                    view all decks
-                  </button>{" "}
-                  for this arena.
-                </p>
-              </div>
-            )}
+            categorized.missing2.length === 0 &&
+            renderEmptyState("No matching decks found.")}
         </div>
       ) : (
-        // Default: show all decks (matches SSR output exactly)
         <div className="space-y-4 mb-8">
-          {decks.map((deck, i) => (
-            <DeckCard key={i} deck={deck} index={i} />
-          ))}
+          {visibleDecks.length > 0
+            ? visibleDecks.map((deck, i) => (
+                <DeckCard key={deckSignature(deck)} deck={deck} index={i} />
+              ))
+            : renderEmptyState("No decks match these filters.")}
         </div>
       )}
     </div>

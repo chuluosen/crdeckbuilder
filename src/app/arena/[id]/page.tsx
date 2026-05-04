@@ -11,6 +11,7 @@ import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
 import { CardLink } from "@/components/CardLink";
 import { ArenaSummary } from "@/components/ArenaSummary";
+import { TopDeckSpotlight } from "@/components/TopDeckSpotlight";
 import { getOpportunityGuidesForArena } from "@/lib/opportunity-content";
 
 interface Props {
@@ -28,24 +29,54 @@ const ARENA_CTR_COPY: Record<
   }
 > = {
   15: {
-    title: "Best Arena 15 Decks 2026 — Clash Royale Miner's Mine Decks",
+    title: "Best Arena 15 Deck 2026 - Clash Royale Miner's Mine Decks",
     description:
-      "Best Arena 15 decks for Miner's Mine in Clash Royale 2026. Filter by your cards, copy deck links, and compare decks ranked by win rate, usage, and sample size.",
-    h1: "Best Arena 15 Decks for Miner's Mine",
+      "Best Arena 15 deck for Miner's Mine in Clash Royale 2026. See the #1 deck first, filter by your cards, copy deck links, and compare win rate, usage, and sample size.",
+    h1: "Best Arena 15 Deck for Miner's Mine",
     intro:
       "Arena 15 Miner's Mine decks for Clash Royale players who want builds they can actually copy and play.",
     detail:
       "These Arena 15 decks focus on reliable win conditions, support cards unlocked by this point, and practical ladder builds instead of generic high-arena lists.",
   },
-  17: {
-    title: "Best Arena 17 Decks 2026 — Clash Royale Decks You Can Build",
+  16: {
+    title: "Best Arena 16 Deck 2026 - Executioner's Kitchen Clash Royale Decks",
     description:
-      "Best Arena 17 decks for Clash Royale 2026. Find Royal Crypt decks you can build, filter by owned cards, and compare lists ranked by win rate, usage, and sample size.",
-    h1: "Best Arena 17 Decks for Royal Crypt",
+      "Best Arena 16 deck for Executioner's Kitchen in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
+    h1: "Best Arena 16 Deck for Executioner's Kitchen",
+    intro:
+      "Arena 16 Executioner's Kitchen decks for Clash Royale players who want one strong deck they can copy fast.",
+    detail:
+      "Start with the #1 deck below, or use the controls to sort by win rate, usage, sample size, and average elixir.",
+  },
+  17: {
+    title: "Best Arena 17 Deck 2026 - Royal Crypt Clash Royale Decks",
+    description:
+      "Best Arena 17 deck for Royal Crypt in Clash Royale. See the #1 deck first, copy deck links, filter by owned cards, and compare win rate, usage, and sample size.",
+    h1: "Best Arena 17 Deck for Royal Crypt",
     intro:
       "Arena 17 Royal Crypt decks for Clash Royale players pushing through the 6000+ trophy range.",
     detail:
-      "Use the card filter to narrow the list to decks you can build now, then copy the deck link directly into Clash Royale.",
+      "Start with the #1 deck below, then filter by cards you own or sort the list by win rate, usage, matches, and elixir cost.",
+  },
+  18: {
+    title: "Best Arena 18 Deck 2026 - Silent Sanctuary Clash Royale Decks",
+    description:
+      "Best Arena 18 deck for Silent Sanctuary in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
+    h1: "Best Arena 18 Deck for Silent Sanctuary",
+    intro:
+      "Arena 18 Silent Sanctuary decks for Clash Royale players who need a reliable ladder deck they can copy on mobile.",
+    detail:
+      "The top deck is shown first for quick use, with the full sortable deck list below.",
+  },
+  19: {
+    title: "Best Arena 19 Deck 2026 - Dragon Spa Clash Royale Decks",
+    description:
+      "Best Arena 19 deck for Dragon Spa in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
+    h1: "Best Arena 19 Deck for Dragon Spa",
+    intro:
+      "Arena 19 Dragon Spa decks for Clash Royale players who want the best deck first and a fast copy path back into the game.",
+    detail:
+      "Use the #1 deck below for the quickest pick, or sort and filter the full list by win rate, usage, sample size, elixir, and owned cards.",
   },
 };
 
@@ -76,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ctrCopy = ARENA_CTR_COPY[arena.id];
 
   return {
-    title: ctrCopy?.title ?? `Best Arena ${arena.id} Decks — Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
+    title: ctrCopy?.title ?? `Best Arena ${arena.id} Decks - Filter by Your Cards | Clash Royale ${new Date().getFullYear()}`,
     description: ctrCopy?.description ?? `${decks.length} Clash Royale decks for Arena ${arena.id} (${arena.trophies}+ trophies), ranked by win rate, usage, and sample size.${topDeckContext} Filter by cards you own and copy deck links to import. Updated ${dataUpdatedMonth}.`,
     alternates: {
       canonical: `/arena/${arena.slug}`,
@@ -139,7 +170,7 @@ export default async function ArenaPage({ params }: Props) {
     .map(([name]) => name);
 
   const topDeckAnswer = top3Decks.length > 0
-    ? `As of ${DECK_METADATA?.lastUpdated ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'recently'}, the best performing deck for Arena ${arena.id} features ${top3Decks[0].cards.sort((a, b) => b.elixirCost - a.elixirCost).slice(0, 3).map(c => c.name).join(', ')} and other cards, with a ${(top3Decks[0].winRate ?? 0).toFixed(1)}% win rate${top3Decks[0].sampleSize ? ` over ${top3Decks[0].sampleSize} matches` : ''}. We track ${decks.length} proven decks for this arena.`
+    ? `As of ${DECK_METADATA?.lastUpdated ? new Date(DECK_METADATA.lastUpdated).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'recently'}, the best performing deck for Arena ${arena.id} features ${[...top3Decks[0].cards].sort((a, b) => b.elixirCost - a.elixirCost).slice(0, 3).map(c => c.name).join(', ')} and other cards, with a ${(top3Decks[0].winRate ?? 0).toFixed(1)}% win rate${top3Decks[0].sampleSize ? ` over ${top3Decks[0].sampleSize} matches` : ''}. We track ${decks.length} proven decks for this arena.`
     : `We found ${decks.length} top-performing decks for Arena ${arena.id} (${arena.name}), based on current meta win rates and usage statistics.`;
 
   const popularCardsAnswer = topPopularCards.length > 0
@@ -182,12 +213,20 @@ export default async function ArenaPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold mb-1">
-        {ctrCopy?.h1 ?? `Best Clash Royale Decks for Arena ${arena.id} — ${arena.name}`}
+        {ctrCopy?.h1 ?? `Best Clash Royale Decks for Arena ${arena.id} - ${arena.name}`}
       </h1>
       <p className="text-gray-400 mb-4">
         {ctrCopy?.intro ?? `${decks.length} winning decks you can build at Arena ${arena.id} (${arena.name}, ${arena.trophies}+ trophies).`}
         {" "}{ctrCopy?.detail ?? "Proven in competitive play, filtered to cards available at this arena."}
       </p>
+
+      {top3Decks[0] && (
+        <TopDeckSpotlight
+          deck={top3Decks[0]}
+          arenaId={arena.id}
+          arenaName={arena.name}
+        />
+      )}
 
       <ArenaSummary
         arenaId={arena.id}
@@ -203,14 +242,14 @@ export default async function ArenaPage({ params }: Props) {
           </p>
           <p className="text-gray-500 text-sm">
             We don&apos;t have enough data for this arena right now. Check back
-            soon — we update our deck lists regularly as new meta data comes in.
+            soon - we update our deck lists regularly as new meta data comes in.
           </p>
           {ctaArena && (
             <Link
               href={`/arena/${ctaArena.slug}`}
               className="inline-block mt-4 text-yellow-400 hover:underline"
             >
-              Browse Arena {ctaArena.id}: {ctaArena.name} decks →
+              Browse Arena {ctaArena.id}: {ctaArena.name} decks
             </Link>
           )}
         </div>
@@ -219,8 +258,8 @@ export default async function ArenaPage({ params }: Props) {
           <p className="text-gray-500 text-sm mb-6">
             Arena {arena.id} ({arena.name}) unlocks at {arena.trophies} trophies.
             Below are {decks.length} proven decks using only cards available at this arena,
-            sourced from high-level competitive play and ranked by win rate.
-            Use the card filter above to find decks matching your collection.
+            sourced from high-level competitive play and sorted by win rate by default.
+            Use the deck controls below to sort by usage, sample size, elixir cost, or cards you own.
             {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
           </p>
 
@@ -239,7 +278,7 @@ export default async function ArenaPage({ params }: Props) {
             </p>
           </div>
 
-          {/* Owned cards filter + deck list — prominent position */}
+          {/* Owned cards filter + deck list in a prominent position */}
           <OwnedCardsFilter
             allCards={allCards}
             decks={decks}
@@ -292,7 +331,7 @@ export default async function ArenaPage({ params }: Props) {
       {ARENA_CONTENT[arena.id] && (
         <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 mb-8">
           <h2 className="text-lg font-bold mb-2 text-yellow-400">
-            Tips for Arena {arena.id} — {arena.name}
+            Tips for Arena {arena.id} - {arena.name}
           </h2>
           <p className="text-gray-300 text-sm leading-relaxed">
             {ARENA_CONTENT[arena.id].tip}
@@ -337,12 +376,12 @@ export default async function ArenaPage({ params }: Props) {
       <div className="flex justify-between text-sm">
         {prevArena ? (
           <Link href={`/arena/${prevArena.slug}`} className="text-yellow-400 hover:underline">
-            ← Arena {prevArena.id}: {prevArena.name}
+            Arena {prevArena.id}: {prevArena.name}
           </Link>
         ) : <span />}
         {nextArena ? (
           <Link href={`/arena/${nextArena.slug}`} className="text-yellow-400 hover:underline">
-            Arena {nextArena.id}: {nextArena.name} →
+            Arena {nextArena.id}: {nextArena.name}
           </Link>
         ) : <span />}
       </div>

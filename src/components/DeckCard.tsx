@@ -4,16 +4,16 @@ import { CopyDeckButton } from "./CopyDeckButton";
 export function DeckCard({ deck, index }: { deck: Deck; index: number }) {
   return (
     <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
         <span className="text-lg font-bold text-yellow-400">Deck #{index + 1}</span>
-        <div className="flex gap-3 text-sm">
-          {deck.winRate && (
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm">
+          {deck.winRate !== undefined && (
             <span className="text-green-400">{deck.winRate}% Win</span>
           )}
-          {deck.useRate && (
+          {deck.useRate !== undefined && (
             <span className="text-blue-400">{deck.useRate}% Use</span>
           )}
-          {deck.sampleSize && deck.sampleSize >= 10 && (
+          {deck.sampleSize !== undefined && deck.sampleSize >= 10 && (
             <span className="text-gray-500 text-xs">{deck.sampleSize} matches</span>
           )}
           <span className="text-gray-400">Avg: {deck.avgElixir} Elixir</span>

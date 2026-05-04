@@ -60,6 +60,16 @@ const ALL_DECKS: DeckEntry[] = dedupeDecks(
     .filter((d) => d.cards.every((name) => validCardNames.has(name)))
 );
 
+function compareDeckPerformance(a: Deck, b: Deck): number {
+  return (
+    (b.winRate ?? -1) - (a.winRate ?? -1) ||
+    (b.sampleSize ?? 0) - (a.sampleSize ?? 0) ||
+    (b.useRate ?? 0) - (a.useRate ?? 0) ||
+    a.avgElixir - b.avgElixir ||
+    a.cards.map((c) => c.name).join("|").localeCompare(b.cards.map((c) => c.name).join("|"))
+  );
+}
+
 export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
   const cardMap = new Map(allCards.map((c) => [c.name, c]));
 
@@ -91,7 +101,8 @@ export function getDecksForArena(arenaId: number, allCards: Card[]): Deck[] {
         sampleSize: d.sampleSize,
       };
     })
-    .filter((deck) => deck.cards.length === 8);
+    .filter((deck) => deck.cards.length === 8)
+    .sort(compareDeckPerformance);
 }
 
 export function getDecksForArenaCard(arenaId: number, cardName: string, allCards: Card[]): Deck[] {
