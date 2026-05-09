@@ -29,7 +29,7 @@ const ARENA_CTR_COPY: Record<
   }
 > = {
   15: {
-    title: "Best Arena 15 Deck 2026 - Clash Royale Miner's Mine Decks",
+    title: "Best Arena 15 Deck - Miner's Mine",
     description:
       "Best Arena 15 deck for Miner's Mine in Clash Royale 2026. See the #1 deck first, filter by your cards, copy deck links, and compare win rate, usage, and sample size.",
     h1: "Best Arena 15 Deck for Miner's Mine",
@@ -39,7 +39,7 @@ const ARENA_CTR_COPY: Record<
       "These Arena 15 decks focus on reliable win conditions, support cards unlocked by this point, and practical ladder builds instead of generic high-arena lists.",
   },
   16: {
-    title: "Best Arena 16 Deck 2026 - Executioner's Kitchen Clash Royale Decks",
+    title: "Best Arena 16 Deck - Executioner's Kitchen",
     description:
       "Best Arena 16 deck for Executioner's Kitchen in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
     h1: "Best Arena 16 Deck for Executioner's Kitchen",
@@ -49,7 +49,7 @@ const ARENA_CTR_COPY: Record<
       "Start with the #1 deck below, or use the controls to sort by win rate, usage, sample size, and average elixir.",
   },
   17: {
-    title: "Best Arena 17 Deck 2026 - Royal Crypt Clash Royale Decks",
+    title: "Best Arena 17 Deck - Royal Crypt",
     description:
       "Best Arena 17 deck for Royal Crypt in Clash Royale. See the #1 deck first, copy deck links, filter by owned cards, and compare win rate, usage, and sample size.",
     h1: "Best Arena 17 Deck for Royal Crypt",
@@ -59,7 +59,7 @@ const ARENA_CTR_COPY: Record<
       "Start with the #1 deck below, then filter by cards you own or sort the list by win rate, usage, matches, and elixir cost.",
   },
   18: {
-    title: "Best Arena 18 Deck 2026 - Silent Sanctuary Clash Royale Decks",
+    title: "Best Arena 18 Deck - Silent Sanctuary",
     description:
       "Best Arena 18 deck for Silent Sanctuary in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
     h1: "Best Arena 18 Deck for Silent Sanctuary",
@@ -69,7 +69,7 @@ const ARENA_CTR_COPY: Record<
       "The top deck is shown first for quick use, with the full sortable deck list below.",
   },
   19: {
-    title: "Best Arena 19 Deck 2026 - Dragon Spa Clash Royale Decks",
+    title: "Best Arena 19 Deck - Dragon Spa",
     description:
       "Best Arena 19 deck for Dragon Spa in Clash Royale. See the #1 deck first, copy deck links, filter by your cards, and compare win rate, usage, and sample size.",
     h1: "Best Arena 19 Deck for Dragon Spa",
