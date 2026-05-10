@@ -12,7 +12,10 @@ import { cardNameToSlug, getCardBySlug } from "@/lib/cards";
 import { DeckCard } from "@/components/DeckCard";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { getCardArenaContent } from "@/lib/card-content";
-import { getOpportunityGuide } from "@/lib/opportunity-content";
+import {
+  getOpportunityGuide,
+  getOpportunityHighArenaCardSlugs,
+} from "@/lib/opportunity-content";
 
 interface Props {
   params: Promise<{ card: string }>;
@@ -54,6 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cardData = getCardBySlug(card, allCards);
   if (!cardData) return {};
   const guide = getOpportunityGuide("high-arenas", card);
+  const shouldIndex = Boolean(guide);
 
   const title =
     guide?.title ??
@@ -68,6 +72,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `Best ${cardData.name} decks for Clash Royale high arenas 12-20. Compare decks ranked by win rate, usage, and sample size, then copy a deck link into the game.`,
     alternates: {
       canonical: `/arena/high-arenas/${card}`,
+    },
+    robots: {
+      index: shouldIndex,
+      follow: true,
     },
   };
 }
@@ -98,7 +106,7 @@ export default async function HighArenaCardPage({ params }: Props) {
   const guide = getOpportunityGuide("high-arenas", card);
   const topCoCards = getTopCoCards(topDecks, cardData.name);
   const topCoCardText = formatCardList(topCoCards);
-  const relatedCards = getHighArenaCardSlugs()
+  const relatedCards = getOpportunityHighArenaCardSlugs()
     .filter((slug) => slug !== card)
     .slice(0, 10)
     .map((slug) => getCardBySlug(slug, allCards))
@@ -199,7 +207,7 @@ export default async function HighArenaCardPage({ params }: Props) {
 
       {relatedCards.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-xl font-bold mb-3">More High Arena Decks by Card</h2>
+          <h2 className="text-xl font-bold mb-3">More Focused High-Arena Guides</h2>
           <div className="flex flex-wrap gap-2">
             {relatedCards.map((relatedCard) => (
               <Link

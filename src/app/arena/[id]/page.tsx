@@ -2,14 +2,12 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ARENAS } from "@/lib/data";
 import { fetchAllCards } from "@/lib/api";
-import { getDecksForArena, getAllArenaCardPairs, getArenaIdsWithDecks, DECK_METADATA } from "@/lib/decks";
-import { getCardBySlug } from "@/lib/cards";
+import { getDecksForArena, getArenaIdsWithDecks, DECK_METADATA } from "@/lib/decks";
 import { DeckCard } from "@/components/DeckCard";
 import { OwnedCardsFilter } from "@/components/OwnedCardsFilter";
 import Link from "next/link";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { ARENA_CONTENT } from "@/lib/arena-content";
-import { CardLink } from "@/components/CardLink";
 import { ArenaSummary } from "@/components/ArenaSummary";
 import { TopDeckSpotlight } from "@/components/TopDeckSpotlight";
 import { getOpportunityGuidesForArena } from "@/lib/opportunity-content";
@@ -133,14 +131,6 @@ export default async function ArenaPage({ params }: Props) {
     return maxArena === arena.id;
   });
 
-  const allPairs = getAllArenaCardPairs();
-  const arenaCards = allPairs
-    .filter((p) => p.arenaSlug === arena.slug)
-    .map((p) => {
-      const c = getCardBySlug(p.cardSlug, allCards);
-      return c ? { slug: p.cardSlug, name: c.name } : null;
-    })
-    .filter((c): c is { slug: string; name: string } => c !== null);
   const featuredGuides = getOpportunityGuidesForArena(arena.slug);
 
   const prevArena = ARENAS.find((a) => a.id === arena.id - 1);
@@ -260,7 +250,7 @@ export default async function ArenaPage({ params }: Props) {
             Below are {decks.length} proven decks using only cards available at this arena,
             sourced from high-level competitive play and sorted by win rate by default.
             Use the deck controls below to sort by usage, sample size, elixir cost, or cards you own.
-            {arenaCards.length > 0 && ` You can also browse decks built around specific cards like ${arenaCards.slice(0, 3).map(c => c.name).join(", ")}${arenaCards.length > 3 ? ", and more" : ""}.`}
+            {featuredGuides.length > 0 && ` Focused card guides are available below for ${featuredGuides.map((guide) => guide.cardName).join(", ")}.`}
           </p>
 
           {/* Evidence block */}
@@ -352,22 +342,6 @@ export default async function ArenaPage({ params }: Props) {
                 <div className="font-semibold text-yellow-400">{guide.linkLabel}</div>
                 <p className="text-sm text-gray-400 mt-1">{guide.linkSummary}</p>
               </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {arenaCards.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-bold mb-3">Browse Decks by Card</h2>
-          <div className="flex flex-wrap gap-2">
-            {arenaCards.map((c) => (
-              <CardLink
-                key={c.slug}
-                href={`/arena/${arena.slug}/${c.slug}`}
-                cardName={c.name}
-                arenaId={arena.id}
-              />
             ))}
           </div>
         </div>

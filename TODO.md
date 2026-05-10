@@ -27,13 +27,23 @@
 > - 竞品天花板很高：RoyaleAPI ~9M/月、Deck Shop ~3M/月
 > - FAQ rich result 对游戏站无效，不再优化；重点做 BreadcrumbList
 
-## 最新进展（2026-05-02 更新）
+## 最新进展（2026-05-10 更新）
 
-> **当前状态**：AdSense 已提交审核；高价值未收录页第一批救援已完成并 push（commit `eaca564`）。短期不做大规模站点结构调整，接下来只观察 GSC 是否重新收录这些重点页。
+> **当前状态**：AdSense 首次审核已出结果：2026-05-10 02:18（CST）显示“需要注意 / 低价值内容”；`ads.txt` 已授权，说明不是 ads.txt 或审核代码接入问题，而是内容价值、页面差异化和站点质量信号不足。高价值未收录页第一批救援已完成并 push（commit `eaca564`）；Arena 主页面工具与移动端 CTR 优化已完成并 push（commit `08c0762`）。接下来优先修 Low value content，再重新提交 AdSense。
+>
+> **2026-05-09 补充**：今天完成 Google/Bing 早期信号复盘。Google 侧继续以 Arena 19 为主攻页，Arena 16 数据偏弱仅观察；Bing 侧已经进入 Microsoft Copilot/Partners 引用池，AI Performance 3 个月约 393 citations、Avg. Cited Pages 2，`best deck for arena 20`（30 citations）和 `best deck for arena 19`（26 citations）是主要 GEO 查询。Bing Search 里 Arena 20 可作为副观察位；Arena 19 仍主要记录在 `www` 报表下，但站内 301、canonical、sitemap 已收口到 non-www。Bing URL Inspection 显示 `/arena/arena-19` 已 Indexed successfully，但提示 `Title too long`，已将 Arena 15-19 title 收短并 push（commit `ba2f1f0`），随后已重新提交 non-www `/arena/arena-19` 索引。
+>
+> **2026-05-10 AdSense 结果**：首次审核未通过，拒因是 Low value content。判断：当前最大风险不是技术接入，而是 programmatic SEO 组合页仍然大量可访问、可索引，并且 Arena 主页面的独特工具价值还需要更突出。处理策略：先收窄可索引页面，只保留 20 个主 Arena 页 + 已写专属 Playbook 的机会页；补强缺卡替换建议和主页面独特内容；部署稳定后再重新提交。
 >
 > **已完成**：
+> - ✅ 工具功能补齐：卡组列表新增按 win rate / use rate / sample size / avg elixir 排序；支持样本量和费用区间筛选；默认列表真实按表现排序
+> - ✅ 移动端首屏优化：Arena 页面 H1 下方新增 `#1 Arena X Deck` 模块，前置胜率/使用率/样本量/费用和 `Copy Deck Link`
+> - ✅ Arena 19 CTR 信号响应：`/arena/arena-19` title/meta/H1 加入 `Dragon Spa` 和单数 `deck`，承接 `arena 19 deck` / `dragon spa best deck` 查询
+> - ✅ 样板复制：Arena 16/17/18 title/meta/H1 同步改为 arena 名称 + `Best Arena X Deck` + `#1 deck first` 方向
 > - ✅ AdSense 可信度补丁：新增 Terms、Footer 加 Terms、弱化无证据的 `80%+ Win Rate` 标题、card 页补 `Data Source / Last Updated / sample size / Bayesian average`
 > - ✅ AdSense 审核代码上线：原始 `<script>` 已在 HTML 中可抓取，`/ads.txt` 已返回 200，已在 AdSense 后台请求审核
+> - ✅ AdSense 首次审核结果确认：2026-05-10 未通过，原因 `Low value content`；`ads.txt` 已授权
+> - ✅ 非重点 `arena/card` 组合页加 `noindex, follow`：保留用户访问，但不让薄组合页继续成为可索引主体；专属 Playbook 机会页继续可索引
 > - ✅ CTR 优化：`/arena/arena-17`、`/arena/arena-15`、`/arena/high-arenas/royal-giant` 已上线新版 title/meta/首屏文案
 > - ✅ `high-arenas` 修复：`/arena/high-arenas/royal-giant` 从旧重定向升级为独立页面，并加入 sitemap；旧 `middleware`/rewrite 清理完成
 > - ✅ 第一批高价值 `arena/card` 救援页上线：6 个页面补专属 Playbook、title/meta/H1、数据化支持卡说明
@@ -41,15 +51,21 @@
 > - ✅ sitemap 收敛：不再主动提交所有组合页，只保留主 arena 页、高价值救援页和 `/arena/high-arenas/royal-giant`
 >
 > **GSC 最新判断**：
+> - 全站 3 个月：94 clicks / 1.88万 impressions / CTR 0.5% / avg position 11.5。Google 已开始测试页面，但 CTR 仍偏低
+> - Arena 19 是当前火车头：3 个月 27 clicks / 2102 impressions / CTR 1.3% / avg position 9；28 天 18 clicks / 1430 impressions / avg position 8.1；7 天 9 clicks / 539 impressions / CTR 1.7% / avg position 7.4
+> - 设备信号：Arena 19 移动端 CTR 约 4.6%（10/219），桌面端约 1.1%（4/378），说明 CR 用户主要是手机搜索后想快速复制卡组
+> - 查询信号：`arena 19 deck`、`best deck for arena 19`、`dragon spa best deck` 已出现，单数 `deck` 和 `Dragon Spa` 是高意图词
 > - 当前已编入索引约 112，未编入索引约 31；原因主要是 `已抓取 - 尚未编入索引`
 > - 判断：不是技术故障/全站惩罚，而是 Google 对 pSEO 的 `arena/card` 组合页做二次质量筛选
 > - 策略：不追求 143/143 全收录，只救有曝光、排名、明确搜索意图的高价值页面；低价值组合页先观察，必要时移出 sitemap/noindex
 >
 > **下一步优先级**：
-> 1. 等 AdSense 审核结果，不要自己点广告/频繁刷新广告页
-> 2. Vercel 部署完成后，在 GSC 只请求重新抓取 6 个救援页 + `/arena/high-arenas/royal-giant`
-> 3. 观察 2-3 周：是否从 `已抓取 - 尚未编入索引` 进入索引、是否有展现/CTR 改善
-> 4. 如果救援页有效，再决定低价值组合页是否继续从 sitemap 移除、canonical 到 arena 主页面或 noindex
+> 1. 部署并确认非重点 `arena/card` 页输出 `noindex, follow`，避免低价值组合页继续拖累整站审核
+> 2. 本周不新增 pSEO 页面；只保 20 个主 Arena 页、7 个专属 Playbook 机会页和 `/arena/high-arenas/royal-giant`
+> 3. 下一轮产品价值补强优先做“缺卡替换建议”：用户差 1-2 张卡时给同 arena 可用、相近费用/定位的替代卡
+> 4. 给 Arena 15-20 主页面补更像真人攻略的独特段落：怎么选第一套、常见失败原因、缺卡时怎么换、适合哪类玩家
+> 5. 部署后观察 3-7 天，再重新提交 AdSense；不要立刻重复提交
+> 6. GSC/Bing 观察降为并行任务：继续看 Arena 19 CTR、`Dragon Spa` 查询、Bing title 警告是否消失
 
 ## 每天 1 小时执行清单（从 3/22 开始）
 
@@ -181,12 +197,14 @@
   - 剩余：① 申请 AdSense → ② 检查 Bing AI Performance → ③ 两周后观察 CTR 变化
 
 ### 2026 年 5-6 月 — 根据验证结果决定方向
-- 停留时间改善 → 放大外链投入，用同样 SOP 推其他页面
-- 停留时间没改善 → 继续强化工具功能
-- Adsense 已通过 → 开始广告收入
-- 月底目标：明确 CR 站 SEO SOP 是否可行 + 首笔广告收入
+- 当前主指标从停留时间切换为 GSC：CTR、平均排名、移动端点击、页面/查询维度表现
+- Arena 19 跑通 → 复制到 Arena 16/17/18；观察 3 天早期信号、7 天正式复盘
+- CTR 改善 + 3 个 arena 页进首页 → 验证 CR 站 SEO SOP，再考虑复制到其他站
+- CTR/排名停滞 → 继续强化工具功能（优先缺卡替换建议），外链保持低强度高质量
+- AdSense 首次审核未通过（2026-05-10 Low value content）→ 先修低价值内容，再重新提交；通过后才规划广告位
+- 月底目标：明确 CR 站 SEO SOP 是否可行 + AdSense 二次提交通过或至少完成 Low value content 修复闭环
 
-### 2026 年 6-8 月 — 矩阵扩张（Adsense 变现启动后）
+### 2026 年 6-8 月 — 矩阵扩张（AdSense 变现启动后）
 - 每月上线 2-3 个新站
 - 每个站复用 Next.js + API + Vercel 模板
 - 持续做外链（每个新站上线后第一周集中发）
@@ -214,6 +232,23 @@
 
 ## 待做
 
+### 优先级 0.1：AdSense Low value content 修复（2026-05-10 拒审后新增）
+
+> 结果：AdSense 后台显示 `需要注意 / 低价值内容`，最后更新时间 2026-05-10 02:18（CST）；`ads.txt` 状态为已授权。
+> 判断：这次不是广告代码或 ads.txt 问题，而是 Google 认为站点对用户的独特内容/工具价值还不够。当前最可疑的是大量 programmatic `arena/card` 组合页虽然已从 sitemap 收敛，但仍可访问、可索引，并从 Arena 页面获得内部链接。
+
+- [x] 记录首次审核结果：2026-05-10 未通过，原因 Low value content；`ads.txt` 已授权
+- [x] 非重点 `arena/card` 组合页加 `noindex, follow`：只让专属 Playbook 机会页继续可索引
+- [x] Arena 主页面移除批量 `Browse Decks by Card` 入口：只保留有专属 Playbook/OpportunityGuide 的 Featured 链接，切断审核员从主页面批量进入薄组合页的主路径
+- [x] `arena/card` 和 `high-arenas/card` 页面的相关链接收窄：只互链到 focused guide，不再把普通模板组合页成组暴露给审核员
+- [x] `high-arenas` 非机会页同步加 `noindex, follow`：只让 `/arena/high-arenas/royal-giant` 继续可索引
+- [x] 本地 production build 复查页面源码：普通组合页输出 `noindex, follow`，机会页输出 `index, follow`，旧 `Browse Decks by Card` 批量入口为 0
+- [ ] 部署后复查线上页面源码：普通组合页应有 `noindex, follow`，机会页应允许索引
+- [ ] Arena 15-20 主页面补独特攻略段落：选第一套牌、常见失败原因、缺卡替换思路、适合玩家类型
+- [ ] 做“缺卡替换建议”：当用户差 1-2 张卡时，给同 arena 可用、相近费用/定位的替代卡
+- [x] 重新检查内部链接：普通模板组合页不要在首屏/主导航显著露出，重点露出 Featured Playbook
+- [ ] 部署稳定并观察 3-7 天后重新提交 AdSense；不要立刻重复提交
+
 ### 优先级 0：AdSense 前置条件 + 品牌问题（~~本周做完~~ ✅ 2026-04-19 完成）
 
 **必须做（挡 AdSense 审核）**
@@ -238,7 +273,7 @@
 - [x] **每个 arena 页顶部加答案摘要块**（2026-04-19）：ArenaSummary 组件，自然语言模板，从 generated-decks.json 自动生成 Top 3 牌组 + 高频卡牌 + 费用 + trophy 区间 + 更新时间。"为什么强/怕什么/替代卡"暂不做（需游戏领域知识，性价比低）
 - [x] **标题优化**（2026-04-19，2026-05-01 更新）：早期测试 `80%+ Win Rate`，5/1 为降低 AdSense/EEAT 风险改为关键词匹配 + 数据可信度表达
 - [x] **FAQ Schema 升级为数据驱动**（2026-04-19）：注入 top deck 卡牌名/胜率 + 热门卡牌，同时喂 Google 传统搜索和 AI 搜索
-- [ ] 检查 Bing Webmaster Tools 的 AI Performance 面板（看哪些页面被 AI answers 引用）
+- [x] 检查 Bing Webmaster Tools 的 AI Performance 面板（2026-05-09）：3 个月约 393 citations、Avg. Cited Pages 2；主要 grounding queries 为 `best deck for arena 20`、`best deck for arena 19`、`best arena 8 deck`、`best deck for arena 15`。结论：GEO 有真实信号，但只作为 SEO 增强层；Google 继续主攻 Arena 19，Bing/GEO 侧把 Arena 20 作为副观察位。
 
 ### ~~优先级 0（旧）：外链建设前置条件~~（已全部完成 ✅）
 
@@ -344,9 +379,12 @@
 >
 > **2026-05-02 更新**：第一批救援已完成并 push（commit `eaca564`）。救援方式：专属 Playbook 内容、救援页 title/meta/H1、Arena 主页面 Featured Card Guides 内链、sitemap 只主动推重点页。
 
-**5/1 已完成的 CTR 优先页**
-- [x] `/arena/arena-17`：title/meta/H1 改为 `Best Arena 17 Decks 2026 — Clash Royale Decks You Can Build`
-- [x] `/arena/arena-15`：title/meta/H1 改为 `Best Arena 15 Decks 2026 — Clash Royale Miner's Mine Decks`
+**5/1-5/4 已完成的 CTR 优先页**
+- [x] `/arena/arena-19`（2026-05-04）：title/meta/H1 加 `Dragon Spa` + 单数 `deck`，首屏前置 `#1 Arena 19 Dragon Spa Deck` 和 `Copy Deck Link`
+- [x] `/arena/arena-18`（2026-05-04）：title/meta/H1 改为 `Best Arena 18 Deck 2026 - Silent Sanctuary Clash Royale Decks`，首屏前置 #1 deck
+- [x] `/arena/arena-17`（2026-05-04）：从 `Decks You Can Build` 调整为 `Best Arena 17 Deck 2026 - Royal Crypt Clash Royale Decks`，首屏前置 #1 deck
+- [x] `/arena/arena-16`（2026-05-04）：title/meta/H1 加 `Executioner's Kitchen`，首屏前置 #1 deck
+- [x] `/arena/arena-15`（2026-05-04）：title/meta/H1 从复数 `Decks` 调整为单数 `Deck` + #1 deck first 表达
 - [x] `/arena/high-arenas/royal-giant`：从重定向升级为独立 High Arena Royal Giant 页面，加入 sitemap
 
 **第一批高价值未收录页救援（2026-05-02 已完成，不要批量提交 31 个 URL）**
@@ -400,10 +438,12 @@
 - [x] 复制卡组链接按钮（给用户行动路径）
 - [x] 验证灰块问题 → 不严重，不需要修
 - [x] **「我有哪些卡」勾选过滤**（完美匹配 / 差1张 / 差2张分组 + 空状态兜底 + localStorage 持久化）
+- [x] **卡组排序/筛选**（2026-05-04）：按胜率、使用率、样本量、低费/高费排序；支持样本量和费用区间筛选；默认列表按表现排序
+- [x] **移动首屏 #1 Deck 模块**（2026-05-04）：H1 下方直接显示最佳卡组、核心数据和 Copy Deck Link，优先服务手机搜索用户
 
 **下一步工具功能（P1）**
-- [x] 卡组排序/筛选功能（2026-05-04：按胜率、费用、使用率、样本量排序；支持样本量和费用区间筛选）
 - [ ] 卡组类型标签（beatdown / cycle / siege / bridge spam，基于费用和卡牌自动判定）
+- [ ] 缺卡替换建议（优先级高于卡组对比）：当用户差 1-2 张卡时，给同 arena 可用、相近费用/定位的替代卡
 - [ ] 卡组对比功能（选两套卡组对比费用/卡牌差异）
 
 **数据信任度（P1）**
@@ -457,7 +497,8 @@
 
 ### 优先级 5：变现
 - [x] **申请 Google AdSense**（2026-05-01 已提交审核；审核代码和 ads.txt 已上线）
-- [ ] AdSense 审核结果跟进：通过后规划广告位；拒审则按拒绝原因修复（大概率 Low value content）
+- [x] AdSense 首次审核结果跟进（2026-05-10）：未通过，状态 `需要注意 / 低价值内容`；`ads.txt` 已授权
+- [ ] AdSense Low value content 修复后重新提交审核
 - [ ] 流量达标后申请 Microsoft Advertising（覆盖 Bing 流量）
 - [ ] 广告位布局规划
 

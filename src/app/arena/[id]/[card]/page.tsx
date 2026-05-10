@@ -9,7 +9,10 @@ import { DeckCard } from "@/components/DeckCard";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/jsonld";
 import { getCardArenaContent } from "@/lib/card-content";
 import { CardLink } from "@/components/CardLink";
-import { getOpportunityGuide } from "@/lib/opportunity-content";
+import {
+  getOpportunityGuide,
+  getOpportunityGuidesForArena,
+} from "@/lib/opportunity-content";
 
 interface Props {
   params: Promise<{ id: string; card: string }>;
@@ -56,6 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cardData = getCardBySlug(card, allCards);
   if (!arena || !cardData) return {};
   const guide = getOpportunityGuide(arena.slug, card);
+  const shouldIndex = Boolean(guide);
 
   return {
     title: guide?.title ?? `Best Clash Royale ${cardData.name} Decks for Arena ${arena.id} - ${arena.name}`,
@@ -64,6 +68,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `Top Clash Royale decks with ${cardData.name} for Arena ${arena.id} (${arena.name}). Win rates, usage stats for ${arena.trophies}+ trophies.`,
     alternates: {
       canonical: `/arena/${arena.slug}/${card}`,
+    },
+    robots: {
+      index: shouldIndex,
+      follow: true,
     },
   };
 }
@@ -80,16 +88,6 @@ export default async function ArenaCardPage({ params }: Props) {
   const decks = getDecksForArenaCard(arena.id, cardData.name, allCards);
   if (decks.length === 0) notFound();
 
-  // Get other card pages for this arena (for internal links)
-  const allPairs = getAllArenaCardPairs();
-  const sameArenaCards = allPairs
-    .filter((p) => p.arenaSlug === arena.slug && p.cardSlug !== card)
-    .map((p) => {
-      const c = getCardBySlug(p.cardSlug, allCards);
-      return c ? { slug: p.cardSlug, name: c.name } : null;
-    })
-    .filter((c): c is { slug: string; name: string } => c !== null);
-
   const cardAppearances = decks.length;
   const avgWinRate = decks.reduce((sum, d) => sum + (d.winRate ?? 0), 0) / (decks.length || 1);
   const totalSampleSize = decks.reduce((sum, d) => sum + (d.sampleSize ?? 0), 0);
@@ -102,6 +100,9 @@ export default async function ArenaCardPage({ params }: Props) {
     : "recently";
   const cardArenaContent = getCardArenaContent(cardData, arena.id, arena.name, decks);
   const guide = getOpportunityGuide(arena.slug, card);
+  const relatedGuides = getOpportunityGuidesForArena(arena.slug).filter(
+    (relatedGuide) => relatedGuide.cardSlug !== card
+  );
   const topCoCards = getTopCoCards(decks, cardData.name);
   const topCoCardText = formatCardList(topCoCards);
   const avgElixir =
@@ -216,15 +217,15 @@ export default async function ArenaCardPage({ params }: Props) {
         </div>
       )}
 
-      {sameArenaCards.length > 0 && (
+      {relatedGuides.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-xl font-bold mb-3">More Arena {arena.id} Decks by Card</h2>
+          <h2 className="text-xl font-bold mb-3">More Focused Arena {arena.id} Guides</h2>
           <div className="flex flex-wrap gap-2">
-            {sameArenaCards.map((c) => (
+            {relatedGuides.map((relatedGuide) => (
               <CardLink
-                key={c.slug}
-                href={`/arena/${arena.slug}/${c.slug}`}
-                cardName={c.name}
+                key={relatedGuide.key}
+                href={relatedGuide.path}
+                cardName={relatedGuide.cardName}
                 arenaId={arena.id}
               />
             ))}

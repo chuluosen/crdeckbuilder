@@ -21,7 +21,7 @@ const HOME_FAQS = [
   {
     question: "Can I find decks for a specific card?",
     answer:
-      "Yes. Each arena page has a \"Browse Decks by Card\" section where you can filter decks by popular win conditions like Hog Rider, P.E.K.K.A, Giant, Balloon, and more.",
+      "Yes. Some arena pages include focused card guides for high-intent matchups like Hog Rider, Miner, Balloon, Goblin Barrel, and Royal Giant. These guide pages add matchup notes, support-card context, and deck lists instead of exposing every possible card combination.",
   },
   {
     question: "What do win rate and usage rate mean?",
